@@ -1,0 +1,2260 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SunScript · Studio de développement</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+    rel="stylesheet">
+  <style>
+    /* 1. Effet de texte masqué pour le Hero */
+    .hero h1 {
+      overflow: hidden;
+    }
+
+    .hero h1 span {
+      display: block;
+      transform: translateY(100%);
+      animation: revealText 1s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+    }
+
+    @keyframes revealText {
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    /* Conteneur pour les plantes décoratives */
+    .plant-deco {
+      position: absolute;
+      pointer-events: none;
+      z-index: 10;
+      opacity: 0.9;
+      filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.05));
+      animation: plantSway 8s ease-in-out infinite;
+    }
+
+    .plant-deco.deep {
+      z-index: 2;
+      opacity: 0.7;
+      filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.08));
+    }
+
+    .plant-deco.front {
+      z-index: 12;
+      opacity: 1;
+      filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.15));
+    }
+
+    @keyframes plantSway {
+
+      0%,
+      100% {
+        transform: rotate(-2deg) translateY(0);
+      }
+
+      50% {
+        transform: rotate(2deg) translateY(-10px);
+      }
+    }
+
+    :root {
+      --site-max: 1320px;
+      --site-pad: clamp(20px, 4vw, 40px);
+    }
+
+    .container {
+      width: min(calc(100% - (var(--site-pad) * 2)), var(--site-max));
+      margin-inline: auto;
+    }
+
+    /* Positionnements spécifiques */
+    .p-top-right {
+      top: -50px;
+      right: -30px;
+      width: 180px;
+    }
+
+    .p-mid-left {
+      bottom: 10%;
+      left: -40px;
+      width: 220px;
+      transform: scaleX(-1);
+    }
+
+    .p-hero {
+      bottom: -20px;
+      left: 20%;
+      width: 150px;
+      z-index: 5;
+    }
+
+    /* On s'assure que les sections sont en position relative */
+    .hero,
+    .section,
+    .cta-block {
+      position: relative;
+    }
+
+    .section {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(248, 246, 241, 0.9));
+    }
+
+    /* Effet de texte qui "respire" à côté des plantes */
+    .hero-l h1 {
+      position: relative;
+      z-index: 6;
+    }
+
+    /* 2. Style Dark Mode (à activer via JS) */
+    body.dark-mode {
+      --bg: #0d0f0d;
+      --white: #1a1e1a;
+      --ink: #f8f6f1;
+      --ink3: #9aaa9a;
+      --border: #2a3a2a;
+      --bg2: #141714;
+    }
+
+    /* 3. Bouton Dark Mode flottant */
+    .theme-toggle {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      border: none;
+      font-size: 20px;
+      transition: transform 0.3s;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1) rotate(15deg);
+    }
+
+    /* 1. Halo Solaire en arrière-plan */
+    #sun-flare {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(196, 124, 42, 0.08) 0%, rgba(248, 246, 241, 0) 70%);
+      pointer-events: none;
+      z-index: 1;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s;
+    }
+
+    /* 2. Navigation "Glassmorphism" */
+    nav {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.8) !important;
+      transition: all 0.3s ease;
+    }
+
+    nav.scrolled {
+      padding: 12px 64px;
+      background: rgba(255, 255, 255, 0.95) !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    }
+
+    /* 3. Animation du titre 'SunScript' au survol */
+    .logo-name span {
+      display: inline-block;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .logo:hover .logo-name span {
+      transform: rotate(10deg) scale(1.1);
+    }
+
+    /* 4. Amélioration des boutons (effet de scale au clic) */
+    .btn-p:active,
+    .btn-s:active {
+      transform: scale(0.95);
+    }
+
+    /* Animation d'entrée pour les éléments */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Effet de parallaxe doux sur le hero */
+    .parallax-layer {
+      transition: transform 0.1s ease-out;
+    }
+
+    #sun-flare-back {
+      position: fixed;
+      top: 30%;
+      left: 30%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(196, 124, 42, 0.05), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      border-radius: 50%;
+    }
+
+    #sun-flare-front {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(248, 246, 241, 0.08), transparent 60%);
+      pointer-events: none;
+      z-index: 3;
+      border-radius: 50%;
+    }
+
+    /* Effet de brillance (Glow) sur les cartes */
+    .srv {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .srv,
+    .wcard {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .srv::after,
+    .wcard::after {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: -50%;
+      left: -50%;
+      background: radial-gradient(circle, rgba(61, 140, 80, 0.05), transparent 60%);
+      pointer-events: none;
+      animation: glowPulse 5s infinite alternate;
+    }
+
+    @keyframes glowPulse {
+      0% {
+        transform: scale(0.95);
+        opacity: 0.05;
+      }
+
+      100% {
+        transform: scale(1.05);
+        opacity: 0.15;
+      }
+    }
+
+    .hero-l h1 {
+      animation: floatHero 6s ease-in-out infinite;
+    }
+
+    @keyframes floatHero {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .srv::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(61, 140, 80, 0.1), transparent 40%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Animation flottante pour le dashboard */
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-15px);
+      }
+
+      100% {
+        transform: translateY(0px);
+      }
+    }
+
+    .dash-wrap {
+      animation: float 6s ease-in-out infinite;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    :root {
+      --bg: #f8f6f1;
+      --bg2: #f0ede6;
+      --white: #ffffff;
+      --sage: #3d8c50;
+      --sage-l: #e8f5ec;
+      --sage-m: #b8ddc2;
+      --sage-d: #2a6338;
+      --sun: #c47c2a;
+      --sun-l: #fdf0e0;
+      --sun-m: #f0c078;
+      --ocean: #1e7a90;
+      --ocean-l: #e0f2f7;
+      --ocean-m: #7ec8dc;
+      --ink: #1a1e1a;
+      --ink2: #3a423a;
+      --ink3: #6a7a6a;
+      --ink4: #9aaa9a;
+      --border: #e0ddd6;
+      --border2: #ccc9c0;
+    }
+
+    html,
+    body {
+      overflow-x: hidden;
+      max-width: 100vw
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--ink)
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 64px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none
+    }
+
+    .logo-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--ink)
+    }
+
+    .logo-name span {
+      color: var(--sage)
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      color: var(--ink3);
+      text-decoration: none;
+      transition: color .15s
+    }
+
+    .nav-links a:hover {
+      color: var(--ink)
+    }
+
+    .nav-cta {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 22px;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      letter-spacing: .01em;
+      transition: background .2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .nav-cta:hover {
+      background: var(--sage-d)
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+      background: rgba(255, 255, 255, 0.78) !important;
+    }
+
+    .nav-inner {
+      width: min(calc(100% - (var(--site-pad) * 2)), var(--site-max));
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+      transition: all .3s ease;
+    }
+
+    nav.scrolled .nav-inner {
+      padding: 12px 0;
+    }
+
+    /* HERO */
+    .hero-shell {
+      position: relative;
+      width: min(calc(100% - (var(--site-pad) * 2)), var(--site-max));
+      margin-inline: auto;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 88vh;
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+    }
+
+    .hero-l {
+      padding: 90px clamp(28px, 4vw, 56px) 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid var(--border);
+      background: var(--white);
+    }
+
+    .hero-r {
+      padding: 80px clamp(28px, 4vw, 56px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: linear-gradient(180deg, #f8f6f1 0%, #f3efe7 100%);
+    }
+
+    .avail {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--sage-l);
+      border: 1px solid var(--sage-m);
+      padding: 5px 14px 5px 10px;
+      border-radius: 100px;
+      margin-bottom: 32px;
+      width: fit-content;
+    }
+
+    .avail-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--sage);
+      animation: blink 2s ease-in-out infinite
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .3
+      }
+    }
+
+    .avail-txt {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--sage-d);
+      letter-spacing: .03em
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(36px, 4vw, 54px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -.025em;
+      color: var(--ink);
+      margin-bottom: 22px
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--sage)
+    }
+
+    .hero-p {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--ink3);
+      max-width: 430px;
+      margin-bottom: 40px
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center
+    }
+
+    .btn-p {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 13px 26px;
+      background: var(--sage);
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all .2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-p:hover {
+      background: var(--sage-d);
+      transform: translateY(-1px)
+    }
+
+    .btn-s {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 13px 22px;
+      background: transparent;
+      color: var(--ink2);
+      border: 1.5px solid var(--border2);
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all .2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-s:hover {
+      border-color: var(--ink3);
+      background: var(--bg2)
+    }
+
+    .hero-shell,
+    .section,
+    .tech,
+    .cta-block,
+    footer {
+      position: relative;
+      z-index: 5;
+    }
+
+    .dash-wrap,
+    .srv,
+    .wcard,
+    .testi,
+    .proc {
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.65) inset,
+        0 18px 45px rgba(26, 30, 26, 0.045);
+    }
+
+    @media(max-width:900px) {
+      .forest-side {
+        width: 120px;
+        opacity: .6;
+      }
+
+      .hero-shell,
+      .tech,
+      .section,
+      .cta-block,
+      footer {
+        width: min(calc(100% - 32px), var(--site-max));
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        border-left: none;
+        border-right: none;
+      }
+
+      .hero-l {
+        padding: 56px 24px 40px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .hero-r {
+        padding: 32px 24px 48px;
+      }
+
+      .section {
+        padding: 56px 0;
+      }
+
+      .tech {
+        padding: 14px 0;
+        gap: 24px;
+      }
+
+      .cta-block {
+        margin: 0 auto 56px;
+        padding: 36px 24px;
+        grid-template-columns: 1fr;
+      }
+
+      footer {
+        padding: 24px 0;
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+    }
+
+    .float-frame {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 4;
+      overflow: hidden;
+    }
+
+    .float-leaf {
+      position: absolute;
+      will-change: transform;
+    }
+
+    .depth-back {
+      filter: blur(8px);
+      opacity: 0.3;
+      z-index: 1;
+    }
+
+    .depth-mid {
+      filter: blur(2px) drop-shadow(0 10px 15px rgba(18, 45, 25, 0.05));
+      opacity: 0.7;
+      z-index: 3;
+    }
+
+    .depth-front {
+      filter: drop-shadow(0 30px 40px rgba(18, 45, 25, 0.1));
+      opacity: 0.95;
+      z-index: 15;
+    }
+
+    /* Pollen / Lucioles */
+    .pollen {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: floatPollen linear infinite;
+      box-shadow: 0 0 10px rgba(255, 230, 100, 0.9);
+      opacity: 0;
+      z-index: 12;
+    }
+
+    @keyframes floatPollen {
+      0% {
+        transform: translateY(0) translateX(0) scale(0);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+        transform: translateY(-10vh) translateX(5vw) scale(1);
+      }
+
+      50% {
+        opacity: 0.8;
+        transform: translateY(-50vh) translateX(-5vw) scale(1.5);
+      }
+
+      90% {
+        opacity: 1;
+        transform: translateY(-90vh) translateX(10vw) scale(1);
+      }
+
+      100% {
+        transform: translateY(-110vh) translateX(15vw) scale(0);
+        opacity: 0;
+      }
+    }
+
+    /* On force le titre à être sous certaines feuilles */
+    .hero-l h1 {
+      position: relative;
+      z-index: 10;
+    }
+
+
+    .stats {
+      display: flex;
+      gap: 0;
+      margin-top: 52px;
+      padding-top: 36px;
+      border-top: 1px solid var(--border)
+    }
+
+    .stat {
+      flex: 1;
+      padding-right: 24px;
+      border-right: 1px solid var(--border)
+    }
+
+    .stat:last-child {
+      border-right: none;
+      padding-right: 0;
+      padding-left: 24px
+    }
+
+    .stat:not(:first-child) {
+      padding-left: 24px
+    }
+
+    .stat-n {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1
+    }
+
+    .stat-l {
+      font-size: 11px;
+      color: var(--ink4);
+      margin-top: 4px;
+      letter-spacing: .07em;
+      text-transform: uppercase
+    }
+
+    /* DASHBOARD MOCKUP */
+    .dash-wrap {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden
+    }
+
+    .dash-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border)
+    }
+
+    .db {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%
+    }
+
+    .addr-pill {
+      flex: 1;
+      text-align: center;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 3px 10px;
+      font-size: 11px;
+      color: var(--ink4)
+    }
+
+    .dash-body {
+      padding: 20px
+    }
+
+    .dash-hd {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px
+    }
+
+    .dash-ht {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink)
+    }
+
+    .dash-act {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 11px;
+      background: var(--sage);
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer
+    }
+
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px
+    }
+
+    .kpi {
+      background: var(--bg);
+      border-radius: 8px;
+      padding: 12px;
+      border: 1px solid var(--border)
+    }
+
+    .kpi-v {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--ink)
+    }
+
+    .kpi-l {
+      font-size: 9px;
+      color: var(--ink4);
+      margin-top: 2px;
+      text-transform: uppercase;
+      letter-spacing: .06em
+    }
+
+    .kpi-d {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--sage);
+      margin-top: 3px
+    }
+
+    .chart-box {
+      background: var(--bg);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 14px;
+      margin-bottom: 10px
+    }
+
+    .chart-lbl {
+      font-size: 9px;
+      color: var(--ink4);
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      margin-bottom: 8px
+    }
+
+    .bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 5px;
+      height: 52px
+    }
+
+    .bar {
+      flex: 1;
+      border-radius: 3px 3px 0 0
+    }
+
+    .tbl {
+      background: var(--bg);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      overflow: hidden
+    }
+
+    .tr {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 12px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .tr:last-child {
+      border-bottom: none
+    }
+
+    .tr-n {
+      font-size: 11px;
+      color: var(--ink)
+    }
+
+    .tr-v {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ink)
+    }
+
+    .pill {
+      font-size: 9px;
+      padding: 2px 7px;
+      border-radius: 100px;
+      font-weight: 500
+    }
+
+    .pill-g {
+      background: var(--sage-l);
+      color: var(--sage-d);
+      border: 1px solid var(--sage-m)
+    }
+
+    .pill-a {
+      background: var(--sun-l);
+      color: #7a4a10;
+      border: 1px solid var(--sun-m)
+    }
+
+    .pill-b {
+      background: var(--ocean-l);
+      color: #0f5068;
+      border: 1px solid var(--ocean-m)
+    }
+
+    /* TECH STRIP */
+    .tech {
+      width: min(calc(100% - (var(--site-pad) * 2)), var(--site-max));
+      margin-inline: auto;
+      padding: 16px 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .section {
+      width: min(calc(100% - (var(--site-pad) * 2)), var(--site-max));
+      margin-inline: auto;
+      padding: 88px 0;
+    }
+
+    footer {
+      width: min(calc(100% - (var(--site-pad) * 2)), var(--site-max));
+      margin-inline: auto;
+      padding: 28px 0;
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tech-lbl {
+      font-size: 11px;
+      color: var(--ink4);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      white-space: nowrap
+    }
+
+    .tech-items {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap
+    }
+
+    .ti {
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--border2);
+      letter-spacing: .04em
+    }
+
+    /* SECTIONS */
+
+    .stag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 14px;
+    }
+
+    .stag::before {
+      content: '';
+      width: 14px;
+      height: 1.5px;
+      background: var(--sage);
+      display: block
+    }
+
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(26px, 3vw, 40px);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      line-height: 1.18;
+      color: var(--ink);
+      margin-bottom: 12px
+    }
+
+    .sub {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--ink3);
+      max-width: 460px;
+      margin-bottom: 52px
+    }
+
+    .center-hd {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 64px
+    }
+
+    .center-hd .sub {
+      max-width: 600px;
+      margin-inline: auto
+    }
+
+    /* CURSEUR PERSONNALISE (LUCIOLE) */
+    @media (pointer: fine) {
+
+      body,
+      a,
+      button,
+      .srv,
+      .wcard {
+        cursor: none !important;
+      }
+    }
+
+    .cursor-dot,
+    .cursor-outline {
+      position: fixed;
+      top: 0;
+      left: 0;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+    }
+
+    .cursor-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--sun);
+      box-shadow: 0 0 10px var(--sun);
+      transition: width 0.2s, height 0.2s;
+    }
+
+    .cursor-outline {
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(196, 124, 42, 0.5);
+      transition: width 0.2s, height 0.2s, background 0.2s;
+    }
+
+    .cursor-hover .cursor-dot {
+      width: 0px;
+      height: 0px;
+    }
+
+    .cursor-hover .cursor-outline {
+      width: 50px;
+      height: 50px;
+      background: rgba(196, 124, 42, 0.1);
+      border-color: var(--sun);
+    }
+
+    /* SERVICES */
+    .srv-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden
+    }
+
+    .srv {
+      background: var(--white);
+      padding: 36px 30px;
+      cursor: pointer;
+      position: relative;
+      transition: background .2s
+    }
+
+    .srv:hover {
+      background: var(--sage-l)
+    }
+
+    .srv::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 30px;
+      right: 30px;
+      height: 2px;
+      background: var(--sage);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .3s
+    }
+
+    .srv:hover::after {
+      transform: scaleX(1)
+    }
+
+    .srv-ic {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 22px
+    }
+
+    .srv-t {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 8px
+    }
+
+    .srv-p {
+      font-size: 13px;
+      color: var(--ink3);
+      line-height: 1.7;
+      font-weight: 300
+    }
+
+    .srv-lnk {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--sage);
+      text-decoration: none
+    }
+
+    /* WORK */
+    .work-wrap {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 14px
+    }
+
+    .wcard {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color .2s
+    }
+
+    .wcard:hover {
+      border-color: var(--border2)
+    }
+
+    .wimg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden
+    }
+
+    .wbody {
+      padding: 20px 24px
+    }
+
+    .wtag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 6px
+    }
+
+    .wt {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px
+    }
+
+    .wp {
+      font-size: 12px;
+      color: var(--ink3);
+      line-height: 1.65;
+      font-weight: 300
+    }
+
+    .wstack {
+      display: flex;
+      gap: 5px;
+      margin-top: 12px;
+      flex-wrap: wrap
+    }
+
+    .sp {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 100px;
+      background: var(--bg2);
+      color: var(--ink3);
+      border: 1px solid var(--border)
+    }
+
+    /* PROCESS */
+    .proc {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden
+    }
+
+    .step {
+      padding: 36px 26px;
+      border-right: 1px solid var(--border)
+    }
+
+    .step:last-child {
+      border-right: none
+    }
+
+    .sn {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 18px
+    }
+
+    .st {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 8px
+    }
+
+    .sp2 {
+      font-size: 13px;
+      color: var(--ink3);
+      line-height: 1.65;
+      font-weight: 300
+    }
+
+    /* TESTIMONIALS */
+    .testis {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px
+    }
+
+    .testi {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px
+    }
+
+    .tq {
+      font-size: 14px;
+      font-style: italic;
+      color: var(--ink3);
+      line-height: 1.8;
+      margin-bottom: 20px;
+      font-weight: 300
+    }
+
+    .ta {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .av {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 700
+    }
+
+    .an {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink)
+    }
+
+    .ar {
+      font-size: 11px;
+      color: var(--ink4)
+    }
+
+    /* CTA */
+    .cta-block {
+      width: min(calc(100% - (var(--site-pad) * 2)), var(--site-max));
+      margin: 0 auto 80px;
+      padding: 60px clamp(28px, 4vw, 56px);
+      background: var(--ink);
+      border-radius: 20px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .cta-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 12px
+    }
+
+    .cta-h {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(22px, 2.5vw, 32px);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      color: #fff;
+      line-height: 1.2
+    }
+
+    .cta-p {
+      font-size: 13px;
+      color: #6a7a6a;
+      margin-top: 10px;
+      line-height: 1.65
+    }
+
+    .cta-r {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: stretch;
+      min-width: 200px
+    }
+
+    .btn-w {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 13px 24px;
+      background: #fff;
+      color: var(--ink);
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all .2s;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+    }
+
+    .btn-w:hover {
+      background: var(--sage-l);
+      color: var(--sage-d)
+    }
+
+    .btn-o {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 13px 24px;
+      background: transparent;
+      color: #9aaa9a;
+      border: 1px solid #2a3a2a;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all .2s;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+    }
+
+    .btn-o:hover {
+      border-color: #4a5a4a;
+      color: #c0d0c0
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 28px 64px;
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center
+    }
+
+    .fl {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink)
+    }
+
+    .fl span {
+      color: var(--sage)
+    }
+
+    .fc {
+      font-size: 12px;
+      color: var(--ink4)
+    }
+
+    .flinks {
+      display: flex;
+      gap: 24px
+    }
+
+    .flinks a {
+      font-size: 12px;
+      color: var(--ink4);
+      text-decoration: none;
+      transition: color .15s
+    }
+
+    .flinks a:hover {
+      color: var(--ink)
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border)
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:900px) {
+      nav {
+        padding: 16px 24px
+      }
+
+      .nav-links {
+        display: none
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto
+      }
+
+      .hero-l {
+        padding: 56px 24px 40px;
+        border-right: none;
+        border-bottom: 1px solid var(--border)
+      }
+
+      .hero-r {
+        padding: 32px 24px 48px
+      }
+
+      .center-hd {
+        gap: 16px
+      }
+
+      .section {
+        padding: 56px 24px
+      }
+
+      .tech {
+        padding: 14px 24px;
+        gap: 24px
+      }
+
+      .srv-grid {
+        grid-template-columns: 1fr
+      }
+
+      .work-wrap {
+        grid-template-columns: 1fr
+      }
+
+      .proc {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .step {
+        border-bottom: 1px solid var(--border)
+      }
+
+      .testis {
+        grid-template-columns: 1fr
+      }
+
+      .cta-block {
+        margin: 0 24px 56px;
+        padding: 36px;
+        grid-template-columns: 1fr
+      }
+
+      .cta-r {
+        min-width: auto
+      }
+
+      footer {
+        padding: 24px;
+        flex-direction: column;
+        gap: 16px;
+        text-align: center
+      }
+
+      .stats {
+        gap: 0
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="float-frame" id="float-frame"></div>
+  <div id="sun-flare"></div>
+  <div id="sun-flare-back"></div>
+  <div id="sun-flare-front"></div>
+  <nav>
+    <div class="nav-inner">
+      <a class="logo" href="#">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+          <circle cx="13" cy="13" r="5.5" fill="#3d8c50" opacity=".85" />
+          <path d="M13 2.5C15.5 6 19.5 10 17.5 16C15 12.5 11 9.5 13 2.5Z" fill="#2a6338" />
+          <path d="M2.5 19.5Q6 16 9.5 19.5Q13 23 16.5 19.5Q20 16 23.5 19.5" stroke="#1e7a90" stroke-width="1.5"
+            fill="none" stroke-linecap="round" />
+        </svg>
+        <span class="logo-name">Sun<span>Script</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#realisations">Réalisations</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a class="nav-cta" href="mailto:hello@sunscript.studio">Démarrer un projet ↗</a>
+    </div>
+  </nav>
+  <section class="hero-shell">
+    <section class="hero">
+      <div class="hero-l">
+        <svg class="plant-deco deep" style="top:10%; left:20%; width:120px;" viewBox="0 0 100 100">
+          <path d="M10,90 Q50,80 90,10 Q60,40 10,90" fill="var(--sage-m)" />
+        </svg>
+        <div class="avail">
+          <div class="avail-dot"></div>
+          <span class="avail-txt">Studio ouvert aux nouveaux projets</span>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()">☀️</button>
+        <h1>Des logiciels utiles,<br><em>pensés pour durer.</em></h1>
+        <svg class="plant-deco front p-hero-front" viewBox="0 0 100 100" fill="var(--sage)">
+          <path d="M0,100 Q40,80 100,0 Q70,50 0,100" />
+          <path d="M0,100 Q30,60 80,20 Q50,60 0,100" fill="var(--sage-d)" opacity="0.3" />
+        </svg>
+        <p class="hero-p">Nous créons des applications web, des outils métier et des systèmes sur mesure — avec
+          une approche légère, efficace et centrée sur le long terme.</p>
+        <div class="actions">
+          <a class="btn-p" href="#services">Voir les services</a>
+          <a class="btn-s" href="#realisations">Nos réalisations →</a>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-n">23</div>
+            <div class="stat-l">Projets livrés</div>
+          </div>
+          <div class="stat">
+            <div class="stat-n">98%</div>
+            <div class="stat-l">Clients satisfaits</div>
+          </div>
+          <div class="stat">
+            <div class="stat-n">4 ans</div>
+            <div class="stat-l">D'expérience</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-r">
+        <div class="dash-wrap">
+          <div class="dash-bar">
+            <div class="db" style="background:#ff6057"></div>
+            <div class="db" style="background:#ffc130"></div>
+            <div class="db" style="background:#29c940"></div>
+            <div class="addr-pill">app.sunscript.studio · Dashboard</div>
+          </div>
+          <div class="dash-body">
+            <div class="dash-hd">
+              <span class="dash-ht">Vue d'ensemble</span>
+              <button class="dash-act">+ Nouveau</button>
+            </div>
+            <div class="kpis">
+              <div class="kpi">
+                <div class="kpi-v">€84k</div>
+                <div class="kpi-l">Revenus</div>
+                <div class="kpi-d">↑ 12% ce mois</div>
+              </div>
+              <div class="kpi">
+                <div class="kpi-v">1 248</div>
+                <div class="kpi-l">Utilisateurs</div>
+                <div class="kpi-d">↑ 8%</div>
+              </div>
+              <div class="kpi">
+                <div class="kpi-v">99.9%</div>
+                <div class="kpi-l">Uptime</div>
+                <div class="kpi-d">Stable</div>
+              </div>
+            </div>
+            <div class="chart-box">
+              <div class="chart-lbl">Activité · 7 derniers jours</div>
+              <div class="bars" id="bars"></div>
+            </div>
+            <div class="tbl">
+              <div class="tr"><span class="tr-n">Coral CRM</span><span class="pill pill-g">En prod</span><span
+                  class="tr-v">€12 400</span></div>
+              <div class="tr"><span class="tr-n">App SunMood</span><span class="pill pill-a">En cours</span><span
+                  class="tr-v">€8 200</span></div>
+              <div class="tr"><span class="tr-n">API Tideworks</span><span class="pill pill-b">Recette</span><span
+                  class="tr-v">€6 800</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+  <div class="tech">
+    <span class="tech-lbl">Stack</span>
+    <div class="tech-items">
+      <span class="ti">React</span><span class="ti">Next.js</span><span class="ti">TypeScript</span>
+      <span class="ti">Node.js</span><span class="ti">PostgreSQL</span><span class="ti">Supabase</span><span
+        class="ti">Figma</span>
+    </div>
+  </div>
+
+  <section class="section" id="services" style="background:var(--white)">
+    <div class="center-hd">
+      <div class="stag">Ce qu'on fait</div>
+      <h2>Des outils qui travaillent pour vous.</h2>
+      <p class="sub" style="margin-bottom:0">Pas des templates. Pas du copier-coller. Chaque projet est pensé de A à Z
+        pour votre contexte, vos utilisateurs, et vos contraintes réelles.</p>
+    </div>
+    <div class="srv-grid">
+      <div class="srv">
+        <div class="srv-ic" style="background:var(--sage-l)">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <rect x="2" y="4" width="16" height="12" rx="2" stroke="#3d8c50" stroke-width="1.5" />
+            <path d="M6 8h8M6 11h5" stroke="#3d8c50" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+        </div>
+        <div class="srv-t">Applications web</div>
+        <p class="srv-p">Interfaces rapides, accessibles et belles. Du MVP au produit mature, on construit avec la même
+          rigueur.</p>
+        <a class="srv-lnk" href="service-web.html">En savoir plus →</a>
+      </div>
+      <div class="srv">
+        <div class="srv-ic" style="background:var(--ocean-l)">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="10" r="7" stroke="#1e7a90" stroke-width="1.5" />
+            <path d="M7 10l2 2 4-4" stroke="#1e7a90" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
+        <div class="srv-t">Systèmes métier</div>
+        <p class="srv-p">CRM, ERP, outils internes. On remplace les tableurs Excel qui ne tiennent plus la charge.</p>
+        <a class="srv-lnk" href="service-systemes.html">En savoir plus →</a>
+      </div>
+      <div class="srv">
+        <div class="srv-ic" style="background:var(--sun-l)">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M3 17l4-4 3 3 7-9" stroke="#c47c2a" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
+        <div class="srv-t">APIs & intégrations</div>
+        <p class="srv-p">Connecteurs, webhooks, synchros de données. On fait parler vos outils entre eux sans friction.
+        </p>
+        <a class="srv-lnk" href="service-apis.html">En savoir plus →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section" id="realisations">
+    <svg class="plant-deco deep" style="top:-30px; right:5%; width:140px; transform: rotate(45deg);"
+      viewBox="0 0 100 100">
+      <path d="M50 5 C 80 20, 95 60, 50 95 C 5 60, 20 20, 50 5 Z" fill="var(--sage-l)" />
+    </svg>
+    <div class="center-hd">
+      <div class="stag">Ce qu'on a livré.</div>
+      <h2>Ce qu'on a livré.</h2>
+      <p class="sub" style="margin-bottom:0">Des projets concrets, pour des équipes réelles, avec des résultats
+        mesurables.</p>
+    </div>
+    <div class="work-wrap">
+      <div class="wcard">
+        <div class="wimg" style="background:#f0f7f2;height:180px">
+          <svg viewBox="0 0 300 162" width="300" height="162">
+            <rect x="16" y="12" width="268" height="138" rx="7" fill="#fff" stroke="#e0ddd6" stroke-width="1" />
+            <rect x="28" y="24" width="90" height="7" rx="2" fill="#b8ddc2" />
+            <rect x="28" y="36" width="54" height="5" rx="2" fill="#e8f5ec" />
+            <rect x="28" y="54" width="244" height="42" rx="5" fill="#f8f6f1" stroke="#e8f5ec" stroke-width="1" />
+            <rect x="40" y="66" width="28" height="18" rx="3" fill="#e8f5ec" />
+            <rect x="76" y="68" width="52" height="5" rx="2" fill="#ddd" />
+            <rect x="76" y="78" width="36" height="4" rx="2" fill="#eee" />
+            <rect x="218" y="66" width="42" height="18" rx="3" fill="#3d8c50" />
+            <rect x="28" y="108" width="72" height="5" rx="2" fill="#e0ddd6" />
+            <rect x="28" y="118" width="110" height="5" rx="2" fill="#e0ddd6" />
+            <rect x="28" y="128" width="58" height="5" rx="2" fill="#e0ddd6" />
+            <rect x="152" y="102" width="112" height="42" rx="5" fill="#f8f6f1" stroke="#e8f5ec" stroke-width="1" />
+            <rect x="160" y="110" width="36" height="4" rx="2" fill="#b8ddc2" />
+            <rect x="160" y="120" width="20" height="14" rx="2" fill="#3d8c50" />
+            <rect x="184" y="120" width="20" height="14" rx="2" fill="#1e7a90" opacity=".5" />
+            <rect x="208" y="120" width="20" height="14" rx="2" fill="#c47c2a" opacity=".45" />
+          </svg>
+        </div>
+        <div class="wbody">
+          <div class="wtag">Application web · SaaS</div>
+          <div class="wt">Coral CRM</div>
+          <p class="wp">CRM sur-mesure pour une agence de 40 personnes. Pipeline, relances automatiques, reporting temps
+            réel.</p>
+          <div class="wstack">
+            <span class="sp">Next.js</span><span class="sp">TypeScript</span><span class="sp">Supabase</span><span
+              class="sp">Resend</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="wcard">
+          <div class="wimg" style="background:#f0f7fa;height:120px">
+            <svg viewBox="0 0 250 120" width="250" height="120">
+              <rect x="10" y="10" width="230" height="100" rx="6" fill="#fff" stroke="#e0ddd6" stroke-width="1" />
+              <rect x="22" y="22" width="46" height="76" rx="4" fill="#f0f7fa" stroke="#c0e4f0" stroke-width="1" />
+              <rect x="28" y="30" width="34" height="4" rx="2" fill="#7ec8dc" />
+              <rect x="28" y="38" width="24" height="3" rx="2" fill="#e0f2f7" />
+              <rect x="28" y="52" width="9" height="9" rx="2" fill="#1e7a90" opacity=".7" />
+              <rect x="39" y="52" width="9" height="9" rx="2" fill="#1e7a90" opacity=".35" />
+              <rect x="76" y="22" width="152" height="76" rx="4" fill="#f0f7fa" stroke="#c0e4f0" stroke-width="1" />
+              <rect x="84" y="32" width="72" height="4" rx="2" fill="#7ec8dc" />
+              <rect x="84" y="42" width="128" height="3" rx="2" fill="#e0ddd6" />
+              <rect x="84" y="50" width="100" height="3" rx="2" fill="#e0ddd6" />
+              <rect x="84" y="62" width="96" height="22" rx="3" fill="#fff" stroke="#c0e4f0" stroke-width="1" />
+              <rect x="92" y="68" width="10" height="10" rx="2" fill="#1e7a90" opacity=".45" />
+              <rect x="108" y="70" width="44" height="3" rx="2" fill="#dde" />
+              <rect x="108" y="77" width="30" height="3" rx="2" fill="#eee" />
+            </svg>
+          </div>
+          <div class="wbody">
+            <div class="wtag">Outil interne · Gestion</div>
+            <div class="wt">Tideworks Platform</div>
+            <p class="wp">Dashboard portuaire temps réel, API REST, intégration ERP.</p>
+            <div class="wstack"><span class="sp">React</span><span class="sp">Node.js</span><span
+                class="sp">PostgreSQL</span></div>
+          </div>
+        </div>
+        <div class="wcard">
+          <div class="wimg" style="background:#fdf6ee;height:100px">
+            <svg viewBox="0 0 250 100" width="250" height="100">
+              <rect x="10" y="10" width="230" height="80" rx="6" fill="#fff" stroke="#e0ddd6" stroke-width="1" />
+              <rect x="22" y="22" width="206" height="14" rx="3" fill="#fdf0e0" stroke="#f0c078" stroke-width=".5" />
+              <rect x="28" y="27" width="44" height="4" rx="2" fill="#f0c078" />
+              <rect x="80" y="27" width="56" height="4" rx="2" fill="#fbe8c0" />
+              <rect x="22" y="44" width="96" height="34" rx="4" fill="#fdf6ee" stroke="#f0c078" stroke-width=".5" />
+              <rect x="30" y="52" width="54" height="4" rx="2" fill="#c47c2a" opacity=".6" />
+              <rect x="30" y="61" width="36" height="9" rx="2" fill="#c47c2a" />
+              <rect x="126" y="44" width="106" height="34" rx="4" fill="#fdf6ee" stroke="#f0c078" stroke-width=".5" />
+              <rect x="134" y="52" width="38" height="4" rx="2" fill="#fbe8c0" />
+              <rect x="134" y="61" width="78" height="8" rx="2" fill="#f0e0c0" />
+              <rect x="134" y="61" width="50" height="8" rx="2" fill="#c47c2a" opacity=".55" />
+            </svg>
+          </div>
+          <div class="wbody">
+            <div class="wtag">Analytics · Dashboard</div>
+            <div class="wt">SunMetrics</div>
+            <p class="wp">KPIs e-commerce, cohortes, exports automatisés.</p>
+            <div class="wstack"><span class="sp">Vue.js</span><span class="sp">Python</span><span
+                class="sp">Clickhouse</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section" id="process" style="background:var(--white)">
+    <svg class="plant-deco front" style="bottom:-20px; left:-10px; width:160px; transform: rotate(-30deg);"
+      viewBox="0 0 120 120">
+      <path d="M0,120 C40,100 80,60 100,0 C70,40 30,80 0,120" fill="var(--sage-m)" />
+    </svg>
+    <div class="center-hd">
+      <div class="stag">comment on fait</div>
+      <h2>On travaille différemment.</h2>
+      <p class="sub" style="margin-bottom:0">On part vite, on itère souvent, on livre
+        proprement.</p>
+    </div>
+    <div class="proc">
+      <div class="step">
+        <div class="sn">01 — Découverte</div>
+        <div class="st">On comprend avant de coder</div>
+        <p class="sp2">2–3 sessions pour cartographier vos enjeux, vos utilisateurs, ce qui bloque vraiment.</p>
+      </div>
+      <div class="step">
+        <div class="sn">02 — Prototype</div>
+        <div class="st">Concret en 2 semaines</div>
+        <p class="sp2">Un prototype cliquable pour valider les idées avant d'investir dans le développement.</p>
+      </div>
+      <div class="step">
+        <div class="sn">03 — Build</div>
+        <div class="st">Sprints courts, livraisons fréquentes</div>
+        <p class="sp2">Cycles de 2 semaines. Vous voyez l'avancement en temps réel. Rien de caché.</p>
+      </div>
+      <div class="step">
+        <div class="sn">04 — Après</div>
+        <div class="st">On reste là</div>
+        <p class="sp2">Maintenance, évolutions, support. Un projet livré ne s'arrête pas le jour de la mise en prod.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section">
+    <svg class="plant-deco deep" style="top:20%; right:-20px; width:180px; transform: scaleX(-1) rotate(20deg);"
+      viewBox="0 0 100 100">
+      <path d="M10 90 C 20 40, 60 10, 90 10 C 80 60, 40 90, 10 90 Z" fill="var(--sage-l)" opacity="0.6" />
+    </svg>
+    <div class="center-hd">
+      <div class="stag">Ils témoignent</div>
+      <h2>Ce qu'ils en disent.</h2>
+      <p class="sub">Des retours vrais, sans filtre marketing.</p>
+    </div>
+    <div class="testis">
+      <div class="testi">
+        <p class="tq">"SunScript a transformé notre gestion des prospects. On a gagné 8h par semaine rien que sur les
+          relances. Et le produit est vraiment beau."</p>
+        <div class="ta">
+          <div class="av" style="background:var(--sage-l);color:var(--sage-d)">ML</div>
+          <div>
+            <div class="an">Marie-Laure Kahn</div>
+            <div class="ar">Directrice commerciale · Aqua Partners</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi">
+        <p class="tq">"Livré en avance, zéro bug en prod depuis 8 mois. J'avais des doutes sur un studio indie pour un
+          projet critique — ils m'ont complètement rassuré."</p>
+        <div class="ta">
+          <div class="av" style="background:var(--ocean-l);color:#0f5068">JB</div>
+          <div>
+            <div class="an">Jonas Bremer</div>
+            <div class="ar">CTO · Tideworks GmbH</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="contact" class="cta-block">
+    <div>
+      <div class="cta-tag">Prêt à démarrer ?</div>
+      <div class="cta-h">Un projet en tête ?<br>On a hâte d'en entendre parler.</div>
+      <div class="cta-p">On répond sous 24h. Premier échange gratuit, sans engagement.</div>
+    </div>
+    <div class="cta-r">
+      <a class="btn-w" href="mailto:hello@sunscript.studio">Nous écrire ↗</a>
+      <a class="btn-o" href="#services">Voir les services</a>
+      <span style="font-size:11px;color:#4a5a4a;text-align:center">hello@sunscript.studio</span>
+    </div>
+  </div>
+
+  <footer>
+    <div class="fl">Sun<span>Script</span></div>
+    <div class="flinks">
+      <a href="#">Mentions légales</a>
+      <a href="#">CGV</a>
+      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    </div>
+    <div class="fc">© 2026 SunScript · Bordeaux, FR</div>
+  </footer>
+
+  <script>
+    const h = [42, 58, 35, 70, 52, 88, 65], c = ['#b8ddc2', '#b8ddc2', '#b8ddc2', '#b8ddc2', '#b8ddc2', '#3d8c50', '#c47c2a'];
+    const b = document.getElementById('bars');
+    h.forEach((v, i) => {
+      const d = document.createElement('div');
+      d.className = 'bar';
+      d.style.cssText = `height:${v}%;background:${c[i]};opacity:${i >= 5 ? '1' : '.5'}`;
+      b.appendChild(d);
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }) }
+      });
+    });
+
+    // 1. Effet de Parallaxe au Scroll
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const heroText = document.querySelector('.hero-l');
+      const heroDash = document.querySelector('.hero-r');
+
+      // Le texte monte moins vite que le dashboard
+      if (window.innerWidth > 900) {
+        heroText.style.transform = `translateY(${scrolled * 0.1}px)`;
+        heroDash.style.transform = `translateY(${scrolled * -0.05}px)`;
+      }
+    });
+
+    // 2. Animation Reveal au Scroll
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, observerOptions);
+
+    // On applique la classe 'reveal' aux sections et cartes
+    document.querySelectorAll('section, .srv, .wcard, .step').forEach(el => {
+      el.classList.add('reveal');
+      observer.observe(el);
+    });
+
+    // 3. Effet de suivi de souris pour les cartes de services
+    document.querySelectorAll('.srv').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+
+    // 1. Gestion du Flare Solaire
+    const flare = document.getElementById('sun-flare');
+    window.addEventListener('mousemove', (e) => {
+      flare.style.left = e.clientX + 'px';
+      flare.style.top = e.clientY + 'px';
+    });
+
+    // 2. Changement d'état de la Nav au scroll
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // 3. Effet d'aimant (Magnetic) sur le bouton CTA de la nav
+    const navCta = document.querySelector('.nav-cta');
+    navCta.addEventListener('mousemove', (e) => {
+      const rect = navCta.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+
+      navCta.style.transform = `translate(${x * 0.3}px, ${y * 0.5}px)`;
+    });
+
+    navCta.addEventListener('mouseleave', () => {
+      navCta.style.transform = `translate(0, 0)`;
+    });
+
+    // 1. Gestion du Dark Mode avec mémorisation
+    function toggleTheme() {
+      const body = document.body;
+      const btn = document.querySelector('.theme-toggle');
+      body.classList.toggle('dark-mode');
+
+      if (body.classList.contains('dark-mode')) {
+        btn.innerHTML = '🌙';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        btn.innerHTML = '☀️';
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    // 2. Micro-interactions sonores (Optionnel mais stylé)
+    // On utilise une petite note synthétique pour ne pas charger de fichier MP3
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playTick(freq = 400) {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.1);
+    }
+
+    // Appliquer le son aux boutons
+    document.querySelectorAll('.btn-p, .btn-s, .nav-cta, .theme-toggle').forEach(btn => {
+      btn.addEventListener('mouseenter', () => playTick(600));
+      btn.addEventListener('click', () => playTick(300));
+    });
+
+    // 3. Animation du Dashboard (KPI qui décomptent)
+    function animateNumbers() {
+      const kpis = document.querySelectorAll('.kpi-v');
+      kpis.forEach(kpi => {
+        const target = kpi.innerText;
+        if (target.includes('€') || target.includes('.')) return; // On ignore les complexes
+
+        let count = 0;
+        const final = parseInt(target.replace(/\s/g, ''));
+        const timer = setInterval(() => {
+          count += Math.ceil(final / 20);
+          if (count >= final) {
+            kpi.innerText = target;
+            clearInterval(timer);
+          } else {
+            kpi.innerText = count.toLocaleString();
+          }
+        }, 50);
+      });
+    }
+
+    // Lancer l'animation quand on arrive au hero
+    setTimeout(animateNumbers, 1000);
+
+    // --- FEUILLES MINIMALISTES FLOTTANTES ---
+    const floatFrame = document.getElementById('float-frame');
+    const leafSVGs = [
+      `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 5 C 80 20, 95 60, 50 95 C 5 60, 20 20, 50 5 Z" stroke="var(--sage-m)" stroke-width="2"/><path d="M50 5 L50 95" stroke="var(--sage-m)" stroke-width="1" stroke-dasharray="2 4"/></svg>`,
+      `<svg viewBox="0 0 100 100" fill="var(--sage-l)" xmlns="http://www.w3.org/2000/svg"><path d="M10 90 C 20 40, 60 10, 90 10 C 80 60, 40 90, 10 90 Z" opacity="0.8"/></svg>`,
+      `<svg viewBox="0 0 100 100" fill="none" stroke="var(--sage)" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg"><path d="M20 80 C 10 50, 40 20, 80 20 C 70 50, 60 90, 20 80 Z" fill="rgba(232, 245, 236, 0.4)"/></svg>`,
+      `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 10 C 70 40, 60 80, 50 90 C 40 80, 30 40, 50 10 Z" stroke="var(--sage-m)" stroke-width="1.5"/><circle cx="50" cy="80" r="3" fill="var(--sage-m)"/></svg>`
+    ];
+
+    const leavesData = [];
+    if (floatFrame) {
+      for (let i = 0; i < 18; i++) {
+        const leaf = document.createElement('div');
+        const isLeft = Math.random() > 0.5;
+        const depthType = Math.random();
+        let depthClass = 'depth-mid';
+        let speed = 1.2;
+
+        if (depthType > 0.7) { depthClass = 'depth-front'; speed = 2.5; }
+        else if (depthType < 0.3) { depthClass = 'depth-back'; speed = 0.5; }
+
+        leaf.className = `float-leaf ${depthClass}`;
+        leaf.innerHTML = leafSVGs[Math.floor(Math.random() * leafSVGs.length)];
+
+        // Position aléatoire sur les côtés
+        const baseX = isLeft ? (Math.random() * 35 - 10) : (Math.random() * 35 + 65);
+        const baseY = Math.random() * 100;
+        const baseRot = Math.random() * 360;
+        const width = Math.random() * 120 + 60; // entre 60px et 180px
+
+        leaf.style.left = baseX + 'vw';
+        leaf.style.top = baseY + 'vh';
+        leaf.style.width = width + 'px';
+
+        floatFrame.appendChild(leaf);
+
+        leavesData.push({
+          el: leaf,
+          baseRot,
+          direction: isLeft ? -1 : 1,
+          speed,
+          driftSpeed: Math.random() * 0.4 + 0.1
+        });
+      }
+    }
+
+    // --- NOUVEAU SYSTEME D'ANIMATION FLUIDE (INERTIE) ---
+    let currentScroll = 0;
+    let targetScroll = 0;
+    const ease = 0.08;
+
+    window.addEventListener('scroll', () => {
+      targetScroll = window.scrollY;
+    });
+
+    const plantsFront = document.querySelectorAll('.plant-deco.front');
+    const plantsDeep = document.querySelectorAll('.plant-deco.deep');
+
+    function render() {
+      currentScroll += (targetScroll - currentScroll) * ease;
+      const maxScroll = document.body.scrollHeight - window.innerHeight;
+      const progress = Math.min(currentScroll / (maxScroll * 0.55 || 1), 1);
+
+      // Plantes classiques
+      plantsFront.forEach((p, i) => {
+        p.style.transform = `translateY(${currentScroll * -0.2}px) rotate(${currentScroll * 0.02}deg) scale(${1 + progress * 0.2})`;
+      });
+      plantsDeep.forEach((p, i) => {
+        p.style.transform = `translateY(${currentScroll * 0.05}px) rotate(${currentScroll * 0.01}deg)`;
+      });
+
+      // Feuilles Minimalistes (Répulsion et Lévitation)
+      leavesData.forEach(l => {
+        const spread = progress * 200 * l.speed * l.direction;
+        const drift = currentScroll * -0.3 * l.driftSpeed;
+        const rot = l.baseRot + (progress * 60 * l.direction);
+        l.el.style.transform = `translateX(${spread}px) translateY(${drift}px) rotate(${rot}deg)`;
+      });
+
+      requestAnimationFrame(render);
+    }
+    render();
+
+    // --- EFFET POLLEN/LUCIOLES ---
+    function createPollen() {
+      const container = document.getElementById('sun-flare');
+      if (!container) return;
+
+      // Couleurs jaunes
+      const colors = ['rgba(255, 230, 100, 0.8)', 'rgba(255, 200, 50, 0.6)', 'rgba(255, 245, 180, 0.9)'];
+
+      for (let i = 0; i < 45; i++) {
+        const p = document.createElement('div');
+        p.className = 'pollen';
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.top = Math.random() * 100 + 'vh';
+        p.style.width = Math.random() * 5 + 2 + 'px';
+        p.style.height = p.style.width;
+        p.style.background = colors[Math.floor(Math.random() * colors.length)];
+        p.style.animationDuration = Math.random() * 8 + 5 + 's';
+        p.style.animationDelay = Math.random() * 10 + 's';
+        document.body.appendChild(p); // On l'ajoute au body pour qu'il vole partout !
+      }
+    }
+    createPollen();
+
+    // --- CURSEUR LUCIOLE ---
+    const cursorDot = document.createElement('div');
+    const cursorOutline = document.createElement('div');
+    cursorDot.className = 'cursor-dot';
+    cursorOutline.className = 'cursor-outline';
+    document.body.appendChild(cursorDot);
+    document.body.appendChild(cursorOutline);
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let outlineX = mouseX;
+    let outlineY = mouseY;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursorDot.style.left = mouseX + 'px';
+      cursorDot.style.top = mouseY + 'px';
+    });
+
+    function animateCursor() {
+      outlineX += (mouseX - outlineX) * 0.15;
+      outlineY += (mouseY - outlineY) * 0.15;
+      cursorOutline.style.left = outlineX + 'px';
+      cursorOutline.style.top = outlineY + 'px';
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    document.querySelectorAll('a, button, .srv, .wcard').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+
+    // --- EFFET 3D TILT SUR LES CARTES ---
+    document.querySelectorAll('.wcard').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const xPct = (x / rect.width - 0.5) * 2;
+        const yPct = (y / rect.height - 0.5) * 2;
+
+        card.style.transform = `perspective(1000px) rotateX(${yPct * -4}deg) rotateY(${xPct * 4}deg) scale3d(1.02, 1.02, 1.02)`;
+        card.style.transition = 'none';
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        card.style.transition = 'transform 0.5s ease';
+      });
+    });
+
+  </script>
+</body>
+
+</html>

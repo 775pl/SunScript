@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Applications Web · SunScript</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f6f1;--bg2:#f0ede6;--white:#ffffff;
+  --sage:#3d8c50;--sage-l:#e8f5ec;--sage-m:#b8ddc2;--sage-d:#2a6338;
+  --sun:#c47c2a;--sun-l:#fdf0e0;--sun-m:#f0c078;
+  --ocean:#1e7a90;--ocean-l:#e0f2f7;--ocean-m:#7ec8dc;
+  --ink:#1a1e1a;--ink2:#3a423a;--ink3:#6a7a6a;--ink4:#9aaa9a;
+  --border:#e0ddd6;--border2:#ccc9c0;
+  --site-max: 1320px;
+  --site-pad: clamp(20px, 4vw, 40px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html, body{overflow-x:hidden; max-width:100vw}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink)}
+
+/* NAV */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 64px;background:var(--white);border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:100;
+  backdrop-filter: blur(14px);
+  background: rgba(255,255,255,0.78) !important;
+}
+.nav-inner{
+  width:min(calc(100% - (var(--site-pad) * 2)), var(--site-max));
+  margin-inline:auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 0;transition:all .3s ease;
+}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+.logo-name{font-family:'Syne',sans-serif;font-weight:700;font-size:17px;color:var(--ink)}
+.logo-name span{color:var(--sage)}
+.back-btn{
+  font-family:'Syne',sans-serif;font-size:13px;font-weight:700;
+  padding:10px 22px;background:transparent;color:var(--ink);
+  border:1px solid var(--border);border-radius:7px;cursor:pointer;text-decoration:none;display:inline-block;
+  transition:all .2s;
+}
+.back-btn:hover{background:var(--bg2);border-color:var(--border2)}
+
+/* CURSEUR PERSONNALISE */
+@media (pointer: fine) { body, a, button, .feat-card { cursor: none !important; } }
+.cursor-dot, .cursor-outline { position: fixed; top: 0; left: 0; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); }
+.cursor-dot { width: 6px; height: 6px; background: var(--sun); box-shadow: 0 0 10px var(--sun); transition: width 0.2s, height 0.2s; }
+.cursor-outline { width: 34px; height: 34px; border: 1px solid rgba(196, 124, 42, 0.5); transition: width 0.2s, height 0.2s, background 0.2s; }
+.cursor-hover .cursor-dot { width: 0px; height: 0px; }
+.cursor-hover .cursor-outline { width: 50px; height: 50px; background: rgba(196, 124, 42, 0.1); border-color: var(--sun); }
+
+/* HERO GRID */
+.srv-hero {
+  width:min(calc(100% - (var(--site-pad) * 2)), var(--site-max));
+  margin: 0 auto;
+  padding: 80px 0;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  z-index: 5;
+  min-height: 70vh;
+}
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.srv-tag {
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);margin-bottom:24px;
+}
+.srv-tag::before{content:'';width:14px;height:1.5px;background:var(--sage);display:block}
+h1 { font-family:'Syne',sans-serif;font-size:clamp(36px,4vw,54px);font-weight:800;line-height:1.1;letter-spacing:-.025em;color:var(--ink);margin-bottom:24px; }
+.srv-p { font-size:16px;font-weight:300;line-height:1.8;color:var(--ink3);margin-bottom:40px; max-width: 500px; }
+.btn-p {
+  font-family:'Syne',sans-serif;font-size:13px;font-weight:700;
+  padding:13px 26px;background:var(--sage);color:#fff;
+  border:none;border-radius:7px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;
+}
+.btn-p:hover { background:var(--sage-d);transform:translateY(-1px) }
+
+/* VISUEL ARTWORK CSS (WEB APP) */
+.hero-visual {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+}
+.glass-app {
+  width: 340px;
+  height: 240px;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.9);
+  border-radius: 16px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.08), 0 0 0 1px inset rgba(255,255,255,0.5);
+  animation: floatApp 8s ease-in-out infinite;
+  transform: rotateX(15deg) rotateY(-15deg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.app-header { display: flex; gap: 8px; align-items: center; }
+.app-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
+.app-dot.red { background: #ff6057; }
+.app-dot.yel { background: #ffc130; }
+.app-dot.grn { background: #29c940; }
+.app-bar { flex: 1; height: 8px; border-radius: 4px; background: var(--sage-l); margin-left: 10px; }
+.app-body { display: flex; gap: 12px; flex: 1; }
+.app-side { width: 60px; border-radius: 8px; background: var(--bg2); }
+.app-main { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+.app-card { flex: 1; border-radius: 8px; background: var(--white); box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+
+@keyframes floatApp {
+  0%, 100% { transform: translateY(0) rotateX(15deg) rotateY(-15deg); }
+  50% { transform: translateY(-20px) rotateX(10deg) rotateY(-20deg); }
+}
+
+/* GRILLE DE FONCTIONNALITES */
+.content {
+  background: var(--white);
+  padding: 100px 0;
+  border-top: 1px solid var(--border);
+  position: relative;
+  z-index: 5;
+}
+.feat-grid {
+  width:min(calc(100% - (var(--site-pad) * 2)), var(--site-max));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.feat-card {
+  background: var(--bg);
+  padding: 40px 32px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.feat-card:hover {
+  background: var(--white);
+  border-color: var(--sage-m);
+  box-shadow: 0 20px 40px rgba(61,140,80,0.05);
+  transform: translateY(-5px);
+}
+.feat-ic {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  background: var(--sage-l);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 24px;
+  color: var(--sage);
+}
+.feat-card h3 { font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:12px;color:var(--ink); }
+.feat-card p { font-size:14px;line-height:1.7;color:var(--ink3); }
+
+/* Pollen */
+.pollen { position: absolute; border-radius: 50%; pointer-events: none; animation: floatPollen linear infinite; box-shadow: 0 0 10px rgba(255, 230, 100, 0.9); opacity: 0; z-index: 2; }
+@keyframes floatPollen { 0% { transform: translateY(0) translateX(0) scale(0); opacity: 0; } 10% { opacity: 1; transform: translateY(-10vh) translateX(5vw) scale(1); } 50% { opacity: 0.8; transform: translateY(-50vh) translateX(-5vw) scale(1.5); } 90% { opacity: 1; transform: translateY(-90vh) translateX(10vw) scale(1); } 100% { transform: translateY(-110vh) translateX(15vw) scale(0); opacity: 0; } }
+
+@media(max-width:900px){
+  .srv-hero { grid-template-columns: 1fr; text-align: center; padding: 60px 0; }
+  .hero-text { align-items: center; }
+  .hero-visual { height: 300px; }
+  .feat-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="sunscript.html">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+        <circle cx="13" cy="13" r="5.5" fill="#3d8c50" opacity=".85"/>
+        <path d="M13 2.5C15.5 6 19.5 10 17.5 16C15 12.5 11 9.5 13 2.5Z" fill="#2a6338"/>
+        <path d="M2.5 19.5Q6 16 9.5 19.5Q13 23 16.5 19.5Q20 16 23.5 19.5" stroke="#1e7a90" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-name">Sun<span>Script</span></span>
+    </a>
+    <a class="back-btn" href="sunscript.html">← Retour à l'accueil</a>
+  </div>
+</nav>
+
+<section class="srv-hero">
+  <div class="hero-text">
+    <div class="srv-tag">Service</div>
+    <h1>Applications Web<br>Modernes</h1>
+    <p class="srv-p">Des interfaces rapides, accessibles et belles. Nous construisons des applications sur-mesure qui reflètent parfaitement l'identité de votre projet tout en offrant des performances de pointe.</p>
+    <a class="btn-p" href="mailto:hello@sunscript.studio">Parlez-nous de votre projet</a>
+  </div>
+  <div class="hero-visual">
+    <div class="glass-app">
+      <div class="app-header">
+        <div class="app-dot red"></div><div class="app-dot yel"></div><div class="app-dot grn"></div>
+        <div class="app-bar"></div>
+      </div>
+      <div class="app-body">
+        <div class="app-side"></div>
+        <div class="app-main">
+          <div class="app-card" style="height:40px"></div>
+          <div style="display:flex;gap:12px;flex:1">
+            <div class="app-card"></div>
+            <div class="app-card"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="feat-ic">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+      </div>
+      <h3>Architecture Solide</h3>
+      <p>Oubliez les templates instables. Nous utilisons la stack React & Next.js pour créer des fondations pérennes, rapides et évolutives.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-ic">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+      </div>
+      <h3>Design Premium</h3>
+      <p>Chaque pixel est pensé pour créer une expérience utilisateur unique ("Wow effect") qui convertit et fidélise vos clients.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-ic">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+      </div>
+      <h3>Qualité Garantie</h3>
+      <p>Tests automatisés, intégration continue et déploiement propre. Nous livrons des applications qui fonctionnent, sans mauvaise surprise.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+// Cursor
+const cursorDot = document.createElement('div');
+const cursorOutline = document.createElement('div');
+cursorDot.className = 'cursor-dot'; cursorOutline.className = 'cursor-outline';
+document.body.appendChild(cursorDot); document.body.appendChild(cursorOutline);
+let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+let outlineX = mouseX, outlineY = mouseY;
+window.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; cursorDot.style.left = mouseX + 'px'; cursorDot.style.top = mouseY + 'px'; });
+function animateCursor() { outlineX += (mouseX - outlineX) * 0.15; outlineY += (mouseY - outlineY) * 0.15; cursorOutline.style.left = outlineX + 'px'; cursorOutline.style.top = outlineY + 'px'; requestAnimationFrame(animateCursor); }
+animateCursor();
+document.querySelectorAll('a, button, .feat-card').forEach(el => { el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover')); el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover')); });
+
+// Pollen
+function createPollen() {
+  const colors = ['rgba(255, 230, 100, 0.8)', 'rgba(255, 200, 50, 0.6)', 'rgba(255, 245, 180, 0.9)'];
+  for(let i=0; i<20; i++) {
+    const p = document.createElement('div');
+    p.className = 'pollen';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.top = Math.random() * 100 + 'vh';
+    p.style.width = Math.random() * 5 + 2 + 'px';
+    p.style.height = p.style.width;
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
+    p.style.animationDuration = Math.random() * 8 + 5 + 's';
+    p.style.animationDelay = Math.random() * 10 + 's';
+    document.body.appendChild(p);
+  }
+}
+createPollen();
+</script>
+</body>
+</html>
