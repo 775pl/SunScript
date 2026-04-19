@@ -1935,8 +1935,8 @@
   <footer>
     <div class="fl">Sun<span>Script</span></div>
     <div class="flinks">
-      <a href="#">Mentions légales</a>
-      <a href="#">CGV</a>
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="cgv.html">CGV</a>
       <a href="https://linkedin.com" target="_blank">LinkedIn</a>
     </div>
     <div class="fc">© 2026 SunScript · Bordeaux, FR</div>
@@ -1945,12 +1945,14 @@
   <script>
     const h = [42, 58, 35, 70, 52, 88, 65], c = ['#b8ddc2', '#b8ddc2', '#b8ddc2', '#b8ddc2', '#b8ddc2', '#3d8c50', '#c47c2a'];
     const b = document.getElementById('bars');
-    h.forEach((v, i) => {
-      const d = document.createElement('div');
-      d.className = 'bar';
-      d.style.cssText = `height:${v}%;background:${c[i]};opacity:${i >= 5 ? '1' : '.5'}`;
-      b.appendChild(d);
-    });
+    if (b) {
+      h.forEach((v, i) => {
+        const d = document.createElement('div');
+        d.className = 'bar';
+        d.style.cssText = `height:${v}%;background:${c[i]};opacity:${i >= 5 ? '1' : '.5'}`;
+        b.appendChild(d);
+      });
+    }
 
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {
@@ -1959,20 +1961,7 @@
       });
     });
 
-    // 1. Effet de Parallaxe au Scroll
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const heroText = document.querySelector('.hero-l');
-      const heroDash = document.querySelector('.hero-r');
-
-      // Le texte monte moins vite que le dashboard
-      if (window.innerWidth > 900) {
-        heroText.style.transform = `translateY(${scrolled * 0.1}px)`;
-        heroDash.style.transform = `translateY(${scrolled * -0.05}px)`;
-      }
-    });
-
-    // 2. Animation Reveal au Scroll
+    // --- REVEAL ANIMATION ---
     const observerOptions = { threshold: 0.1 };
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -1982,120 +1971,131 @@
       });
     }, observerOptions);
 
-    // On applique la classe 'reveal' aux sections et cartes
     document.querySelectorAll('section, .srv, .wcard, .step').forEach(el => {
       el.classList.add('reveal');
       observer.observe(el);
     });
 
-    // 3. Effet de suivi de souris pour les cartes de services
+    // --- HOVER CARDS (CSS Vars) ---
     document.querySelectorAll('.srv').forEach(card => {
       card.addEventListener('mousemove', e => {
         const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        card.style.setProperty('--mouse-x', `${x}px`);
-        card.style.setProperty('--mouse-y', `${y}px`);
+        card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
       });
     });
 
-    // 1. Gestion du Flare Solaire
-    const flare = document.getElementById('sun-flare');
-    window.addEventListener('mousemove', (e) => {
-      flare.style.left = e.clientX + 'px';
-      flare.style.top = e.clientY + 'px';
+    document.querySelectorAll('.wcard').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const xPct = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+        const yPct = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+        card.style.transform = `perspective(1000px) rotateX(${yPct * -4}deg) rotateY(${xPct * 4}deg) scale3d(1.02, 1.02, 1.02)`;
+        card.style.transition = 'none';
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        card.style.transition = 'transform 0.5s ease';
+      });
     });
 
-    // 2. Changement d'état de la Nav au scroll
-    window.addEventListener('scroll', () => {
-      const nav = document.querySelector('nav');
-      if (window.scrollY > 50) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-    });
-
-    // 3. Effet d'aimant (Magnetic) sur le bouton CTA de la nav
+    // --- MAGNET CTA ---
     const navCta = document.querySelector('.nav-cta');
-    navCta.addEventListener('mousemove', (e) => {
-      const rect = navCta.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
+    let ctaTargetX = 0, ctaTargetY = 0, ctaCurrentX = 0, ctaCurrentY = 0;
+    if (navCta) {
+      navCta.addEventListener('mousemove', (e) => {
+        const rect = navCta.getBoundingClientRect();
+        ctaTargetX = (e.clientX - rect.left - rect.width / 2) * 0.3;
+        ctaTargetY = (e.clientY - rect.top - rect.height / 2) * 0.5;
+      });
+      navCta.addEventListener('mouseleave', () => {
+        ctaTargetX = 0; ctaTargetY = 0;
+      });
+    }
 
-      navCta.style.transform = `translate(${x * 0.3}px, ${y * 0.5}px)`;
-    });
-
-    navCta.addEventListener('mouseleave', () => {
-      navCta.style.transform = `translate(0, 0)`;
-    });
-
-    // 1. Gestion du Dark Mode avec mémorisation
+    // --- DARK MODE ---
     function toggleTheme() {
       const body = document.body;
       const btn = document.querySelector('.theme-toggle');
       body.classList.toggle('dark-mode');
-
       if (body.classList.contains('dark-mode')) {
-        btn.innerHTML = '🌙';
-        localStorage.setItem('theme', 'dark');
+        btn.innerHTML = '🌙'; localStorage.setItem('theme', 'dark');
       } else {
-        btn.innerHTML = '☀️';
-        localStorage.setItem('theme', 'light');
+        btn.innerHTML = '☀️'; localStorage.setItem('theme', 'light');
       }
     }
 
-    // 2. Micro-interactions sonores (Optionnel mais stylé)
-    // On utilise une petite note synthétique pour ne pas charger de fichier MP3
+    // --- SOUND ---
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
     function playTick(freq = 400) {
       if (audioCtx.state === 'suspended') audioCtx.resume();
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
-
       osc.type = 'sine';
       osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
       gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.1);
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.start(); osc.stop(audioCtx.currentTime + 0.1);
     }
-
-    // Appliquer le son aux boutons
     document.querySelectorAll('.btn-p, .btn-s, .nav-cta, .theme-toggle').forEach(btn => {
       btn.addEventListener('mouseenter', () => playTick(600));
       btn.addEventListener('click', () => playTick(300));
     });
 
-    // 3. Animation du Dashboard (KPI qui décomptent)
+    // --- STATS NUMBERS ---
     function animateNumbers() {
-      const kpis = document.querySelectorAll('.kpi-v');
-      kpis.forEach(kpi => {
+      document.querySelectorAll('.kpi-v').forEach(kpi => {
         const target = kpi.innerText;
-        if (target.includes('€') || target.includes('.')) return; // On ignore les complexes
-
-        let count = 0;
-        const final = parseInt(target.replace(/\s/g, ''));
+        if (target.includes('€') || target.includes('.')) return;
+        let count = 0, final = parseInt(target.replace(/\s/g, ''));
         const timer = setInterval(() => {
           count += Math.ceil(final / 20);
-          if (count >= final) {
-            kpi.innerText = target;
-            clearInterval(timer);
-          } else {
-            kpi.innerText = count.toLocaleString();
-          }
+          if (count >= final) { kpi.innerText = target; clearInterval(timer); }
+          else { kpi.innerText = count.toLocaleString(); }
         }, 50);
       });
     }
-
-    // Lancer l'animation quand on arrive au hero
     setTimeout(animateNumbers, 1000);
 
-    // --- FEUILLES MINIMALISTES FLOTTANTES ---
+    // --- POLLEN ---
+    function createPollen() {
+      const colors = ['rgba(255, 230, 100, 0.8)', 'rgba(255, 200, 50, 0.6)', 'rgba(255, 245, 180, 0.9)'];
+      // Reduit le nombre de particules de 45 a 30 pour la fluidité
+      for (let i = 0; i < 30; i++) {
+        const p = document.createElement('div');
+        p.className = 'pollen';
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.top = Math.random() * 100 + 'vh';
+        p.style.width = Math.random() * 5 + 2 + 'px';
+        p.style.height = p.style.width;
+        p.style.background = colors[Math.floor(Math.random() * colors.length)];
+        p.style.animationDuration = Math.random() * 8 + 5 + 's';
+        p.style.animationDelay = Math.random() * 10 + 's';
+        p.style.willChange = 'transform, opacity';
+        document.body.appendChild(p);
+      }
+    }
+    createPollen();
+
+    // --- CURSOR SETUP ---
+    const cursorDot = document.createElement('div');
+    const cursorOutline = document.createElement('div');
+    cursorDot.className = 'cursor-dot'; cursorOutline.className = 'cursor-outline';
+    document.body.appendChild(cursorDot); document.body.appendChild(cursorOutline);
+
+    document.querySelectorAll('a, button, .srv, .wcard').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+
+    // --- DOM ELEMENTS CACHE ---
+    const flare = document.getElementById('sun-flare');
+    const heroText = document.querySelector('.hero-l');
+    const heroDash = document.querySelector('.hero-r');
+    const nav = document.querySelector('nav');
+
+    // --- LEAVES SETUP ---
     const floatFrame = document.getElementById('float-frame');
     const leafSVGs = [
       `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 5 C 80 20, 95 60, 50 95 C 5 60, 20 20, 50 5 Z" stroke="var(--sage-m)" stroke-width="2"/><path d="M50 5 L50 95" stroke="var(--sage-m)" stroke-width="1" stroke-dasharray="2 4"/></svg>`,
@@ -2106,154 +2106,87 @@
 
     const leavesData = [];
     if (floatFrame) {
-      for (let i = 0; i < 18; i++) {
+      // Reduit le nombre de feuilles dynamiques de 18 à 12 pour des performances maximales
+      for (let i = 0; i < 12; i++) {
         const leaf = document.createElement('div');
         const isLeft = Math.random() > 0.5;
         const depthType = Math.random();
-        let depthClass = 'depth-mid';
-        let speed = 1.2;
-
+        let depthClass = 'depth-mid', speed = 1.2;
         if (depthType > 0.7) { depthClass = 'depth-front'; speed = 2.5; }
         else if (depthType < 0.3) { depthClass = 'depth-back'; speed = 0.5; }
 
         leaf.className = `float-leaf ${depthClass}`;
         leaf.innerHTML = leafSVGs[Math.floor(Math.random() * leafSVGs.length)];
-
-        // Position aléatoire sur les côtés
         const baseX = isLeft ? (Math.random() * 35 - 10) : (Math.random() * 35 + 65);
         const baseY = Math.random() * 100;
         const baseRot = Math.random() * 360;
-        const width = Math.random() * 120 + 60; // entre 60px et 180px
 
-        leaf.style.left = baseX + 'vw';
-        leaf.style.top = baseY + 'vh';
-        leaf.style.width = width + 'px';
-
+        leaf.style.left = baseX + 'vw'; leaf.style.top = baseY + 'vh';
+        leaf.style.width = (Math.random() * 100 + 60) + 'px';
+        leaf.style.willChange = 'transform';
         floatFrame.appendChild(leaf);
 
-        leavesData.push({
-          el: leaf,
-          baseRot,
-          direction: isLeft ? -1 : 1,
-          speed,
-          driftSpeed: Math.random() * 0.4 + 0.1
-        });
+        leavesData.push({ el: leaf, baseRot, direction: isLeft ? -1 : 1, speed, driftSpeed: Math.random() * 0.4 + 0.1 });
       }
     }
-
-    // --- NOUVEAU SYSTEME D'ANIMATION FLUIDE (INERTIE) ---
-    let currentScroll = 0;
-    let targetScroll = 0;
-    const ease = 0.08;
-
-    window.addEventListener('scroll', () => {
-      targetScroll = window.scrollY;
-    });
-
     const plantsFront = document.querySelectorAll('.plant-deco.front');
     const plantsDeep = document.querySelectorAll('.plant-deco.deep');
+    plantsFront.forEach(p => p.style.willChange = 'transform');
+    plantsDeep.forEach(p => p.style.willChange = 'transform');
 
-    function render() {
+    // --- GLOBAL EVENTS STATE ---
+    let globalMouseX = window.innerWidth / 2, globalMouseY = window.innerHeight / 2;
+    let outlineX = globalMouseX, outlineY = globalMouseY;
+    let targetScroll = window.scrollY, currentScroll = window.scrollY;
+
+    window.addEventListener('scroll', () => { targetScroll = window.scrollY; }, { passive: true });
+    window.addEventListener('mousemove', (e) => { globalMouseX = e.clientX; globalMouseY = e.clientY; }, { passive: true });
+
+    // --- CENTRAL RENDER LOOP ---
+    const ease = 0.08;
+    function centralRender() {
+      // 1. Scroll Inertia
       currentScroll += (targetScroll - currentScroll) * ease;
-      const maxScroll = document.body.scrollHeight - window.innerHeight;
-      const progress = Math.min(currentScroll / (maxScroll * 0.55 || 1), 1);
+      const maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
+      const progress = Math.min(currentScroll / (maxScroll * 0.55), 1);
 
-      // Plantes classiques
-      plantsFront.forEach((p, i) => {
-        p.style.transform = `translateY(${currentScroll * -0.2}px) rotate(${currentScroll * 0.02}deg) scale(${1 + progress * 0.2})`;
-      });
-      plantsDeep.forEach((p, i) => {
-        p.style.transform = `translateY(${currentScroll * 0.05}px) rotate(${currentScroll * 0.01}deg)`;
-      });
+      // 2. Nav & Parallax (only recalculate if scrolling significantly)
+      if (Math.abs(targetScroll - currentScroll) > 0.1) {
+        if (currentScroll > 50) nav.classList.add('scrolled'); else nav.classList.remove('scrolled');
 
-      // Feuilles Minimalistes (Répulsion et Lévitation)
-      leavesData.forEach(l => {
-        const spread = progress * 200 * l.speed * l.direction;
-        const drift = currentScroll * -0.3 * l.driftSpeed;
-        const rot = l.baseRot + (progress * 60 * l.direction);
-        l.el.style.transform = `translateX(${spread}px) translateY(${drift}px) rotate(${rot}deg)`;
-      });
+        if (window.innerWidth > 900 && heroText && heroDash) {
+          heroText.style.transform = `translate3d(0, ${currentScroll * 0.1}px, 0)`;
+          heroDash.style.transform = `translate3d(0, ${currentScroll * -0.05}px, 0)`;
+        }
 
-      requestAnimationFrame(render);
-    }
-    render();
+        plantsFront.forEach(p => p.style.transform = `translate3d(0, ${currentScroll * -0.2}px, 0) rotate(${currentScroll * 0.02}deg) scale(${1 + progress * 0.2})`);
+        plantsDeep.forEach(p => p.style.transform = `translate3d(0, ${currentScroll * 0.05}px, 0) rotate(${currentScroll * 0.01}deg)`);
 
-    // --- EFFET POLLEN/LUCIOLES ---
-    function createPollen() {
-      const container = document.getElementById('sun-flare');
-      if (!container) return;
-
-      // Couleurs jaunes
-      const colors = ['rgba(255, 230, 100, 0.8)', 'rgba(255, 200, 50, 0.6)', 'rgba(255, 245, 180, 0.9)'];
-
-      for (let i = 0; i < 45; i++) {
-        const p = document.createElement('div');
-        p.className = 'pollen';
-        p.style.left = Math.random() * 100 + 'vw';
-        p.style.top = Math.random() * 100 + 'vh';
-        p.style.width = Math.random() * 5 + 2 + 'px';
-        p.style.height = p.style.width;
-        p.style.background = colors[Math.floor(Math.random() * colors.length)];
-        p.style.animationDuration = Math.random() * 8 + 5 + 's';
-        p.style.animationDelay = Math.random() * 10 + 's';
-        document.body.appendChild(p); // On l'ajoute au body pour qu'il vole partout !
+        leavesData.forEach(l => {
+          const spread = progress * 200 * l.speed * l.direction;
+          const drift = currentScroll * -0.3 * l.driftSpeed;
+          const rot = l.baseRot + (progress * 60 * l.direction);
+          l.el.style.transform = `translate3d(${spread}px, ${drift}px, 0) rotate(${rot}deg)`;
+        });
       }
+
+      // 3. Mouse Interpolations
+      outlineX += (globalMouseX - outlineX) * 0.15;
+      outlineY += (globalMouseY - outlineY) * 0.15;
+
+      cursorDot.style.left = globalMouseX + 'px'; cursorDot.style.top = globalMouseY + 'px';
+      cursorOutline.style.left = outlineX + 'px'; cursorOutline.style.top = outlineY + 'px';
+      if (flare) { flare.style.left = globalMouseX + 'px'; flare.style.top = globalMouseY + 'px'; }
+
+      if (navCta) {
+        ctaCurrentX += (ctaTargetX - ctaCurrentX) * 0.15;
+        ctaCurrentY += (ctaTargetY - ctaCurrentY) * 0.15;
+        navCta.style.transform = `translate3d(${ctaCurrentX}px, ${ctaCurrentY}px, 0)`;
+      }
+
+      requestAnimationFrame(centralRender);
     }
-    createPollen();
-
-    // --- CURSEUR LUCIOLE ---
-    const cursorDot = document.createElement('div');
-    const cursorOutline = document.createElement('div');
-    cursorDot.className = 'cursor-dot';
-    cursorOutline.className = 'cursor-outline';
-    document.body.appendChild(cursorDot);
-    document.body.appendChild(cursorOutline);
-
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let outlineX = mouseX;
-    let outlineY = mouseY;
-
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursorDot.style.left = mouseX + 'px';
-      cursorDot.style.top = mouseY + 'px';
-    });
-
-    function animateCursor() {
-      outlineX += (mouseX - outlineX) * 0.15;
-      outlineY += (mouseY - outlineY) * 0.15;
-      cursorOutline.style.left = outlineX + 'px';
-      cursorOutline.style.top = outlineY + 'px';
-      requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-
-    document.querySelectorAll('a, button, .srv, .wcard').forEach(el => {
-      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-    });
-
-    // --- EFFET 3D TILT SUR LES CARTES ---
-    document.querySelectorAll('.wcard').forEach(card => {
-      card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const xPct = (x / rect.width - 0.5) * 2;
-        const yPct = (y / rect.height - 0.5) * 2;
-
-        card.style.transform = `perspective(1000px) rotateX(${yPct * -4}deg) rotateY(${xPct * 4}deg) scale3d(1.02, 1.02, 1.02)`;
-        card.style.transition = 'none';
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-        card.style.transition = 'transform 0.5s ease';
-      });
-    });
-
+    centralRender();
   </script>
 </body>
 
