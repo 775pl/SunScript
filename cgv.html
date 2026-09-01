@@ -4,9 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Conditions Générales de Vente · SunScript</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<meta name="description" content="Conditions générales de vente B2B des prestations de développement SunScript.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
 /* Base Styles */
 :root{
@@ -22,7 +21,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html, body{overflow-x:hidden; max-width:100vw}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink)}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
 
 /* NAV */
 nav{
@@ -48,14 +47,6 @@ nav{
   transition:all .2s;
 }
 .back-btn:hover{background:var(--bg2);border-color:var(--border2)}
-
-/* CURSEUR PERSONNALISE */
-@media (pointer: fine) { body, a, button { cursor: none !important; } }
-.cursor-dot, .cursor-outline { position: fixed; top: 0; left: 0; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); }
-.cursor-dot { width: 6px; height: 6px; background: var(--sun); box-shadow: 0 0 10px var(--sun); transition: width 0.2s, height 0.2s; }
-.cursor-outline { width: 34px; height: 34px; border: 1px solid rgba(196, 124, 42, 0.5); transition: width 0.2s, height 0.2s, background 0.2s; }
-.cursor-hover .cursor-dot { width: 0px; height: 0px; }
-.cursor-hover .cursor-outline { width: 50px; height: 50px; background: rgba(196, 124, 42, 0.1); border-color: var(--sun); }
 
 /* CONTENT */
 .page-header {
@@ -91,6 +82,8 @@ nav{
 .legal-content p, .legal-content ul {
   font-size:15px;line-height:1.8;color:var(--ink3);margin-bottom:20px;
 }
+.legal-content li { margin-bottom:8px; }
+.legal-content strong { color:var(--ink2); }
 .legal-content ul {
   padding-left: 20px;
 }
@@ -126,65 +119,54 @@ nav{
 
 <header class="page-header">
   <h1>Conditions Générales de Vente</h1>
-  <p>Applicables à compter du 1er septembre 2026</p>
+  <p>Prestations entre professionnels · Version du 1er septembre 2026</p>
 </header>
 
 <main class="legal-content">
-  <h2>1. Objet</h2>
-  <p>Les présentes Conditions Générales de Vente (CGV) ont pour objet de définir les droits et obligations des parties dans le cadre de la vente de prestations de services (développement de logiciels, sites web, intégrations d'APIs) par <strong>Selma EL JABRI--CHANTELAUZE</strong>, entrepreneur individuel exerçant sous le nom commercial <strong>SunScript</strong>, SIREN 104 832 050, dont le siège est situé 7 rue Jean Bonnin, 33310 Lormont, au Client.</p>
-  
-  <h2>2. Prestations</h2>
-  <p>SunScript s'engage à fournir les prestations définies dans le devis validé par le Client. Le Client s'engage à collaborer activement à la réussite du projet en fournissant les informations nécessaires dans les délais convenus.</p>
+  <p><strong>Important :</strong> les présentes CGV s'appliquent exclusivement aux clients agissant à des fins professionnelles. SunScript ne contracte pas avec des consommateurs sur leur fondement.</p>
 
-  <h2>3. Tarifs et Modalités de paiement</h2>
-  <p>Les prix des prestations sont indiqués en euros (€). TVA non applicable, article 293 B du Code général des impôts. Un acompte de 30% est exigible à la signature du devis. Le solde est payable à la livraison du projet, sauf accord spécifique mentionné dans le devis. Les paiements s'effectuent par virement bancaire.</p>
+  <h2>1. Identité et champ d'application</h2>
+  <p>Les présentes conditions régissent les prestations fournies par <strong>Selma EL JABRI--CHANTELAUZE</strong>, entrepreneur individuel exerçant sous le nom commercial <strong>SunScript</strong>, SIREN 104 832 050, siège : 7 rue Jean Bonnin, 33310 Lormont, France, contact : <a href="mailto:hello@sunscript.studio">hello@sunscript.studio</a>, à tout client professionnel (le « Client »). Elles prévalent sur les conditions d'achat du Client, sauf acceptation écrite contraire. Le devis, ses annexes et, le cas échéant, un contrat particulier prévalent sur les présentes CGV en cas de contradiction.</p>
 
-  <h2>4. Délais de livraison</h2>
-  <p>Les délais de livraison sont donnés à titre indicatif. Un retard ne peut en aucun cas justifier l'annulation de la commande ou donner lieu à des pénalités ou dommages et intérêts, sauf stipulation contraire écrite et signée par les deux parties.</p>
+  <h2>2. Formation du contrat</h2>
+  <p>Le devis reste valable pendant la durée qui y est indiquée ou, à défaut, trente jours. La commande devient ferme à la réception du devis daté et signé avec la mention « bon pour accord », de l'acceptation électronique non équivoque du Client, et du paiement de l'acompte prévu. Toute demande supplémentaire ou modification du périmètre fait l'objet d'une estimation et, si elle affecte le prix ou le calendrier, d'un avenant accepté avant exécution.</p>
 
-  <h2>5. Propriété et Droits d'utilisation</h2>
-  <p>Le transfert de propriété des éléments développés au Client s'effectue après le paiement intégral de la facture. Jusqu'au paiement complet, SunScript conserve la pleine propriété intellectuelle des codes et livrables fournis.</p>
+  <h2>3. Prestations et obligations des parties</h2>
+  <p>SunScript réalise les prestations décrites au devis selon une obligation de moyens et conformément aux règles de l'art. Le Client désigne un interlocuteur habilité, transmet dans les délais convenus les contenus, accès, validations et informations utiles, garantit qu'il dispose des droits sur les éléments fournis et prend les décisions nécessaires au projet. Tout retard ou défaut de coopération du Client décale raisonnablement le calendrier et peut entraîner la facturation des travaux ou temps d'immobilisation supplémentaires après information du Client.</p>
 
-  <h2>6. Responsabilité</h2>
-  <p>La responsabilité de SunScript est limitée au montant de la prestation facturée. SunScript ne pourra être tenue responsable des dommages indirects, pertes d'exploitation ou pertes de données subis par le Client.</p>
+  <h2>4. Délais, livraison et recette</h2>
+  <p>Le calendrier court à compter de la réunion des prérequis mentionnés au devis et du paiement de l'acompte. Sauf engagement express qualifié de ferme dans le devis, les dates sont estimatives. SunScript informe le Client de tout aléa significatif. Les retards imputables au Client, à un tiers qu'il impose ou à un cas de force majeure suspendent les délais.</p>
+  <p>Le Client dispose de dix jours ouvrés après mise à disposition d'un livrable pour notifier par écrit des réserves précises et reproductibles au regard des spécifications convenues. SunScript corrige les non-conformités relevant du périmètre. À défaut de réserves dans ce délai, ou en cas de mise en production par le Client, le livrable est réputé accepté. Les demandes d'évolution ne constituent pas des réserves et font l'objet d'un devis complémentaire.</p>
 
-  <h2>7. Litiges</h2>
-  <p>Les présentes CGV sont soumises au droit français. En cas de litige, une solution à l'amiable sera recherchée avant toute action judiciaire. À défaut, les tribunaux compétents de Bordeaux seront seuls compétents pour régler le litige.</p>
+  <h2>5. Prix, facturation et paiement</h2>
+  <p>Les prix sont exprimés en euros hors taxes. TVA non applicable, article 293 B du Code général des impôts, tant que ce régime demeure applicable. Sauf disposition différente du devis, un acompte de 30 % est dû à la commande et le solde à la livraison. Les factures sont payables par virement bancaire à trente jours à compter de leur date d'émission, sans escompte pour paiement anticipé.</p>
+  <p>Tout retard de paiement entraîne de plein droit, dès le lendemain de l'échéance et sans rappel, des pénalités calculées au taux de refinancement semestriel de la Banque centrale européenne en vigueur majoré de dix points de pourcentage, ainsi qu'une indemnité forfaitaire de 40 € pour frais de recouvrement. Lorsque les frais réellement engagés dépassent ce montant, une indemnisation complémentaire peut être demandée sur justificatifs. SunScript peut suspendre les prestations après une mise en demeure de payer restée sans effet pendant huit jours, sans que cette suspension constitue une faute.</p>
+
+  <h2>6. Frais et services tiers</h2>
+  <p>Les frais et abonnements de tiers (hébergement, noms de domaine, licences, API, services cloud ou logiciels) ne sont compris que s'ils sont expressément indiqués au devis. Ils peuvent dépendre des tarifs et conditions de leurs éditeurs. Lorsque ces services sont souscrits par SunScript pour le compte du Client, leur renouvellement et leur transfert sont organisés selon le devis ; à défaut, ils restent à la charge directe du Client.</p>
+
+  <h2>7. Propriété intellectuelle</h2>
+  <p>Chaque partie conserve la propriété de ses éléments antérieurs, outils, méthodes, savoir-faire, bibliothèques et composants génériques. Sous réserve du paiement intégral, SunScript cède au Client, pour les seuls livrables originaux expressément identifiés au devis, les droits patrimoniaux qui y sont énumérés, pour les modes d'exploitation, la durée et le territoire précisés au devis. À défaut de précision suffisante permettant une cession conforme au Code de la propriété intellectuelle, le Client reçoit une licence non exclusive, mondiale, pour la durée légale de protection, lui permettant d'utiliser, reproduire et adapter les livrables pour ses besoins professionnels internes et l'exploitation du projet livré.</p>
+  <p>Les composants open source et éléments de tiers restent soumis à leurs licences respectives. SunScript peut réutiliser les connaissances et composants génériques ne révélant aucune information confidentielle du Client. Toute mention du projet dans le portfolio de SunScript requiert l'accord préalable du Client, qui peut être donné dans le devis.</p>
+
+  <h2>8. Maintenance, sécurité et sauvegardes</h2>
+  <p>Sauf contrat de maintenance distinct, la prestation n'inclut ni supervision continue, ni mises à jour après recette, ni garantie de compatibilité avec les évolutions futures des navigateurs, systèmes ou services tiers. SunScript corrige pendant trente jours après recette les anomalies reproductibles rendant le livrable non conforme aux spécifications, hors mauvaise utilisation, modification par un tiers ou évolution de l'environnement. Le Client demeure responsable de ses accès, de la sauvegarde de ses données et de son plan de continuité, sauf mission expressément confiée à SunScript.</p>
+
+  <h2>9. Confidentialité et données personnelles</h2>
+  <p>Chaque partie protège les informations confidentielles reçues et ne les utilise que pour l'exécution du contrat, pendant celui-ci et trois ans après sa fin. Cette obligation ne couvre pas les informations publiques, déjà connues licitement, obtenues légitimement d'un tiers ou dont la divulgation est imposée par la loi.</p>
+  <p>Chaque partie respecte la réglementation sur les données personnelles pour les traitements dont elle est responsable. Si SunScript traite des données personnelles pour le compte du Client, les parties concluent avant le traitement un accord conforme à l'article 28 du RGPD précisant notamment l'objet, la durée, les catégories de données, les mesures de sécurité et le sort des données.</p>
+
+  <h2>10. Responsabilité</h2>
+  <p>Chaque partie répond des dommages directs et prévisibles résultant de ses manquements prouvés. SunScript ne répond pas des dommages indirects tels que perte de chiffre d'affaires, de marge, de clientèle, d'image ou d'opportunité, ni des défaillances provenant des éléments du Client, d'un service tiers ou d'une modification non autorisée. Sauf faute lourde ou dolosive, atteinte corporelle, violation de la confidentialité ou disposition légale impérative contraire, la responsabilité totale de SunScript est plafonnée au montant hors taxes payé au titre de la prestation à l'origine du dommage au cours des douze mois précédant le fait générateur.</p>
+
+  <h2>11. Force majeure</h2>
+  <p>Aucune partie n'est responsable d'un manquement dû à un événement répondant aux critères de l'article 1218 du Code civil. La partie concernée en informe l'autre sans délai et limite les effets de l'événement. Les obligations affectées sont suspendues pendant sa durée. Si l'empêchement se prolonge au-delà de trente jours, chaque partie peut résilier la partie non exécutée du contrat par écrit, sans indemnité.</p>
+
+  <h2>12. Résiliation</h2>
+  <p>En cas de manquement grave, la partie lésée peut résilier le contrat quinze jours après une mise en demeure écrite restée sans effet. En cas d'arrêt du projet demandé par le Client hors faute de SunScript, les travaux réalisés, engagements pris et frais non annulables sont dus ; l'acompte s'impute sur ces sommes et reste acquis à concurrence de leur montant. Les clauses destinées à survivre à la fin du contrat, notamment paiement, propriété intellectuelle, confidentialité et responsabilité, continuent de produire effet.</p>
+
+  <h2>13. Droit applicable et litiges</h2>
+  <p>Le contrat est soumis au droit français. Les parties tentent de résoudre amiablement tout différend pendant trente jours à compter de sa notification écrite. <strong>À défaut d'accord, tout litige entre professionnels relatif au contrat relèvera de la compétence exclusive des tribunaux du ressort de Bordeaux, y compris en cas de pluralité de défendeurs ou d'appel en garantie.</strong></p>
 </main>
-
-<script>
-// Cursor
-const cursorDot = document.createElement('div');
-const cursorOutline = document.createElement('div');
-cursorDot.className = 'cursor-dot'; cursorOutline.className = 'cursor-outline';
-document.body.appendChild(cursorDot); document.body.appendChild(cursorOutline);
-let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-let outlineX = mouseX, outlineY = mouseY;
-window.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; cursorDot.style.left = mouseX + 'px'; cursorDot.style.top = mouseY + 'px'; });
-function animateCursor() { outlineX += (mouseX - outlineX) * 0.15; outlineY += (mouseY - outlineY) * 0.15; cursorOutline.style.left = outlineX + 'px'; cursorOutline.style.top = outlineY + 'px'; requestAnimationFrame(animateCursor); }
-animateCursor();
-document.querySelectorAll('a, button').forEach(el => { el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover')); el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover')); });
-
-// Pollen
-function createPollen() {
-  const colors = ['rgba(255, 230, 100, 0.8)', 'rgba(255, 200, 50, 0.6)', 'rgba(255, 245, 180, 0.9)'];
-  for(let i=0; i<15; i++) {
-    const p = document.createElement('div');
-    p.style.position = 'fixed';
-    p.style.borderRadius = '50%';
-    p.style.pointerEvents = 'none';
-    p.style.left = Math.random() * 100 + 'vw';
-    p.style.top = Math.random() * 100 + 'vh';
-    p.style.width = Math.random() * 5 + 2 + 'px';
-    p.style.height = p.style.width;
-    p.style.background = colors[Math.floor(Math.random()*colors.length)];
-    p.style.boxShadow = '0 0 10px rgba(255, 230, 100, 0.9)';
-    p.style.opacity = Math.random() * 0.8 + 0.2;
-    p.style.zIndex = -1;
-    document.body.appendChild(p);
-  }
-}
-createPollen();
-</script>
 </body>
 </html>

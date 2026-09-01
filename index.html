@@ -5,12 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SunScript · Studio de développement</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta name="description" content="SunScript conçoit des sites web, applications, systèmes internes et intégrations d'API rapides et sur mesure.">
+  <meta name="theme-color" content="#f8f6f1">
+  <meta property="og:title" content="SunScript · Studio de développement">
+  <meta property="og:description" content="Des produits numériques rapides, fiables et pensés pour votre activité.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:ital,wght@0,300;0,400;0,500;1,300&display=swap"
-    rel="stylesheet">
   <style>
     /* 1. Effet de texte masqué pour le Hero */
     .hero h1 {
@@ -355,7 +356,7 @@
     }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
       background: var(--bg);
       color: var(--ink)
     }
@@ -1072,11 +1073,11 @@
     /* CURSEUR PERSONNALISE (LUCIOLE) */
     @media (pointer: fine) {
 
-      body,
-      a,
-      button,
-      .srv,
-      .wcard {
+      body.effects-enabled,
+      body.effects-enabled a,
+      body.effects-enabled button,
+      body.effects-enabled .srv,
+      body.effects-enabled .wcard {
         cursor: none !important;
       }
     }
@@ -1496,6 +1497,24 @@
       background: var(--border)
     }
 
+    .low-effects .float-frame,
+    .low-effects #sun-flare,
+    .low-effects #sun-flare-back,
+    .low-effects #sun-flare-front,
+    .low-effects .pollen { display:none !important; }
+
+    .low-effects .plant-deco,
+    .low-effects .hero-l h1,
+    .low-effects .dash-wrap,
+    .low-effects .srv::after,
+    .low-effects .wcard::after { animation:none !important; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior:auto; }
+      *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+      .float-frame, #sun-flare, #sun-flare-back, #sun-flare-front, .pollen { display:none !important; }
+    }
+
     /* RESPONSIVE */
     @media(max-width:900px) {
       nav {
@@ -1613,7 +1632,7 @@
           <div class="avail-dot"></div>
           <span class="avail-txt">Studio ouvert aux nouveaux projets</span>
         </div>
-        <button class="theme-toggle" onclick="toggleTheme()">☀️</button>
+        <button class="theme-toggle" type="button" aria-label="Changer le thème" onclick="toggleTheme()">☀️</button>
         <h1>Des logiciels utiles,<br><em>pensés pour durer.</em></h1>
         <svg class="plant-deco front p-hero-front" viewBox="0 0 100 100" fill="var(--sage)">
           <path d="M0,100 Q40,80 100,0 Q70,50 0,100" />
@@ -1838,11 +1857,19 @@
     <div class="flinks">
       <a href="mentions-legales.html">Mentions légales</a>
       <a href="cgv.html">CGV</a>
+      <a href="confidentialite.html">Confidentialité</a>
     </div>
     <div class="fc">© 2026 SunScript · Lormont, FR</div>
   </footer>
 
   <script>
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const limitedDevice = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
+      (navigator.deviceMemory && navigator.deviceMemory <= 4);
+    const effectsEnabled = window.innerWidth > 900 && window.matchMedia('(pointer: fine)').matches && !prefersReducedMotion && !limitedDevice;
+    document.body.classList.toggle('effects-enabled', effectsEnabled);
+    document.body.classList.toggle('low-effects', !effectsEnabled);
+
     const h = [42, 58, 35, 70, 52, 88, 65], c = ['#b8ddc2', '#b8ddc2', '#b8ddc2', '#b8ddc2', '#b8ddc2', '#3d8c50', '#c47c2a'];
     const b = document.getElementById('bars');
     if (b) {
@@ -1878,6 +1905,7 @@
 
     // --- HOVER CARDS (CSS Vars) ---
     document.querySelectorAll('.srv').forEach(card => {
+      if (!effectsEnabled) return;
       card.addEventListener('mousemove', e => {
         const rect = card.getBoundingClientRect();
         card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
@@ -1886,6 +1914,7 @@
     });
 
     document.querySelectorAll('.wcard').forEach(card => {
+      if (!effectsEnabled) return;
       card.addEventListener('mousemove', e => {
         const rect = card.getBoundingClientRect();
         const xPct = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
@@ -1902,7 +1931,7 @@
     // --- MAGNET CTA ---
     const navCta = document.querySelector('.nav-cta');
     let ctaTargetX = 0, ctaTargetY = 0, ctaCurrentX = 0, ctaCurrentY = 0;
-    if (navCta) {
+    if (navCta && effectsEnabled) {
       navCta.addEventListener('mousemove', (e) => {
         const rect = navCta.getBoundingClientRect();
         ctaTargetX = (e.clientX - rect.left - rect.width / 2) * 0.3;
@@ -1925,24 +1954,6 @@
       }
     }
 
-    // --- SOUND ---
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    function playTick(freq = 400) {
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-      gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-      osc.connect(gain); gain.connect(audioCtx.destination);
-      osc.start(); osc.stop(audioCtx.currentTime + 0.1);
-    }
-    document.querySelectorAll('.btn-p, .btn-s, .nav-cta, .theme-toggle').forEach(btn => {
-      btn.addEventListener('mouseenter', () => playTick(600));
-      btn.addEventListener('click', () => playTick(300));
-    });
-
     // --- STATS NUMBERS ---
     function animateNumbers() {
       document.querySelectorAll('.kpi-v').forEach(kpi => {
@@ -1960,9 +1971,9 @@
 
     // --- POLLEN ---
     function createPollen() {
+      if (!effectsEnabled) return;
       const colors = ['rgba(255, 230, 100, 0.8)', 'rgba(255, 200, 50, 0.6)', 'rgba(255, 245, 180, 0.9)'];
-      // Reduit le nombre de particules de 45 a 30 pour la fluidité
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 12; i++) {
         const p = document.createElement('div');
         p.className = 'pollen';
         p.style.left = Math.random() * 100 + 'vw';
@@ -1979,12 +1990,15 @@
     createPollen();
 
     // --- CURSOR SETUP ---
-    const cursorDot = document.createElement('div');
-    const cursorOutline = document.createElement('div');
-    cursorDot.className = 'cursor-dot'; cursorOutline.className = 'cursor-outline';
-    document.body.appendChild(cursorDot); document.body.appendChild(cursorOutline);
+    const cursorDot = effectsEnabled ? document.createElement('div') : null;
+    const cursorOutline = effectsEnabled ? document.createElement('div') : null;
+    if (effectsEnabled) {
+      cursorDot.className = 'cursor-dot'; cursorOutline.className = 'cursor-outline';
+      document.body.appendChild(cursorDot); document.body.appendChild(cursorOutline);
+    }
 
     document.querySelectorAll('a, button, .srv, .wcard').forEach(el => {
+      if (!effectsEnabled) return;
       el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
       el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
     });
@@ -2005,9 +2019,8 @@
     ];
 
     const leavesData = [];
-    if (floatFrame) {
-      // Reduit le nombre de feuilles dynamiques de 18 à 12 pour des performances maximales
-      for (let i = 0; i < 12; i++) {
+    if (floatFrame && effectsEnabled) {
+      for (let i = 0; i < 6; i++) {
         const leaf = document.createElement('div');
         const isLeft = Math.random() > 0.5;
         const depthType = Math.random();
@@ -2031,20 +2044,30 @@
     }
     const plantsFront = document.querySelectorAll('.plant-deco.front');
     const plantsDeep = document.querySelectorAll('.plant-deco.deep');
-    plantsFront.forEach(p => p.style.willChange = 'transform');
-    plantsDeep.forEach(p => p.style.willChange = 'transform');
+    if (effectsEnabled) {
+      plantsFront.forEach(p => p.style.willChange = 'transform');
+      plantsDeep.forEach(p => p.style.willChange = 'transform');
+    }
 
     // --- GLOBAL EVENTS STATE ---
     let globalMouseX = window.innerWidth / 2, globalMouseY = window.innerHeight / 2;
     let outlineX = globalMouseX, outlineY = globalMouseY;
     let targetScroll = window.scrollY, currentScroll = window.scrollY;
 
-    window.addEventListener('scroll', () => { targetScroll = window.scrollY; }, { passive: true });
-    window.addEventListener('mousemove', (e) => { globalMouseX = e.clientX; globalMouseY = e.clientY; }, { passive: true });
+    let renderFrame = 0;
+    function scheduleRender() {
+      if (!renderFrame && !document.hidden) renderFrame = requestAnimationFrame(centralRender);
+    }
+    window.addEventListener('scroll', () => { targetScroll = window.scrollY; scheduleRender(); }, { passive: true });
+    if (effectsEnabled) {
+      window.addEventListener('mousemove', (e) => { globalMouseX = e.clientX; globalMouseY = e.clientY; scheduleRender(); }, { passive: true });
+    }
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) scheduleRender(); });
 
     // --- CENTRAL RENDER LOOP ---
     const ease = 0.08;
     function centralRender() {
+      renderFrame = 0;
       // 1. Scroll Inertia
       currentScroll += (targetScroll - currentScroll) * ease;
       const maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
@@ -2071,12 +2094,13 @@
       }
 
       // 3. Mouse Interpolations
-      outlineX += (globalMouseX - outlineX) * 0.15;
-      outlineY += (globalMouseY - outlineY) * 0.15;
-
-      cursorDot.style.left = globalMouseX + 'px'; cursorDot.style.top = globalMouseY + 'px';
-      cursorOutline.style.left = outlineX + 'px'; cursorOutline.style.top = outlineY + 'px';
-      if (flare) { flare.style.left = globalMouseX + 'px'; flare.style.top = globalMouseY + 'px'; }
+      if (effectsEnabled) {
+        outlineX += (globalMouseX - outlineX) * 0.15;
+        outlineY += (globalMouseY - outlineY) * 0.15;
+        cursorDot.style.left = globalMouseX + 'px'; cursorDot.style.top = globalMouseY + 'px';
+        cursorOutline.style.left = outlineX + 'px'; cursorOutline.style.top = outlineY + 'px';
+        if (flare) { flare.style.left = globalMouseX + 'px'; flare.style.top = globalMouseY + 'px'; }
+      }
 
       if (navCta) {
         ctaCurrentX += (ctaTargetX - ctaCurrentX) * 0.15;
@@ -2084,9 +2108,12 @@
         navCta.style.transform = `translate3d(${ctaCurrentX}px, ${ctaCurrentY}px, 0)`;
       }
 
-      requestAnimationFrame(centralRender);
+      const scrollMoving = Math.abs(targetScroll - currentScroll) > 0.1;
+      const cursorMoving = effectsEnabled && (Math.abs(globalMouseX - outlineX) > 0.2 || Math.abs(globalMouseY - outlineY) > 0.2);
+      const ctaMoving = effectsEnabled && navCta && (Math.abs(ctaTargetX - ctaCurrentX) > 0.1 || Math.abs(ctaTargetY - ctaCurrentY) > 0.1);
+      if (scrollMoving || cursorMoving || ctaMoving) scheduleRender();
     }
-    centralRender();
+    scheduleRender();
   </script>
 </body>
 
