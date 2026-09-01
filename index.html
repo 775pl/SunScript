@@ -1574,6 +1574,40 @@
         gap: 0
       }
     }
+  
+
+    /* PERFORMANCE: animations décoratives allégées */
+    .plant-deco,
+    .hero-l h1,
+    .srv::after,
+    .wcard::after {
+      animation: none !important;
+    }
+
+    #sun-flare,
+    #sun-flare-back,
+    #sun-flare-front,
+    #float-frame,
+    .pollen,
+    .cursor-dot,
+    .cursor-outline {
+      display: none !important;
+    }
+
+    @media (pointer: fine) {
+      body, a, button, .srv, .wcard { cursor: auto !important; }
+      a, button, .srv, .wcard { cursor: pointer !important; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
   </style>
 </head>
 
@@ -1816,30 +1850,28 @@
                 class="sp">PostgreSQL</span></div>
           </div>
         </div>
-        <div class="wcard">
-          <div class="wimg" style="background:#fdf6ee;height:100px">
+        <a href="https://deadlock-frontend-better-projects.vercel.app/accueil" target="_blank" class="wcard"
+          style="text-decoration:none; display:block; color:inherit;">
+          <div class="wimg" style="background:#fdf2f2;height:100px">
             <svg viewBox="0 0 250 100" width="250" height="100">
-              <rect x="10" y="10" width="230" height="80" rx="6" fill="#fff" stroke="#e0ddd6" stroke-width="1" />
-              <rect x="22" y="22" width="206" height="14" rx="3" fill="#fdf0e0" stroke="#f0c078" stroke-width=".5" />
-              <rect x="28" y="27" width="44" height="4" rx="2" fill="#f0c078" />
-              <rect x="80" y="27" width="56" height="4" rx="2" fill="#fbe8c0" />
-              <rect x="22" y="44" width="96" height="34" rx="4" fill="#fdf6ee" stroke="#f0c078" stroke-width=".5" />
-              <rect x="30" y="52" width="54" height="4" rx="2" fill="#c47c2a" opacity=".6" />
-              <rect x="30" y="61" width="36" height="9" rx="2" fill="#c47c2a" />
-              <rect x="126" y="44" width="106" height="34" rx="4" fill="#fdf6ee" stroke="#f0c078" stroke-width=".5" />
-              <rect x="134" y="52" width="38" height="4" rx="2" fill="#fbe8c0" />
-              <rect x="134" y="61" width="78" height="8" rx="2" fill="#f0e0c0" />
-              <rect x="134" y="61" width="50" height="8" rx="2" fill="#c47c2a" opacity=".55" />
+              <rect x="10" y="10" width="230" height="80" rx="6" fill="#fff" stroke="#f0d5d5" stroke-width="1" />
+              <rect x="22" y="22" width="36" height="36" rx="4" fill="#fae1e1" stroke="#ff4655" stroke-width=".5" />
+              <path d="M40 40L32 32M40 32L32 40" stroke="#ff4655" stroke-width="2" stroke-linecap="round" />
+              <rect x="70" y="28" width="120" height="6" rx="3" fill="#ff4655" opacity=".8" />
+              <rect x="70" y="42" width="70" height="4" rx="2" fill="#f0d5d5" />
+
+              <rect x="22" y="68" width="50" height="12" rx="3" fill="#fae1e1" />
+              <rect x="80" y="68" width="40" height="12" rx="3" fill="#fae1e1" />
+              <rect x="128" y="68" width="60" height="12" rx="3" fill="#fae1e1" />
             </svg>
           </div>
           <div class="wbody">
-            <div class="wtag">Analytics · Dashboard</div>
-            <div class="wt">SunMetrics</div>
-            <p class="wp">KPIs e-commerce, cohortes, exports automatisés.</p>
-            <div class="wstack"><span class="sp">Vue.js</span><span class="sp">Python</span><span
-                class="sp">Clickhouse</span></div>
+            <div class="wtag">Gaming · Outil Web</div>
+            <div class="wt">Valorant Randomizer</div>
+            <p class="wp">Application web permettant de randomizer les armes et la stratégie sur Valorant.</p>
+            <div class="wstack"><span class="sp">React</span><span class="sp">Vercel</span></div>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   </section>
@@ -2025,24 +2057,6 @@
       }
     }
 
-    // --- SOUND ---
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    function playTick(freq = 400) {
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-      gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-      osc.connect(gain); gain.connect(audioCtx.destination);
-      osc.start(); osc.stop(audioCtx.currentTime + 0.1);
-    }
-    document.querySelectorAll('.btn-p, .btn-s, .nav-cta, .theme-toggle').forEach(btn => {
-      btn.addEventListener('mouseenter', () => playTick(600));
-      btn.addEventListener('click', () => playTick(300));
-    });
-
     // --- STATS NUMBERS ---
     function animateNumbers() {
       document.querySelectorAll('.kpi-v').forEach(kpi => {
@@ -2058,135 +2072,18 @@
     }
     setTimeout(animateNumbers, 1000);
 
-    // --- POLLEN ---
-    function createPollen() {
-      const colors = ['rgba(255, 230, 100, 0.8)', 'rgba(255, 200, 50, 0.6)', 'rgba(255, 245, 180, 0.9)'];
-      // Reduit le nombre de particules de 45 a 30 pour la fluidité
-      for (let i = 0; i < 30; i++) {
-        const p = document.createElement('div');
-        p.className = 'pollen';
-        p.style.left = Math.random() * 100 + 'vw';
-        p.style.top = Math.random() * 100 + 'vh';
-        p.style.width = Math.random() * 5 + 2 + 'px';
-        p.style.height = p.style.width;
-        p.style.background = colors[Math.floor(Math.random() * colors.length)];
-        p.style.animationDuration = Math.random() * 8 + 5 + 's';
-        p.style.animationDelay = Math.random() * 10 + 's';
-        p.style.willChange = 'transform, opacity';
-        document.body.appendChild(p);
-      }
-    }
-    createPollen();
-
-    // --- CURSOR SETUP ---
-    const cursorDot = document.createElement('div');
-    const cursorOutline = document.createElement('div');
-    cursorDot.className = 'cursor-dot'; cursorOutline.className = 'cursor-outline';
-    document.body.appendChild(cursorDot); document.body.appendChild(cursorOutline);
-
-    document.querySelectorAll('a, button, .srv, .wcard').forEach(el => {
-      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-    });
-
-    // --- DOM ELEMENTS CACHE ---
-    const flare = document.getElementById('sun-flare');
-    const heroText = document.querySelector('.hero-l');
-    const heroDash = document.querySelector('.hero-r');
+    // --- LIGHTWEIGHT SCROLL STATE ---
     const nav = document.querySelector('nav');
-
-    // --- LEAVES SETUP ---
-    const floatFrame = document.getElementById('float-frame');
-    const leafSVGs = [
-      `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 5 C 80 20, 95 60, 50 95 C 5 60, 20 20, 50 5 Z" stroke="var(--sage-m)" stroke-width="2"/><path d="M50 5 L50 95" stroke="var(--sage-m)" stroke-width="1" stroke-dasharray="2 4"/></svg>`,
-      `<svg viewBox="0 0 100 100" fill="var(--sage-l)" xmlns="http://www.w3.org/2000/svg"><path d="M10 90 C 20 40, 60 10, 90 10 C 80 60, 40 90, 10 90 Z" opacity="0.8"/></svg>`,
-      `<svg viewBox="0 0 100 100" fill="none" stroke="var(--sage)" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg"><path d="M20 80 C 10 50, 40 20, 80 20 C 70 50, 60 90, 20 80 Z" fill="rgba(232, 245, 236, 0.4)"/></svg>`,
-      `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 10 C 70 40, 60 80, 50 90 C 40 80, 30 40, 50 10 Z" stroke="var(--sage-m)" stroke-width="1.5"/><circle cx="50" cy="80" r="3" fill="var(--sage-m)"/></svg>`
-    ];
-
-    const leavesData = [];
-    if (floatFrame) {
-      // Reduit le nombre de feuilles dynamiques de 18 à 12 pour des performances maximales
-      for (let i = 0; i < 12; i++) {
-        const leaf = document.createElement('div');
-        const isLeft = Math.random() > 0.5;
-        const depthType = Math.random();
-        let depthClass = 'depth-mid', speed = 1.2;
-        if (depthType > 0.7) { depthClass = 'depth-front'; speed = 2.5; }
-        else if (depthType < 0.3) { depthClass = 'depth-back'; speed = 0.5; }
-
-        leaf.className = `float-leaf ${depthClass}`;
-        leaf.innerHTML = leafSVGs[Math.floor(Math.random() * leafSVGs.length)];
-        const baseX = isLeft ? (Math.random() * 35 - 10) : (Math.random() * 35 + 65);
-        const baseY = Math.random() * 100;
-        const baseRot = Math.random() * 360;
-
-        leaf.style.left = baseX + 'vw'; leaf.style.top = baseY + 'vh';
-        leaf.style.width = (Math.random() * 100 + 60) + 'px';
-        leaf.style.willChange = 'transform';
-        floatFrame.appendChild(leaf);
-
-        leavesData.push({ el: leaf, baseRot, direction: isLeft ? -1 : 1, speed, driftSpeed: Math.random() * 0.4 + 0.1 });
-      }
-    }
-    const plantsFront = document.querySelectorAll('.plant-deco.front');
-    const plantsDeep = document.querySelectorAll('.plant-deco.deep');
-    plantsFront.forEach(p => p.style.willChange = 'transform');
-    plantsDeep.forEach(p => p.style.willChange = 'transform');
-
-    // --- GLOBAL EVENTS STATE ---
-    let globalMouseX = window.innerWidth / 2, globalMouseY = window.innerHeight / 2;
-    let outlineX = globalMouseX, outlineY = globalMouseY;
-    let targetScroll = window.scrollY, currentScroll = window.scrollY;
-
-    window.addEventListener('scroll', () => { targetScroll = window.scrollY; }, { passive: true });
-    window.addEventListener('mousemove', (e) => { globalMouseX = e.clientX; globalMouseY = e.clientY; }, { passive: true });
-
-    // --- CENTRAL RENDER LOOP ---
-    const ease = 0.08;
-    function centralRender() {
-      // 1. Scroll Inertia
-      currentScroll += (targetScroll - currentScroll) * ease;
-      const maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
-      const progress = Math.min(currentScroll / (maxScroll * 0.55), 1);
-
-      // 2. Nav & Parallax (only recalculate if scrolling significantly)
-      if (Math.abs(targetScroll - currentScroll) > 0.1) {
-        if (currentScroll > 50) nav.classList.add('scrolled'); else nav.classList.remove('scrolled');
-
-        if (window.innerWidth > 900 && heroText && heroDash) {
-          heroText.style.transform = `translate3d(0, ${currentScroll * 0.1}px, 0)`;
-          heroDash.style.transform = `translate3d(0, ${currentScroll * -0.05}px, 0)`;
-        }
-
-        plantsFront.forEach(p => p.style.transform = `translate3d(0, ${currentScroll * -0.2}px, 0) rotate(${currentScroll * 0.02}deg) scale(${1 + progress * 0.2})`);
-        plantsDeep.forEach(p => p.style.transform = `translate3d(0, ${currentScroll * 0.05}px, 0) rotate(${currentScroll * 0.01}deg)`);
-
-        leavesData.forEach(l => {
-          const spread = progress * 200 * l.speed * l.direction;
-          const drift = currentScroll * -0.3 * l.driftSpeed;
-          const rot = l.baseRot + (progress * 60 * l.direction);
-          l.el.style.transform = `translate3d(${spread}px, ${drift}px, 0) rotate(${rot}deg)`;
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (nav) nav.classList.toggle('scrolled', window.scrollY > 50);
+          ticking = false;
         });
+        ticking = true;
       }
-
-      // 3. Mouse Interpolations
-      outlineX += (globalMouseX - outlineX) * 0.15;
-      outlineY += (globalMouseY - outlineY) * 0.15;
-
-      cursorDot.style.left = globalMouseX + 'px'; cursorDot.style.top = globalMouseY + 'px';
-      cursorOutline.style.left = outlineX + 'px'; cursorOutline.style.top = outlineY + 'px';
-      if (flare) { flare.style.left = globalMouseX + 'px'; flare.style.top = globalMouseY + 'px'; }
-
-      if (navCta) {
-        ctaCurrentX += (ctaTargetX - ctaCurrentX) * 0.15;
-        ctaCurrentY += (ctaTargetY - ctaCurrentY) * 0.15;
-        navCta.style.transform = `translate3d(${ctaCurrentX}px, ${ctaCurrentY}px, 0)`;
-      }
-
-      requestAnimationFrame(centralRender);
-    }
-    centralRender();
+    }, { passive: true });
   </script>
 </body>
 
