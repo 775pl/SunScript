@@ -6,6 +6,7 @@
   "engines": { "node": ">=22" },
   "scripts": {
     "build": "tsc && npm run build:assets && npm run build:css",
+    "build:vercel": "npm run typecheck && npm run build:assets && npm run build:css",
     "build:assets": "node scripts/assets.mjs",
     "build:css": "tailwindcss -i src/styles/site.css -o public/assets/site.css --minify",
     "start": "node dist/main.js",

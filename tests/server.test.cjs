@@ -1,5 +1,8 @@
 const { test, before, after } = require('node:test');
 const assert = require('node:assert/strict');
+const { readFileSync } = require('node:fs');
+const { join } = require('node:path');
+const ts = require('typescript');
 const { escapeXML } = require('ejs');
 const { createApp } = require('../dist/create-app');
 const { pages } = require('../dist/page-data');
@@ -7,6 +10,22 @@ let app, base;
 
 before(async () => { app = await createApp(); await app.listen(0, '127.0.0.1'); base = await app.getUrl(); });
 after(async () => { await app?.close(); });
+
+test('Vercel uses the native NestJS entrypoint and packages EJS views', () => {
+  const root = join(__dirname, '..');
+  const config = JSON.parse(readFileSync(join(root, 'vercel.json'), 'utf8'));
+  const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
+  assert.equal(config.framework, 'nestjs');
+  assert.equal(config.buildCommand, 'npm run build:vercel');
+  assert(pkg.scripts['build:vercel'].includes('build:assets'));
+  assert(pkg.scripts['build:vercel'].includes('build:css'));
+  assert.equal(config.outputDirectory, undefined, 'Do not deploy dist as a static site');
+  assert.equal(config.functions['src/main.ts'].includeFiles, 'views/**/*');
+  const entry = ts.createSourceFile('main.ts', readFileSync(join(root, 'src/main.ts'), 'utf8'), ts.ScriptTarget.Latest, true);
+  assert(entry.statements.some(statement => ts.isImportDeclaration(statement)
+    && statement.moduleSpecifier.text === '@nestjs/core'
+    && !statement.importClause?.isTypeOnly), 'Vercel must see a direct runtime NestJS import');
+});
 
 for (const [key, metadata] of Object.entries(pages)) {
   const route = key === 'home' ? '/' : '/' + key;

@@ -43,7 +43,11 @@ Les réglages système clair/sombre, le clavier, le curseur natif et le contenu 
 
 ## Production / Vercel
 
-Le projet nécessite maintenant un serveur Node : ce n'est plus un dossier HTML à servir directement. Vercel prend en charge NestJS via `src/main.ts` ; `vercel.json` définit le build et inclut les vues dans la fonction. Garder le répertoire racine du dépôt comme racine du projet Vercel et ne pas configurer `dist` comme sortie statique. Aucun déploiement n'est effectué par la migration.
+Le projet nécessite maintenant un serveur Node : ce n'est plus un dossier HTML à servir directement. `vercel.json` impose le framework `nestjs` et inclut les vues EJS dans la fonction. `src/main.ts` importe directement `NestFactory` pour que Vercel détecte son point d'entrée natif ; aucun dossier `api/` ni réécriture de routes n'est nécessaire.
+
+Le build Vercel (`npm run build:vercel`) vérifie TypeScript et génère les actifs dans `public/`. Vercel compile et empaquette lui-même le serveur ; `npm run build` reste destiné au serveur Node local avec `dist/main.js`.
+
+Dans les réglages Vercel, garder le répertoire racine du dépôt comme **Root Directory** et désactiver toute surcharge **Output Directory** héritée du site statique (notamment `dist`). Le framework est défini par le fichier de configuration. Redéployer après avoir publié ces modifications dans le dépôt connecté. Aucun déploiement n'est effectué automatiquement par ces commandes de build.
 
 Variables d'environnement : `PORT` (3000 par défaut), `NODE_ENV=production` en production, `SITE_URL` pour l'origine canonique. Les variables peuvent être fournies par l'hébergeur ou le terminal ; `.env.example` est documentaire et `.env` n'est pas chargé automatiquement. Vérifier également l'origine dans `public/robots.txt` et `public/sitemap.xml` avant déploiement.
 

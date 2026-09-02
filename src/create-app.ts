@@ -7,6 +7,10 @@ import { AppModule } from './app.module';
 
 export async function createApp() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, { logger: ['error', 'warn'] });
+  return configureApp(app);
+}
+
+export function configureApp(app: NestExpressApplication) {
   const root = join(__dirname, '..');
   app.disable('x-powered-by');
   app.use(helmet({
