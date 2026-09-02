@@ -99,12 +99,15 @@ nav{
   .nav-inner { padding: 0; }
 }
 </style>
+<link rel="stylesheet" href="accessibility.css">
+<script src="site.js" defer></script>
 </head>
 <body>
-<nav>
+<a class="skip-link" href="#main-content">Aller au contenu</a>
+<nav aria-label="Navigation principale">
   <div class="nav-inner">
     <a class="logo" href="index.html">
-      <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+      <svg aria-hidden="true" focusable="false" width="26" height="26" viewBox="0 0 26 26" fill="none">
         <circle cx="13" cy="13" r="5.5" fill="#3d8c50" opacity=".85"/>
         <path d="M13 2.5C15.5 6 19.5 10 17.5 16C15 12.5 11 9.5 13 2.5Z" fill="#2a6338"/>
         <path d="M2.5 19.5Q6 16 9.5 19.5Q13 23 16.5 19.5Q20 16 23.5 19.5" stroke="#1e7a90" stroke-width="1.5" fill="none" stroke-linecap="round"/>
@@ -115,12 +118,13 @@ nav{
   </div>
 </nav>
 
+<main id="main-content" tabindex="-1">
 <header class="page-header">
   <h1>Mentions Légales</h1>
   <p>En vigueur au 1er septembre 2026</p>
 </header>
 
-<main class="legal-content">
+<div class="legal-content">
   <h2>1. Éditeur du site</h2>
   <p>Le site <strong>SunScript</strong> est édité par <strong>Selma EL JABRI--CHANTELAUZE</strong>, entrepreneur individuel, exerçant sous le nom commercial <strong>SunScript</strong>.</p>
   <p>Siège : 7 rue Jean Bonnin, 33310 Lormont, France<br>
@@ -146,6 +150,12 @@ nav{
 
   <h2>5. Cookies</h2>
   <p>Dans sa version actuelle, le site ne dépose aucun cookie publicitaire ou de mesure d'audience et n'utilise aucun traceur soumis au consentement. Le choix de thème de l'accueil peut être mémorisé uniquement dans le stockage local de votre navigateur. Si des traceurs non essentiels sont ajoutés ultérieurement, ils seront bloqués jusqu'au recueil de votre consentement.</p>
+</div>
 </main>
+
+  <div class="display-controls" role="group" aria-label="Préférences d'affichage" hidden>
+    <button class="theme-toggle" type="button" aria-label="Activer le thème sombre" aria-pressed="false">Thème : clair</button>
+    <button class="motion-toggle" type="button" aria-label="Activer les animations" aria-pressed="false">Animations : non</button>
+  </div>
 </body>
 </html>

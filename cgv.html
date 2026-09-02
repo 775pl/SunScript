@@ -101,12 +101,15 @@ nav{
   .nav-inner { padding: 0; }
 }
 </style>
+<link rel="stylesheet" href="accessibility.css">
+<script src="site.js" defer></script>
 </head>
 <body>
-<nav>
+<a class="skip-link" href="#main-content">Aller au contenu</a>
+<nav aria-label="Navigation principale">
   <div class="nav-inner">
     <a class="logo" href="index.html">
-      <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+      <svg aria-hidden="true" focusable="false" width="26" height="26" viewBox="0 0 26 26" fill="none">
         <circle cx="13" cy="13" r="5.5" fill="#3d8c50" opacity=".85"/>
         <path d="M13 2.5C15.5 6 19.5 10 17.5 16C15 12.5 11 9.5 13 2.5Z" fill="#2a6338"/>
         <path d="M2.5 19.5Q6 16 9.5 19.5Q13 23 16.5 19.5Q20 16 23.5 19.5" stroke="#1e7a90" stroke-width="1.5" fill="none" stroke-linecap="round"/>
@@ -117,12 +120,13 @@ nav{
   </div>
 </nav>
 
+<main id="main-content" tabindex="-1">
 <header class="page-header">
   <h1>Conditions Générales de Vente</h1>
   <p>Prestations entre professionnels · Version du 1er septembre 2026</p>
 </header>
 
-<main class="legal-content">
+<div class="legal-content">
   <p><strong>Important :</strong> les présentes CGV s'appliquent exclusivement aux clients agissant à des fins professionnelles. SunScript ne contracte pas avec des consommateurs sur leur fondement.</p>
 
   <h2>1. Identité et champ d'application</h2>
@@ -167,6 +171,12 @@ nav{
 
   <h2>13. Droit applicable et litiges</h2>
   <p>Le contrat est soumis au droit français. Les parties tentent de résoudre amiablement tout différend pendant trente jours à compter de sa notification écrite. <strong>À défaut d'accord, tout litige entre professionnels relatif au contrat relèvera de la compétence exclusive des tribunaux du ressort de Bordeaux, y compris en cas de pluralité de défendeurs ou d'appel en garantie.</strong></p>
+</div>
 </main>
+
+  <div class="display-controls" role="group" aria-label="Préférences d'affichage" hidden>
+    <button class="theme-toggle" type="button" aria-label="Activer le thème sombre" aria-pressed="false">Thème : clair</button>
+    <button class="motion-toggle" type="button" aria-label="Activer les animations" aria-pressed="false">Animations : non</button>
+  </div>
 </body>
 </html>

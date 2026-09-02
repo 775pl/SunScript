@@ -1595,17 +1595,20 @@
       }
     }
   </style>
+<link rel="stylesheet" href="accessibility.css">
+<script src="site.js" defer></script>
 </head>
 
 <body>
+<a class="skip-link" href="#main-content">Aller au contenu</a>
   <div class="float-frame" id="float-frame"></div>
   <div id="sun-flare"></div>
   <div id="sun-flare-back"></div>
   <div id="sun-flare-front"></div>
-  <nav>
+  <nav aria-label="Navigation principale">
     <div class="nav-inner">
-      <a class="logo" href="#">
-        <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+      <a class="logo" href="#main-content">
+        <svg aria-hidden="true" focusable="false" width="26" height="26" viewBox="0 0 26 26" fill="none">
           <circle cx="13" cy="13" r="5.5" fill="#3d8c50" opacity=".85" />
           <path d="M13 2.5C15.5 6 19.5 10 17.5 16C15 12.5 11 9.5 13 2.5Z" fill="#2a6338" />
           <path d="M2.5 19.5Q6 16 9.5 19.5Q13 23 16.5 19.5Q20 16 23.5 19.5" stroke="#1e7a90" stroke-width="1.5"
@@ -1622,19 +1625,19 @@
       <a class="nav-cta" href="mailto:hello@sunscript.fr">Démarrer un projet ↗</a>
     </div>
   </nav>
+  <main id="main-content" tabindex="-1">
   <section class="hero-shell">
     <section class="hero">
       <div class="hero-l">
-        <svg class="plant-deco deep" style="top:10%; left:20%; width:120px;" viewBox="0 0 100 100">
+        <svg aria-hidden="true" focusable="false" class="plant-deco deep" style="top:10%; left:20%; width:120px;" viewBox="0 0 100 100">
           <path d="M10,90 Q50,80 90,10 Q60,40 10,90" fill="var(--sage-m)" />
         </svg>
         <div class="avail">
           <div class="avail-dot"></div>
           <span class="avail-txt">Studio ouvert aux nouveaux projets</span>
         </div>
-        <button class="theme-toggle" type="button" aria-label="Changer le thème" onclick="toggleTheme()">☀️</button>
         <h1>Des logiciels utiles,<br><em>pensés pour durer.</em></h1>
-        <svg class="plant-deco front p-hero-front" viewBox="0 0 100 100" fill="var(--sage)">
+        <svg aria-hidden="true" focusable="false" class="plant-deco front p-hero-front" viewBox="0 0 100 100" fill="var(--sage)">
           <path d="M0,100 Q40,80 100,0 Q70,50 0,100" />
           <path d="M0,100 Q30,60 80,20 Q50,60 0,100" fill="var(--sage-d)" opacity="0.3" />
         </svg>
@@ -1670,7 +1673,7 @@
           <div class="dash-body">
             <div class="dash-hd">
               <span class="dash-ht">Vue d'ensemble</span>
-              <button class="dash-act">+ Nouveau</button>
+              <span class="dash-act" aria-hidden="true">+ Nouveau</span>
             </div>
             <div class="kpis">
               <div class="kpi">
@@ -1725,39 +1728,39 @@
     <div class="srv-grid">
       <div class="srv">
         <div class="srv-ic" style="background:var(--sage-l)">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 20 20" fill="none">
             <rect x="2" y="4" width="16" height="12" rx="2" stroke="#3d8c50" stroke-width="1.5" />
             <path d="M6 8h8M6 11h5" stroke="#3d8c50" stroke-width="1.5" stroke-linecap="round" />
           </svg>
         </div>
-        <div class="srv-t">Applications web</div>
+        <h3 class="srv-t">Applications web</h3>
         <p class="srv-p">Interfaces rapides, accessibles et belles. Du MVP au produit mature, on construit avec la même
           rigueur.</p>
-        <a class="srv-lnk" href="service-web.html">En savoir plus →</a>
+        <a class="srv-lnk" href="service-web.html" aria-label="En savoir plus sur les applications web">En savoir plus →</a>
       </div>
       <div class="srv">
         <div class="srv-ic" style="background:var(--ocean-l)">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 20 20" fill="none">
             <circle cx="10" cy="10" r="7" stroke="#1e7a90" stroke-width="1.5" />
             <path d="M7 10l2 2 4-4" stroke="#1e7a90" stroke-width="1.5" stroke-linecap="round"
               stroke-linejoin="round" />
           </svg>
         </div>
-        <div class="srv-t">Systèmes métier</div>
+        <h3 class="srv-t">Systèmes métier</h3>
         <p class="srv-p">CRM, ERP, outils internes. On remplace les tableurs Excel qui ne tiennent plus la charge.</p>
-        <a class="srv-lnk" href="service-systemes.html">En savoir plus →</a>
+        <a class="srv-lnk" href="service-systemes.html" aria-label="En savoir plus sur les systèmes métier">En savoir plus →</a>
       </div>
       <div class="srv">
         <div class="srv-ic" style="background:var(--sun-l)">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path d="M3 17l4-4 3 3 7-9" stroke="#c47c2a" stroke-width="1.5" stroke-linecap="round"
               stroke-linejoin="round" />
           </svg>
         </div>
-        <div class="srv-t">APIs & intégrations</div>
+        <h3 class="srv-t">APIs & intégrations</h3>
         <p class="srv-p">Connecteurs, webhooks, synchros de données. On fait parler vos outils entre eux sans friction.
         </p>
-        <a class="srv-lnk" href="service-apis.html">En savoir plus →</a>
+        <a class="srv-lnk" href="service-apis.html" aria-label="En savoir plus sur les API et intégrations">En savoir plus →</a>
       </div>
     </div>
   </section>
@@ -1765,7 +1768,7 @@
   <div class="divider"></div>
 
   <section class="section" id="realisations">
-    <svg class="plant-deco deep" style="top:-30px; right:5%; width:140px; transform: rotate(45deg);"
+    <svg aria-hidden="true" focusable="false" class="plant-deco deep" style="top:-30px; right:5%; width:140px; transform: rotate(45deg);"
       viewBox="0 0 100 100">
       <path d="M50 5 C 80 20, 95 60, 50 95 C 5 60, 20 20, 50 5 Z" fill="var(--sage-l)" />
     </svg>
@@ -1778,7 +1781,7 @@
       <a href="https://valorant-randomize.vercel.app/" target="_blank" rel="noopener noreferrer" class="wcard"
         style="text-decoration:none; display:block; color:inherit;">
         <div class="wimg" style="background:#fdf2f2;height:180px">
-          <svg viewBox="0 0 300 162" width="300" height="162">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 300 162" width="300" height="162">
             <rect x="16" y="12" width="268" height="138" rx="7" fill="#fff" stroke="#f0d5d5" stroke-width="1" />
             <rect x="30" y="28" width="50" height="50" rx="6" fill="#fae1e1" stroke="#ff4655" stroke-width=".7" />
             <path d="M55 53L43 41M55 41L43 53" stroke="#ff4655" stroke-width="3" stroke-linecap="round" />
@@ -1791,7 +1794,7 @@
         </div>
         <div class="wbody">
           <div class="wtag">Gaming · Outil web</div>
-          <div class="wt">Valorant Randomizer</div>
+          <h3 class="wt">Valorant Randomizer</h3>
           <p class="wp">Application web permettant de randomiser les armes et la stratégie sur Valorant.</p>
           <div class="wstack"><span class="sp">React</span><span class="sp">Vercel</span></div>
         </div>
@@ -1802,7 +1805,7 @@
   <div class="divider"></div>
 
   <section class="section" id="process" style="background:var(--white)">
-    <svg class="plant-deco front" style="bottom:-20px; left:-10px; width:160px; transform: rotate(-30deg);"
+    <svg aria-hidden="true" focusable="false" class="plant-deco front" style="bottom:-20px; left:-10px; width:160px; transform: rotate(-30deg);"
       viewBox="0 0 120 120">
       <path d="M0,120 C40,100 80,60 100,0 C70,40 30,80 0,120" fill="var(--sage-m)" />
     </svg>
@@ -1815,22 +1818,22 @@
     <div class="proc">
       <div class="step">
         <div class="sn">01 — Découverte</div>
-        <div class="st">On comprend avant de coder</div>
+        <h3 class="st">On comprend avant de coder</h3>
         <p class="sp2">2–3 sessions pour cartographier vos enjeux, vos utilisateurs, ce qui bloque vraiment.</p>
       </div>
       <div class="step">
         <div class="sn">02 — Prototype</div>
-        <div class="st">Concret en 2 semaines</div>
+        <h3 class="st">Concret en 2 semaines</h3>
         <p class="sp2">Un prototype cliquable pour valider les idées avant d'investir dans le développement.</p>
       </div>
       <div class="step">
         <div class="sn">03 — Build</div>
-        <div class="st">Sprints courts, livraisons fréquentes</div>
+        <h3 class="st">Sprints courts, livraisons fréquentes</h3>
         <p class="sp2">Cycles de 2 semaines. Vous voyez l'avancement en temps réel. Rien de caché.</p>
       </div>
       <div class="step">
         <div class="sn">04 — Après</div>
-        <div class="st">On reste là</div>
+        <h3 class="st">On reste là</h3>
         <p class="sp2">Maintenance, évolutions, support. Un projet livré ne s'arrête pas le jour de la mise en prod.</p>
       </div>
     </div>
@@ -1842,7 +1845,7 @@
   <div id="contact" class="cta-block">
     <div>
       <div class="cta-tag">Prêt à démarrer ?</div>
-      <div class="cta-h">Un projet en tête ?<br>On a hâte d'en entendre parler.</div>
+      <h2 class="cta-h">Un projet en tête ?<br>On a hâte d'en entendre parler.</h2>
       <div class="cta-p">On répond sous 24h. Premier échange gratuit, sans engagement.</div>
     </div>
     <div class="cta-r">
@@ -1852,6 +1855,7 @@
     </div>
   </div>
 
+  </main>
   <footer>
     <div class="fl">Sun<span>Script</span></div>
     <div class="flinks">
@@ -1862,259 +1866,12 @@
     <div class="fc">© 2026 SunScript · Lormont, FR</div>
   </footer>
 
-  <script>
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const limitedDevice = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
-      (navigator.deviceMemory && navigator.deviceMemory <= 4);
-    const effectsEnabled = window.innerWidth > 900 && window.matchMedia('(pointer: fine)').matches && !prefersReducedMotion && !limitedDevice;
-    document.body.classList.toggle('effects-enabled', effectsEnabled);
-    document.body.classList.toggle('low-effects', !effectsEnabled);
 
-    const h = [42, 58, 35, 70, 52, 88, 65], c = ['#b8ddc2', '#b8ddc2', '#b8ddc2', '#b8ddc2', '#b8ddc2', '#3d8c50', '#c47c2a'];
-    const b = document.getElementById('bars');
-    if (b) {
-      h.forEach((v, i) => {
-        const d = document.createElement('div');
-        d.className = 'bar';
-        d.style.cssText = `height:${v}%;background:${c[i]};opacity:${i >= 5 ? '1' : '.5'}`;
-        b.appendChild(d);
-      });
-    }
 
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        const t = document.querySelector(a.getAttribute('href'));
-        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }) }
-      });
-    });
-
-    // --- REVEAL ANIMATION ---
-    const observerOptions = { threshold: 0.1 };
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('section, .srv, .wcard, .step').forEach(el => {
-      el.classList.add('reveal');
-      observer.observe(el);
-    });
-
-    // --- HOVER CARDS (CSS Vars) ---
-    document.querySelectorAll('.srv').forEach(card => {
-      if (!effectsEnabled) return;
-      card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
-        card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-        card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-      });
-    });
-
-    document.querySelectorAll('.wcard').forEach(card => {
-      if (!effectsEnabled) return;
-      card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
-        const xPct = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-        const yPct = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-        card.style.transform = `perspective(1000px) rotateX(${yPct * -4}deg) rotateY(${xPct * 4}deg) scale3d(1.02, 1.02, 1.02)`;
-        card.style.transition = 'none';
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-        card.style.transition = 'transform 0.5s ease';
-      });
-    });
-
-    // --- MAGNET CTA ---
-    const navCta = document.querySelector('.nav-cta');
-    let ctaTargetX = 0, ctaTargetY = 0, ctaCurrentX = 0, ctaCurrentY = 0;
-    if (navCta && effectsEnabled) {
-      navCta.addEventListener('mousemove', (e) => {
-        const rect = navCta.getBoundingClientRect();
-        ctaTargetX = (e.clientX - rect.left - rect.width / 2) * 0.3;
-        ctaTargetY = (e.clientY - rect.top - rect.height / 2) * 0.5;
-      });
-      navCta.addEventListener('mouseleave', () => {
-        ctaTargetX = 0; ctaTargetY = 0;
-      });
-    }
-
-    // --- DARK MODE ---
-    function toggleTheme() {
-      const body = document.body;
-      const btn = document.querySelector('.theme-toggle');
-      body.classList.toggle('dark-mode');
-      if (body.classList.contains('dark-mode')) {
-        btn.innerHTML = '🌙'; localStorage.setItem('theme', 'dark');
-      } else {
-        btn.innerHTML = '☀️'; localStorage.setItem('theme', 'light');
-      }
-    }
-
-    // --- STATS NUMBERS ---
-    function animateNumbers() {
-      document.querySelectorAll('.kpi-v').forEach(kpi => {
-        const target = kpi.innerText;
-        if (target.includes('€') || target.includes('.')) return;
-        let count = 0, final = parseInt(target.replace(/\s/g, ''));
-        const timer = setInterval(() => {
-          count += Math.ceil(final / 20);
-          if (count >= final) { kpi.innerText = target; clearInterval(timer); }
-          else { kpi.innerText = count.toLocaleString(); }
-        }, 50);
-      });
-    }
-    setTimeout(animateNumbers, 1000);
-
-    // --- POLLEN ---
-    function createPollen() {
-      if (!effectsEnabled) return;
-      const colors = ['rgba(255, 230, 100, 0.8)', 'rgba(255, 200, 50, 0.6)', 'rgba(255, 245, 180, 0.9)'];
-      for (let i = 0; i < 12; i++) {
-        const p = document.createElement('div');
-        p.className = 'pollen';
-        p.style.left = Math.random() * 100 + 'vw';
-        p.style.top = Math.random() * 100 + 'vh';
-        p.style.width = Math.random() * 5 + 2 + 'px';
-        p.style.height = p.style.width;
-        p.style.background = colors[Math.floor(Math.random() * colors.length)];
-        p.style.animationDuration = Math.random() * 8 + 5 + 's';
-        p.style.animationDelay = Math.random() * 10 + 's';
-        p.style.willChange = 'transform, opacity';
-        document.body.appendChild(p);
-      }
-    }
-    createPollen();
-
-    // --- CURSOR SETUP ---
-    const cursorDot = effectsEnabled ? document.createElement('div') : null;
-    const cursorOutline = effectsEnabled ? document.createElement('div') : null;
-    if (effectsEnabled) {
-      cursorDot.className = 'cursor-dot'; cursorOutline.className = 'cursor-outline';
-      document.body.appendChild(cursorDot); document.body.appendChild(cursorOutline);
-    }
-
-    document.querySelectorAll('a, button, .srv, .wcard').forEach(el => {
-      if (!effectsEnabled) return;
-      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-    });
-
-    // --- DOM ELEMENTS CACHE ---
-    const flare = document.getElementById('sun-flare');
-    const heroText = document.querySelector('.hero-l');
-    const heroDash = document.querySelector('.hero-r');
-    const nav = document.querySelector('nav');
-
-    // --- LEAVES SETUP ---
-    const floatFrame = document.getElementById('float-frame');
-    const leafSVGs = [
-      `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 5 C 80 20, 95 60, 50 95 C 5 60, 20 20, 50 5 Z" stroke="var(--sage-m)" stroke-width="2"/><path d="M50 5 L50 95" stroke="var(--sage-m)" stroke-width="1" stroke-dasharray="2 4"/></svg>`,
-      `<svg viewBox="0 0 100 100" fill="var(--sage-l)" xmlns="http://www.w3.org/2000/svg"><path d="M10 90 C 20 40, 60 10, 90 10 C 80 60, 40 90, 10 90 Z" opacity="0.8"/></svg>`,
-      `<svg viewBox="0 0 100 100" fill="none" stroke="var(--sage)" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg"><path d="M20 80 C 10 50, 40 20, 80 20 C 70 50, 60 90, 20 80 Z" fill="rgba(232, 245, 236, 0.4)"/></svg>`,
-      `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 10 C 70 40, 60 80, 50 90 C 40 80, 30 40, 50 10 Z" stroke="var(--sage-m)" stroke-width="1.5"/><circle cx="50" cy="80" r="3" fill="var(--sage-m)"/></svg>`
-    ];
-
-    const leavesData = [];
-    if (floatFrame && effectsEnabled) {
-      for (let i = 0; i < 6; i++) {
-        const leaf = document.createElement('div');
-        const isLeft = Math.random() > 0.5;
-        const depthType = Math.random();
-        let depthClass = 'depth-mid', speed = 1.2;
-        if (depthType > 0.7) { depthClass = 'depth-front'; speed = 2.5; }
-        else if (depthType < 0.3) { depthClass = 'depth-back'; speed = 0.5; }
-
-        leaf.className = `float-leaf ${depthClass}`;
-        leaf.innerHTML = leafSVGs[Math.floor(Math.random() * leafSVGs.length)];
-        const baseX = isLeft ? (Math.random() * 35 - 10) : (Math.random() * 35 + 65);
-        const baseY = Math.random() * 100;
-        const baseRot = Math.random() * 360;
-
-        leaf.style.left = baseX + 'vw'; leaf.style.top = baseY + 'vh';
-        leaf.style.width = (Math.random() * 100 + 60) + 'px';
-        leaf.style.willChange = 'transform';
-        floatFrame.appendChild(leaf);
-
-        leavesData.push({ el: leaf, baseRot, direction: isLeft ? -1 : 1, speed, driftSpeed: Math.random() * 0.4 + 0.1 });
-      }
-    }
-    const plantsFront = document.querySelectorAll('.plant-deco.front');
-    const plantsDeep = document.querySelectorAll('.plant-deco.deep');
-    if (effectsEnabled) {
-      plantsFront.forEach(p => p.style.willChange = 'transform');
-      plantsDeep.forEach(p => p.style.willChange = 'transform');
-    }
-
-    // --- GLOBAL EVENTS STATE ---
-    let globalMouseX = window.innerWidth / 2, globalMouseY = window.innerHeight / 2;
-    let outlineX = globalMouseX, outlineY = globalMouseY;
-    let targetScroll = window.scrollY, currentScroll = window.scrollY;
-
-    let renderFrame = 0;
-    function scheduleRender() {
-      if (!renderFrame && !document.hidden) renderFrame = requestAnimationFrame(centralRender);
-    }
-    window.addEventListener('scroll', () => { targetScroll = window.scrollY; scheduleRender(); }, { passive: true });
-    if (effectsEnabled) {
-      window.addEventListener('mousemove', (e) => { globalMouseX = e.clientX; globalMouseY = e.clientY; scheduleRender(); }, { passive: true });
-    }
-    document.addEventListener('visibilitychange', () => { if (!document.hidden) scheduleRender(); });
-
-    // --- CENTRAL RENDER LOOP ---
-    const ease = 0.08;
-    function centralRender() {
-      renderFrame = 0;
-      // 1. Scroll Inertia
-      currentScroll += (targetScroll - currentScroll) * ease;
-      const maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
-      const progress = Math.min(currentScroll / (maxScroll * 0.55), 1);
-
-      // 2. Nav & Parallax (only recalculate if scrolling significantly)
-      if (Math.abs(targetScroll - currentScroll) > 0.1) {
-        if (currentScroll > 50) nav.classList.add('scrolled'); else nav.classList.remove('scrolled');
-
-        if (window.innerWidth > 900 && heroText && heroDash) {
-          heroText.style.transform = `translate3d(0, ${currentScroll * 0.1}px, 0)`;
-          heroDash.style.transform = `translate3d(0, ${currentScroll * -0.05}px, 0)`;
-        }
-
-        plantsFront.forEach(p => p.style.transform = `translate3d(0, ${currentScroll * -0.2}px, 0) rotate(${currentScroll * 0.02}deg) scale(${1 + progress * 0.2})`);
-        plantsDeep.forEach(p => p.style.transform = `translate3d(0, ${currentScroll * 0.05}px, 0) rotate(${currentScroll * 0.01}deg)`);
-
-        leavesData.forEach(l => {
-          const spread = progress * 200 * l.speed * l.direction;
-          const drift = currentScroll * -0.3 * l.driftSpeed;
-          const rot = l.baseRot + (progress * 60 * l.direction);
-          l.el.style.transform = `translate3d(${spread}px, ${drift}px, 0) rotate(${rot}deg)`;
-        });
-      }
-
-      // 3. Mouse Interpolations
-      if (effectsEnabled) {
-        outlineX += (globalMouseX - outlineX) * 0.15;
-        outlineY += (globalMouseY - outlineY) * 0.15;
-        cursorDot.style.left = globalMouseX + 'px'; cursorDot.style.top = globalMouseY + 'px';
-        cursorOutline.style.left = outlineX + 'px'; cursorOutline.style.top = outlineY + 'px';
-        if (flare) { flare.style.left = globalMouseX + 'px'; flare.style.top = globalMouseY + 'px'; }
-      }
-
-      if (navCta) {
-        ctaCurrentX += (ctaTargetX - ctaCurrentX) * 0.15;
-        ctaCurrentY += (ctaTargetY - ctaCurrentY) * 0.15;
-        navCta.style.transform = `translate3d(${ctaCurrentX}px, ${ctaCurrentY}px, 0)`;
-      }
-
-      const scrollMoving = Math.abs(targetScroll - currentScroll) > 0.1;
-      const cursorMoving = effectsEnabled && (Math.abs(globalMouseX - outlineX) > 0.2 || Math.abs(globalMouseY - outlineY) > 0.2);
-      const ctaMoving = effectsEnabled && navCta && (Math.abs(ctaTargetX - ctaCurrentX) > 0.1 || Math.abs(ctaTargetY - ctaCurrentY) > 0.1);
-      if (scrollMoving || cursorMoving || ctaMoving) scheduleRender();
-    }
-    scheduleRender();
-  </script>
+  <div class="display-controls" role="group" aria-label="Préférences d'affichage" hidden>
+    <button class="theme-toggle" type="button" aria-label="Activer le thème sombre" aria-pressed="false">Thème : clair</button>
+    <button class="motion-toggle" type="button" aria-label="Activer les animations" aria-pressed="false">Animations : non</button>
+  </div>
 </body>
 
 </html>

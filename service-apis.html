@@ -162,7 +162,7 @@ h1 { font-family:'Syne',sans-serif;font-size:clamp(36px,4vw,54px);font-weight:80
   margin-bottom: 24px;
   color: var(--sun);
 }
-.feat-card h3 { font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:12px;color:var(--ink); }
+.feat-card h2 { font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:12px;color:var(--ink); }
 .feat-card p { font-size:14px;line-height:1.7;color:var(--ink3); }
 
 /* Pollen */
@@ -177,12 +177,15 @@ h1 { font-family:'Syne',sans-serif;font-size:clamp(36px,4vw,54px);font-weight:80
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.pollen{display:none}}
 </style>
+<link rel="stylesheet" href="accessibility.css">
+<script src="site.js" defer></script>
 </head>
 <body>
-<nav>
+<a class="skip-link" href="#main-content">Aller au contenu</a>
+<nav aria-label="Navigation principale">
   <div class="nav-inner">
     <a class="logo" href="index.html">
-      <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+      <svg aria-hidden="true" focusable="false" width="26" height="26" viewBox="0 0 26 26" fill="none">
         <circle cx="13" cy="13" r="5.5" fill="#3d8c50" opacity=".85"/>
         <path d="M13 2.5C15.5 6 19.5 10 17.5 16C15 12.5 11 9.5 13 2.5Z" fill="#2a6338"/>
         <path d="M2.5 19.5Q6 16 9.5 19.5Q13 23 16.5 19.5Q20 16 23.5 19.5" stroke="#1e7a90" stroke-width="1.5" fill="none" stroke-linecap="round"/>
@@ -193,6 +196,7 @@ h1 { font-family:'Syne',sans-serif;font-size:clamp(36px,4vw,54px);font-weight:80
   </div>
 </nav>
 
+<main id="main-content" tabindex="-1">
 <section class="srv-hero">
   <div class="hero-text">
     <div class="srv-tag">Service</div>
@@ -203,13 +207,13 @@ h1 { font-family:'Syne',sans-serif;font-size:clamp(36px,4vw,54px);font-weight:80
   <div class="hero-visual">
     <div class="glass-api">
       <div class="api-node">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline><line x1="8" y1="12" x2="16" y2="12"></line></svg>
       </div>
       <div class="api-node">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
       </div>
       <div class="api-node">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
       </div>
       <div class="api-line l1"></div>
       <div class="api-line l2"></div>
@@ -221,27 +225,33 @@ h1 { font-family:'Syne',sans-serif;font-size:clamp(36px,4vw,54px);font-weight:80
   <div class="feat-grid">
     <div class="feat-card">
       <div class="feat-ic">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+        <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
       </div>
-      <h3>L'automatisation sans friction</h3>
+      <h2>L'automatisation sans friction</h2>
       <p>Que vous ayez besoin de lier votre CRM à votre système de facturation, ou de créer une API publique pour vos partenaires, nous mettons en place des pipelines fiables.</p>
     </div>
     <div class="feat-card">
       <div class="feat-ic">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
       </div>
-      <h3>Synchros Temps Réel</h3>
+      <h2>Synchros Temps Réel</h2>
       <p>Nous gérons la complexité technique (rate limits, webhooks, retries, OAuth) pour vous offrir une intégration parfaitement invisible et instantanée pour vos utilisateurs finaux.</p>
     </div>
     <div class="feat-card">
       <div class="feat-ic">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
       </div>
-      <h3>Sécurisation Totale</h3>
+      <h2>Sécurisation Totale</h2>
       <p>Chiffrement bout en bout, authentification robuste (JWT, clés d'API) et monitoring constant. Vos flux de données transitent de manière sûre et tracée.</p>
     </div>
   </div>
 </section>
 
+</main>
+
+  <div class="display-controls" role="group" aria-label="Préférences d'affichage" hidden>
+    <button class="theme-toggle" type="button" aria-label="Activer le thème sombre" aria-pressed="false">Thème : clair</button>
+    <button class="motion-toggle" type="button" aria-label="Activer les animations" aria-pressed="false">Animations : non</button>
+  </div>
 </body>
 </html>
