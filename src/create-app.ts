@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'node:path';
 import helmet from 'helmet';
+import { renderFile } from 'ejs';
 import { AppModule } from './app.module';
 
 export async function createApp() {
@@ -27,6 +28,9 @@ export function configureApp(app: NestExpressApplication) {
   });
   app.useStaticAssets(join(root, 'public'), { index: false, maxAge: 0, dotfiles: 'deny' });
   app.setBaseViewsDir(join(root, 'views'));
+  // Express's implicit require(engine) is not traced into serverless bundles.
+  // Register the renderer explicitly so Vercel includes EJS and its dependencies.
+  app.engine('ejs', renderFile);
   app.setViewEngine('ejs');
   return app;
 }

@@ -11,6 +11,10 @@ let app, base;
 before(async () => { app = await createApp(); await app.listen(0, '127.0.0.1'); base = await app.getUrl(); });
 after(async () => { await app?.close(); });
 
+test('EJS is registered explicitly before any HTML request', () => {
+  assert.equal(app.getHttpAdapter().getInstance().engines['.ejs'], require('ejs').renderFile);
+});
+
 test('Vercel uses native NestJS without incompatible function overrides', () => {
   const root = join(__dirname, '..');
   const config = JSON.parse(readFileSync(join(root, 'vercel.json'), 'utf8'));
