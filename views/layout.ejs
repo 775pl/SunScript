@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <meta name="description" content="<%= description %>">
+  <meta name="theme-color" content="#f8f6f1">
+  <meta property="og:title" content="<%= title %>">
+  <meta property="og:description" content="<%= description %>">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <% if (canonical) { %><link rel="canonical" href="<%= canonical %>"><% } %>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/assets/<%= style %>.css">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script src="/assets/site.js" defer></script>
+</head>
+<body class="bg-background text-ink antialiased">
+  <a class="skip-link" href="#main-content">Aller au contenu</a>
+  <%- include('partials/navigation', { home }) %>
+  <main id="main-content" tabindex="-1" class="min-w-0">
+    <%- include('pages/' + page) %>
+  </main>
+  <%- include('partials/footer') %>
+  <%- include('partials/preferences') %>
+</body>
+</html>

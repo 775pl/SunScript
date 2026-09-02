@@ -1,3 +1,25 @@
+@import "tailwindcss";
+@source "../../views";
+@theme inline {
+  --color-background: var(--bg);
+  --color-surface: var(--white);
+  --color-ink: var(--ink);
+  --color-muted: var(--ink3);
+  --color-accent: var(--sage);
+  --color-line: var(--border);
+}
+@layer base {
+  :root {
+    --bg:#f8f6f1; --bg2:#f0ede6; --white:#fff;
+    --ink:#1a1e1a; --ink2:#3a423a; --ink3:#4e5f50; --ink4:#536354;
+    --sage:#28703d; --sage-l:#e8f5ec; --sage-m:#b8ddc2; --sage-d:#205c31;
+    --sun:#905716; --sun-l:#fdf0e0; --sun-m:#f0c078;
+    --ocean:#16677a; --ocean-l:#e0f2f7; --ocean-m:#7ec8dc;
+    --border:#e0ddd6; --border2:#ccc9c0;
+    --site-pad:clamp(20px,4vw,40px); --site-max:1320px;
+  }
+  body { @apply bg-background text-ink font-sans; }
+}
 /* Shared accessible palette and interaction rules; loaded after page styles. */
 :root {
   --ink3:#4e5f50; --ink4:#536354; --sage:#28703d;
@@ -117,3 +139,10 @@ body.page-hidden *, body.page-hidden *::before, body.page-hidden *::after { anim
   .display-controls, button, a:focus-visible { border:1px solid ButtonText; }
   .plant-deco, .hero-visual { display:none; }
 }
+
+.hero-leaf { transform-origin:20% 90%; animation:leaf-sway 8s ease-in-out infinite; }
+@keyframes leaf-sway { 0%,100% { transform:rotate(-4deg); } 50% { transform:rotate(4deg); } }
+.hero-leaf-frame { contain:layout; }
+.site-footer { @apply flex flex-wrap items-center justify-between gap-4 border-t border-line bg-surface px-6 py-6; }
+.flinks a { color:var(--ink3); font-size:12px; }
+@media(max-width:900px) { .site-footer { flex-direction:column; text-align:center; } }

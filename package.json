@@ -1,0 +1,37 @@
+{
+  "name": "sunscript",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SunScript — NestJS MVC and compiled Tailwind CSS",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "build": "tsc && npm run build:assets && npm run build:css",
+    "build:assets": "node scripts/assets.mjs",
+    "build:css": "tailwindcss -i src/styles/site.css -o public/assets/site.css --minify",
+    "start": "node dist/main.js",
+    "start:prod": "node dist/main.js",
+    "dev": "npm run build && concurrently -k \"tsc --watch --preserveWatchOutput\" \"node --watch dist/main.js\" \"node scripts/assets.mjs --watch\" \"tailwindcss -i src/styles/site.css -o public/assets/site.css --watch\"",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run build && node --test tests/server.test.cjs",
+    "test:a11y": "npm run build && node tests/accessibility.cjs"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.0.0",
+    "@nestjs/core": "^11.0.0",
+    "@nestjs/platform-express": "^11.0.0",
+    "ejs": "^3.1.10",
+    "helmet": "^8.0.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.0",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.0.0",
+    "concurrently": "^9.0.0",
+    "esbuild": "^0.25.0",
+    "playwright": "^1.55.0",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5.9.0"
+  }
+}

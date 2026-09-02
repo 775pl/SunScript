@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Applications Web · SunScript</title>
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<meta name="description" content="Conception de sites et applications web rapides, accessibles et évolutifs par SunScript.">
-<style>
+/* Preserved page-specific artwork and layout, beneath Tailwind utilities. */
+@layer theme, base, components, utilities;
+@layer components {
+
 :root{
   --bg:#f8f6f1;--bg2:#f0ede6;--white:#ffffff;
   --sage:#3d8c50;--sage-l:#e8f5ec;--sage-m:#b8ddc2;--sage-d:#2a6338;
@@ -171,85 +166,5 @@ h1 { font-family:'Syne',sans-serif;font-size:clamp(36px,4vw,54px);font-weight:80
   .feat-grid { grid-template-columns: 1fr; }
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.pollen{display:none}}
-</style>
-<link rel="stylesheet" href="accessibility.css">
-<script src="site.js" defer></script>
-</head>
-<body>
-<a class="skip-link" href="#main-content">Aller au contenu</a>
-<nav aria-label="Navigation principale">
-  <div class="nav-inner">
-    <a class="logo" href="index.html">
-      <svg aria-hidden="true" focusable="false" width="26" height="26" viewBox="0 0 26 26" fill="none">
-        <circle cx="13" cy="13" r="5.5" fill="#3d8c50" opacity=".85"/>
-        <path d="M13 2.5C15.5 6 19.5 10 17.5 16C15 12.5 11 9.5 13 2.5Z" fill="#2a6338"/>
-        <path d="M2.5 19.5Q6 16 9.5 19.5Q13 23 16.5 19.5Q20 16 23.5 19.5" stroke="#1e7a90" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      </svg>
-      <span class="logo-name">Sun<span>Script</span></span>
-    </a>
-    <a class="back-btn" href="index.html">← Retour à l'accueil</a>
-  </div>
-</nav>
 
-<main id="main-content" tabindex="-1">
-<section class="srv-hero">
-  <div class="hero-text">
-    <div class="srv-tag">Service</div>
-    <h1>Applications Web<br>Modernes</h1>
-    <p class="srv-p">Des interfaces rapides, accessibles et belles. Nous construisons des applications sur-mesure qui reflètent parfaitement l'identité de votre projet tout en offrant des performances de pointe.</p>
-    <a class="btn-p" href="mailto:hello@sunscript.fr">Parlez-nous de votre projet</a>
-  </div>
-  <div class="hero-visual">
-    <div class="glass-app">
-      <div class="app-header">
-        <div class="app-dot red"></div><div class="app-dot yel"></div><div class="app-dot grn"></div>
-        <div class="app-bar"></div>
-      </div>
-      <div class="app-body">
-        <div class="app-side"></div>
-        <div class="app-main">
-          <div class="app-card" style="height:40px"></div>
-          <div style="display:flex;gap:12px;flex:1">
-            <div class="app-card"></div>
-            <div class="app-card"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="content">
-  <div class="feat-grid">
-    <div class="feat-card">
-      <div class="feat-ic">
-        <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-      </div>
-      <h2>Architecture Solide</h2>
-      <p>Oubliez les templates instables. Nous utilisons la stack React & Next.js pour créer des fondations pérennes, rapides et évolutives.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-ic">
-        <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-      </div>
-      <h2>Design Premium</h2>
-      <p>Chaque pixel est pensé pour créer une expérience utilisateur unique ("Wow effect") qui convertit et fidélise vos clients.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-ic">
-        <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-      </div>
-      <h2>Qualité Garantie</h2>
-      <p>Tests automatisés, intégration continue et déploiement propre. Nous livrons des applications qui fonctionnent, sans mauvaise surprise.</p>
-    </div>
-  </div>
-</section>
-
-</main>
-
-  <div class="display-controls" role="group" aria-label="Préférences d'affichage" hidden>
-    <button class="theme-toggle" type="button" aria-label="Activer le thème sombre" aria-pressed="false">Thème : clair</button>
-    <button class="motion-toggle" type="button" aria-label="Activer les animations" aria-pressed="false">Animations : non</button>
-  </div>
-</body>
-</html>
+}

@@ -1,0 +1,221 @@
+<section class="hero-shell">
+    <section class="hero grid grid-cols-1 min-[901px]:grid-cols-2">
+      <div class="hero-l">
+        
+        <div class="avail">
+          <div class="avail-dot"></div>
+          <span class="avail-txt">Studio ouvert aux nouveaux projets</span>
+        </div>
+        <h1>Des logiciels utiles,<br><em>pensés pour durer.</em></h1>
+        
+        <p class="hero-p">Nous créons des applications web, des outils métier et des systèmes sur mesure — avec
+          une approche légère, efficace et centrée sur le long terme.</p>
+        <div class="actions flex flex-wrap gap-3">
+          <a class="btn-p" href="#services">Voir les services</a>
+          <a class="btn-s" href="#realisations">Nos réalisations →</a>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-n">1</div>
+            <div class="stat-l">Projet livré</div>
+          </div>
+          <div class="stat">
+            <div class="stat-n">3</div>
+            <div class="stat-l">Expertises</div>
+          </div>
+          <div class="stat">
+            <div class="stat-n">4 ans</div>
+            <div class="stat-l">D'expérience</div>
+          </div>
+        </div>
+      <%- include('../partials/leaf') %>
+      </div>
+      <div class="hero-r">
+        <div class="dash-wrap">
+          <div class="dash-bar">
+            <div class="db" style="background:#ff6057"></div>
+            <div class="db" style="background:#ffc130"></div>
+            <div class="db" style="background:#29c940"></div>
+            <div class="addr-pill">app.sunscript.studio · Dashboard</div>
+          </div>
+          <div class="dash-body">
+            <div class="dash-hd">
+              <span class="dash-ht">Vue d'ensemble</span>
+              <span class="dash-act" aria-hidden="true">+ Nouveau</span>
+            </div>
+            <div class="kpis">
+              <div class="kpi">
+                <div class="kpi-v">€84k</div>
+                <div class="kpi-l">Revenus</div>
+                <div class="kpi-d">↑ 12% ce mois</div>
+              </div>
+              <div class="kpi">
+                <div class="kpi-v">1 248</div>
+                <div class="kpi-l">Utilisateurs</div>
+                <div class="kpi-d">↑ 8%</div>
+              </div>
+              <div class="kpi">
+                <div class="kpi-v">99.9%</div>
+                <div class="kpi-l">Uptime</div>
+                <div class="kpi-d">Stable</div>
+              </div>
+            </div>
+            <div class="chart-box">
+              <div class="chart-lbl">Activité · 7 derniers jours</div>
+              <div class="bars" id="bars"></div>
+            </div>
+            <div class="tbl">
+              <div class="tr"><span class="tr-n">Coral CRM</span><span class="pill pill-g">En prod</span><span
+                  class="tr-v">€12 400</span></div>
+              <div class="tr"><span class="tr-n">App SunMood</span><span class="pill pill-a">En cours</span><span
+                  class="tr-v">€8 200</span></div>
+              <div class="tr"><span class="tr-n">API Tideworks</span><span class="pill pill-b">Recette</span><span
+                  class="tr-v">€6 800</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+  <div class="tech">
+    <span class="tech-lbl">Stack</span>
+    <div class="tech-items">
+      <span class="ti">React</span><span class="ti">Next.js</span><span class="ti">TypeScript</span>
+      <span class="ti">Node.js</span><span class="ti">PostgreSQL</span><span class="ti">Supabase</span><span
+        class="ti">Figma</span>
+    </div>
+  </div>
+
+  <section class="section" id="services" style="background:var(--white)">
+    <div class="center-hd">
+      <div class="stag">Ce qu'on fait</div>
+      <h2>Des outils qui travaillent pour vous.</h2>
+      <p class="sub" style="margin-bottom:0">Pas des templates. Pas du copier-coller. Chaque projet est pensé de A à Z
+        pour votre contexte, vos utilisateurs, et vos contraintes réelles.</p>
+    </div>
+    <div class="srv-grid grid grid-cols-1 min-[901px]:grid-cols-3">
+      <div class="srv">
+        <div class="srv-ic" style="background:var(--sage-l)">
+          <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <rect x="2" y="4" width="16" height="12" rx="2" stroke="#3d8c50" stroke-width="1.5" />
+            <path d="M6 8h8M6 11h5" stroke="#3d8c50" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+        </div>
+        <h3 class="srv-t">Applications web</h3>
+        <p class="srv-p">Interfaces rapides, accessibles et belles. Du MVP au produit mature, on construit avec la même
+          rigueur.</p>
+        <a class="srv-lnk" href="/service-web" aria-label="En savoir plus sur les applications web">En savoir plus →</a>
+      </div>
+      <div class="srv">
+        <div class="srv-ic" style="background:var(--ocean-l)">
+          <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="10" r="7" stroke="#1e7a90" stroke-width="1.5" />
+            <path d="M7 10l2 2 4-4" stroke="#1e7a90" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
+        <h3 class="srv-t">Systèmes métier</h3>
+        <p class="srv-p">CRM, ERP, outils internes. On remplace les tableurs Excel qui ne tiennent plus la charge.</p>
+        <a class="srv-lnk" href="/service-systemes" aria-label="En savoir plus sur les systèmes métier">En savoir plus →</a>
+      </div>
+      <div class="srv">
+        <div class="srv-ic" style="background:var(--sun-l)">
+          <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M3 17l4-4 3 3 7-9" stroke="#c47c2a" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
+        <h3 class="srv-t">APIs & intégrations</h3>
+        <p class="srv-p">Connecteurs, webhooks, synchros de données. On fait parler vos outils entre eux sans friction.
+        </p>
+        <a class="srv-lnk" href="/service-apis" aria-label="En savoir plus sur les API et intégrations">En savoir plus →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section" id="realisations">
+    
+    <div class="center-hd">
+      <div class="stag">Projet en ligne</div>
+      <h2>Un premier projet public.</h2>
+      <p class="sub" style="margin-bottom:0">Le portfolio démarre simplement : un projet réel, accessible en ligne, et d'autres à venir.</p>
+    </div>
+    <div class="work-wrap" style="grid-template-columns:minmax(0, 720px); justify-content:center;">
+      <a href="https://valorant-randomize.vercel.app/" target="_blank" rel="noopener noreferrer" class="wcard"
+        style="text-decoration:none; display:block; color:inherit;">
+        <div class="wimg" style="background:#fdf2f2;height:180px">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 300 162" width="300" height="162">
+            <rect x="16" y="12" width="268" height="138" rx="7" fill="#fff" stroke="#f0d5d5" stroke-width="1" />
+            <rect x="30" y="28" width="50" height="50" rx="6" fill="#fae1e1" stroke="#ff4655" stroke-width=".7" />
+            <path d="M55 53L43 41M55 41L43 53" stroke="#ff4655" stroke-width="3" stroke-linecap="round" />
+            <rect x="96" y="34" width="144" height="8" rx="4" fill="#ff4655" opacity=".8" />
+            <rect x="96" y="52" width="92" height="5" rx="2" fill="#f0d5d5" />
+            <rect x="30" y="100" width="62" height="18" rx="4" fill="#fae1e1" />
+            <rect x="100" y="100" width="52" height="18" rx="4" fill="#fae1e1" />
+            <rect x="160" y="100" width="80" height="18" rx="4" fill="#fae1e1" />
+          </svg>
+        </div>
+        <div class="wbody">
+          <div class="wtag">Gaming · Outil web</div>
+          <h3 class="wt">Valorant Randomizer</h3>
+          <p class="wp">Application web permettant de randomiser les armes et la stratégie sur Valorant.</p>
+          <div class="wstack"><span class="sp">React</span><span class="sp">Vercel</span></div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section" id="process" style="background:var(--white)">
+    <svg aria-hidden="true" focusable="false" class="plant-deco front" style="bottom:-20px; left:-10px; width:160px; transform: rotate(-30deg);"
+      viewBox="0 0 120 120">
+      <path d="M0,120 C40,100 80,60 100,0 C70,40 30,80 0,120" fill="var(--sage-m)" />
+    </svg>
+    <div class="center-hd">
+      <div class="stag">comment on fait</div>
+      <h2>On travaille différemment.</h2>
+      <p class="sub" style="margin-bottom:0">On part vite, on itère souvent, on livre
+        proprement.</p>
+    </div>
+    <div class="proc grid grid-cols-1 sm:grid-cols-2 min-[901px]:grid-cols-4">
+      <div class="step">
+        <div class="sn">01 — Découverte</div>
+        <h3 class="st">On comprend avant de coder</h3>
+        <p class="sp2">2–3 sessions pour cartographier vos enjeux, vos utilisateurs, ce qui bloque vraiment.</p>
+      </div>
+      <div class="step">
+        <div class="sn">02 — Prototype</div>
+        <h3 class="st">Concret en 2 semaines</h3>
+        <p class="sp2">Un prototype cliquable pour valider les idées avant d'investir dans le développement.</p>
+      </div>
+      <div class="step">
+        <div class="sn">03 — Build</div>
+        <h3 class="st">Sprints courts, livraisons fréquentes</h3>
+        <p class="sp2">Cycles de 2 semaines. Vous voyez l'avancement en temps réel. Rien de caché.</p>
+      </div>
+      <div class="step">
+        <div class="sn">04 — Après</div>
+        <h3 class="st">On reste là</h3>
+        <p class="sp2">Maintenance, évolutions, support. Un projet livré ne s'arrête pas le jour de la mise en prod.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <div id="contact" class="cta-block">
+    <div>
+      <div class="cta-tag">Prêt à démarrer ?</div>
+      <h2 class="cta-h">Un projet en tête ?<br>On a hâte d'en entendre parler.</h2>
+      <div class="cta-p">On répond sous 24h. Premier échange gratuit, sans engagement.</div>
+    </div>
+    <div class="cta-r flex flex-col gap-3">
+      <a class="btn-w" href="mailto:hello@sunscript.fr">Nous écrire ↗</a>
+      <a class="btn-o" href="#services">Voir les services</a>
+      <span style="font-size:11px;color:#4a5a4a;text-align:center">hello@sunscript.fr</span>
+    </div>
+  </div>

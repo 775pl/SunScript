@@ -4,7 +4,7 @@
 
 - Vérifier l'orthographe exacte du nom de l'entrepreneure, l'adresse, les numéros SIREN/SIRET et l'hébergeur dans les mentions légales.
 - Ajouter un numéro de téléphone professionnel aux mentions légales si l'activité en dispose et confirmer l'immatriculation applicable (RNE/RCS).
-- Confirmer que le domaine canonique est bien `https://sunscript.studio` ; sinon, modifier `robots.txt` et `sitemap.xml`.
+- Confirmer que le domaine canonique est bien `https://sunscript.studio` ; sinon, définir `SITE_URL` et modifier `public/robots.txt` et `public/sitemap.xml`.
 - Confirmer le maintien du régime « TVA non applicable, article 293 B du CGI » avant chaque émission de devis ou facture.
 - Faire relire les CGV par un juriste, notamment les modalités de cession de droits propres à chaque devis.
 
@@ -20,6 +20,8 @@ Les CGV publiées sont exclusivement B2B. Ne pas accepter de commande d'un parti
 - Ne déposer aucun traceur non essentiel avant le consentement de l'utilisateur.
 
 ## Déploiement et contrôle
+
+- Le site est désormais une application NestJS : exécuter `npm ci` puis `npm run build`, et utiliser `npm start` sur un hébergement Node. Sur Vercel, utiliser la détection NestJS et ne pas traiter `dist` comme un export statique. Voir `README.md`.
 
 - Associer le domaine à Vercel, forcer HTTPS et vérifier les en-têtes de `vercel.json` sur la réponse de production.
 - Tester les pages sur mobile, clavier seul, Safari, Firefox et un PC peu puissant.

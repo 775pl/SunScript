@@ -1,20 +1,11 @@
-// Run with Playwright available in NODE_PATH: node tests/accessibility.cjs
+// Build first, then run: npm run test:a11y
 const { chromium } = require('playwright');
-const fs = require('node:fs');
-const http = require('node:http');
 const path = require('node:path');
 const assert = require('node:assert/strict');
 const root = path.resolve(__dirname, '..');
 
-const server = http.createServer((req, res) => {
-  const file = path.resolve(root, '.' + new URL(req.url, 'http://localhost').pathname.replace(/\/$/, '/index.html'));
-  if (!file.startsWith(root + path.sep)) { res.writeHead(403).end(); return; }
-  fs.readFile(file, (error, data) => {
-    if (error) { res.writeHead(404).end(); return; }
-    res.setHeader('Content-Type', ({'.html':'text/html; charset=utf-8','.css':'text/css','.js':'text/javascript','.svg':'image/svg+xml'})[path.extname(file)] || 'text/plain');
-    res.end(data);
-  });
-});
+const { createApp } = require('../dist/create-app');
+const { pages: routeData } = require('../dist/page-data');
 
 async function contrastReport(page) {
   return page.evaluate(() => {
@@ -38,15 +29,16 @@ async function contrastReport(page) {
 }
 
 (async () => {
-  await new Promise(resolve => server.listen(0,'127.0.0.1',resolve));
+  const app = await createApp();
+  await app.listen(0,'127.0.0.1');
   let browser;
   try {
     browser=await chromium.launch({channel:'msedge',headless:true});
     const context=await browser.newContext();
     const page=await context.newPage();
     const errors=[]; page.on('pageerror',e=>errors.push(e.message));
-    const base=`http://127.0.0.1:${server.address().port}`;
-    const pages=fs.readdirSync(root).filter(f=>f.endsWith('.html'));
+    const base=await app.getUrl();
+    const pages=Object.keys(routeData).map(key=>key==='home'?'':key);
     const failures=[];
     for(const width of [1280,390,320]) {
       await page.setViewportSize({width,height:900});
@@ -116,5 +108,5 @@ async function contrastReport(page) {
     await deniedPage.locator('.theme-toggle').click();
     assert.equal(deniedErrors.length,0,'Blocked storage is supported');
     console.log('PASS: scroll, keyboard, reduced motion, persistence, controls, no-JS and contrasts.');
-  } finally { await browser?.close(); server.close(); }
+  } finally { await browser?.close(); await app.close(); }
 })().catch(error=>{console.error(error);process.exitCode=1;});
