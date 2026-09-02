@@ -43,11 +43,13 @@ Les réglages système clair/sombre, le clavier, le curseur natif et le contenu 
 
 ## Production / Vercel
 
-Le projet nécessite maintenant un serveur Node : ce n'est plus un dossier HTML à servir directement. `vercel.json` impose le framework `nestjs` et inclut les vues EJS dans la fonction. `src/main.ts` importe directement `NestFactory` pour que Vercel détecte son point d'entrée natif ; aucun dossier `api/` ni réécriture de routes n'est nécessaire.
+Le projet nécessite maintenant un serveur Node : ce n'est plus un dossier HTML à servir directement. `vercel.json` impose le framework `nestjs`. `src/main.ts` importe directement `NestFactory` pour que Vercel détecte son point d'entrée natif ; aucun dossier `api/` ni réécriture de routes n'est nécessaire. Ne pas ajouter de section `functions` pour `src/main.ts` : le validateur de Vercel CLI 59.3.0 la rejette avec le moteur `@vercel/nestjs`. Le moteur inclut déjà `views/**/*` par défaut, donc les vues EJS restent empaquetées sans cette section.
 
 Le build Vercel (`npm run build:vercel`) vérifie TypeScript et génère les actifs dans `public/`. Vercel compile et empaquette lui-même le serveur ; `npm run build` reste destiné au serveur Node local avec `dist/main.js`.
 
-Dans les réglages Vercel, garder le répertoire racine du dépôt comme **Root Directory** et désactiver toute surcharge **Output Directory** héritée du site statique (notamment `dist`). Le framework est défini par le fichier de configuration. Redéployer après avoir publié ces modifications dans le dépôt connecté. Aucun déploiement n'est effectué automatiquement par ces commandes de build.
+Pour reproduire la validation avec une installation de Vercel CLI 59.3.0 : `node tests/vercel-config.mjs /chemin/vers/node_modules/vercel`. Ce test appelle le détecteur réel de la CLI, reproduit l'erreur de l'ancienne section `functions`, vérifie la nouvelle configuration et les options de packaging des vues. Il ne se connecte pas à Vercel et ne remplace pas un déploiement de recette.
+
+Dans les réglages Vercel, garder le répertoire racine du dépôt comme **Root Directory**. Le framework et `outputDirectory: null` sont définis par le fichier de configuration pour ne pas hériter d'une sortie statique telle que `dist` ou une chaîne vide. Redéployer après avoir publié ces modifications dans le dépôt connecté. Aucun déploiement n'est effectué automatiquement par ces commandes de build.
 
 Variables d'environnement : `PORT` (3000 par défaut), `NODE_ENV=production` en production, `SITE_URL` pour l'origine canonique. Les variables peuvent être fournies par l'hébergeur ou le terminal ; `.env.example` est documentaire et `.env` n'est pas chargé automatiquement. Vérifier également l'origine dans `public/robots.txt` et `public/sitemap.xml` avant déploiement.
 

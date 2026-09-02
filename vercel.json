@@ -1,9 +1,7 @@
 {
   "framework": "nestjs",
   "buildCommand": "npm run build:vercel",
-  "functions": {
-    "src/main.ts": { "includeFiles": "views/**/*" }
-  },
+  "outputDirectory": null,
   "headers": [
     {
       "source": "/(.*)",

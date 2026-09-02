@@ -11,7 +11,7 @@ let app, base;
 before(async () => { app = await createApp(); await app.listen(0, '127.0.0.1'); base = await app.getUrl(); });
 after(async () => { await app?.close(); });
 
-test('Vercel uses the native NestJS entrypoint and packages EJS views', () => {
+test('Vercel uses native NestJS without incompatible function overrides', () => {
   const root = join(__dirname, '..');
   const config = JSON.parse(readFileSync(join(root, 'vercel.json'), 'utf8'));
   const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
@@ -19,8 +19,8 @@ test('Vercel uses the native NestJS entrypoint and packages EJS views', () => {
   assert.equal(config.buildCommand, 'npm run build:vercel');
   assert(pkg.scripts['build:vercel'].includes('build:assets'));
   assert(pkg.scripts['build:vercel'].includes('build:css'));
-  assert.equal(config.outputDirectory, undefined, 'Do not deploy dist as a static site');
-  assert.equal(config.functions['src/main.ts'].includeFiles, 'views/**/*');
+  assert.equal(config.outputDirectory, null, 'Reset any output directory inherited from the static site');
+  assert.equal(config.functions, undefined, 'Vercel 59.3 rejects function overrides for its NestJS builder; views/**/* is included by default');
   const entry = ts.createSourceFile('main.ts', readFileSync(join(root, 'src/main.ts'), 'utf8'), ts.ScriptTarget.Latest, true);
   assert(entry.statements.some(statement => ts.isImportDeclaration(statement)
     && statement.moduleSpecifier.text === '@nestjs/core'
