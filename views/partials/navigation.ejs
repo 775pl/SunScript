@@ -1,15 +1,15 @@
-<nav aria-label="Navigation principale" class="sticky top-0 z-50 border-b border-line bg-surface">
+<nav aria-label="Navigation principale" class="site-nav sticky top-0 z-50">
   <div class="nav-inner flex flex-wrap items-center justify-between gap-3 py-4">
     <a class="logo inline-flex items-center gap-2 no-underline" href="<%= home ? '#main-content' : '/' %>">
-      <%- include('logo') %>
+      <span class="logo-mark"><%- include('logo') %></span>
       <span class="logo-name font-bold text-ink">Sun<span class="text-accent">Script</span></span>
     </a>
     <% if (home) { %>
       <ul class="nav-links flex list-none flex-wrap items-center justify-center gap-4">
-        <li><a href="#services">Services</a></li>
-        <li><a href="#realisations">Réalisations</a></li>
-        <li><a href="#process">Process</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#services"><span aria-hidden="true">01</span> Services</a></li>
+        <li><a href="#realisations"><span aria-hidden="true">02</span> Réalisations</a></li>
+        <li><a href="#process"><span aria-hidden="true">03</span> Process</a></li>
+        <li><a href="#contact"><span aria-hidden="true">04</span> Contact</a></li>
       </ul>
       <a class="nav-cta rounded-lg px-4 py-3 text-sm font-bold" href="mailto:hello@sunscript.fr">Démarrer un projet ↗</a>
     <% } else { %>

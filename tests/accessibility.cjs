@@ -92,7 +92,7 @@ async function contrastReport(page) {
     await page.reload();
     await page.screenshot({path:path.join(root,'tests','mobile-dark.png'),fullPage:false});
     assert.equal(errors.length,0,JSON.stringify(errors));
-    console.log(JSON.stringify({pageThemeViewportChecks:pages.length*6,errors,failures:failures.map(f=>({...f,contrast:f.contrast.map(c=>({class:c.class,text:c.text,ratio:c.ratio}))}))},null,2));
+    console.log(JSON.stringify({pageThemeViewportChecks:pages.length*6,errors,failures:failures.map(f=>({...f,contrast:f.contrast.map(c=>({class:c.class,text:c.text,ratio:c.ratio,color:c.color,background:c.background}))}))},null,2));
     assert.equal(failures.length,0,'Text contrast checks failed (see report above)');
     // Progressive enhancement: all content and native links remain usable without JS.
     const noJS=await browser.newContext({javaScriptEnabled:false,viewport:{width:320,height:900}});

@@ -63,7 +63,8 @@
         entry.target.classList.remove('pending'); observer.unobserve(entry.target);
       }
     }, { threshold:0, rootMargin:'0px 0px 40px 0px' });
-    document.querySelectorAll('.srv, .wcard, .step').forEach(el => {
+    document.querySelectorAll('.srv, .wcard, .step').forEach((el, index) => {
+      el.style.setProperty('--reveal-order', String(index % 4));
       if (el.getBoundingClientRect().top > innerHeight) {
         el.classList.add('reveal', 'pending'); observer.observe(el);
       }
