@@ -416,6 +416,21 @@ body.motion-enabled.page-home .section::after { animation:glimmer 6.2s 1.1s ease
   .page-home .srv { min-height:0; padding:34px 28px; border-radius:28px 12px 28px 12px; }
   .page-home .cta-block { width:calc(100% - 24px); padding:54px 26px; }
 }
+@media(min-width:901px) {
+  .page-home .hero-shell { padding-top:clamp(24px,2.5vw,40px); }
+  .page-home .tech { margin-top:clamp(26px,3vw,44px); }
+  .page-home .section {
+    margin-block:clamp(72px,7vw,112px);
+    padding-block:clamp(40px,4.5vw,70px);
+  }
+  .page-home .srv-grid,.page-home .proc { margin-top:clamp(54px,5vw,82px); }
+  .page-home #realisations .work-wrap { margin-top:clamp(52px,5vw,78px); }
+  .page-home .cta-block {
+    margin-top:clamp(72px,7vw,112px);
+    margin-bottom:clamp(64px,6vw,96px);
+    padding-block:clamp(58px,6vw,88px);
+  }
+}
 
 .hero-leaf { transform-origin:20% 90%; animation:leaf-sway 8s ease-in-out infinite; }
 @keyframes leaf-sway { 0%,100% { transform:rotate(-4deg); } 50% { transform:rotate(4deg); } }
