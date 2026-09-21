@@ -27,15 +27,17 @@
 
 <section class="about-lab" id="atelier" aria-labelledby="lab-title">
   <div class="lab-heading">
-    <span class="srv-tag">Un petit terrain de jeu</span>
-    <h2 id="lab-title">Une idée. Quelques clics.<br>Et ça prend forme.</h2>
-    <p>Imaginez le site d’un atelier créatif. Donnez-lui un nom, choisissez son ambiance et essayez une réservation.</p>
+    <span class="srv-tag">L’atelier des possibles</span>
+    <h2 id="lab-title">Imaginez. Composez.<br>Faites-le fonctionner.</h2>
+    <p>Un site, c’est un univers et des possibilités. Créez celui de votre atelier : changez les textes, jouez avec les styles, explorez les activités et testez une réservation.</p>
     <p class="lab-disclaimer">Démonstration interactive : aucune donnée envoyée, aucune vraie réservation.</p>
   </div>
   <div class="lab-workspace" data-site-lab>
     <div class="lab-controls" hidden>
       <label for="lab-name">Comment s’appelle votre atelier ?</label>
       <input id="lab-name" type="text" maxlength="40" value="Les petits ateliers" autocomplete="off">
+      <label for="lab-headline" class="lab-field-label">Votre phrase d’accueil</label>
+      <input id="lab-headline" type="text" maxlength="90" value="Un moment pour laisser fleurir vos idées." autocomplete="off">
       <fieldset>
         <legend>Son ambiance</legend>
         <div class="lab-options">
@@ -44,19 +46,47 @@
           <label><input type="radio" name="lab-palette" value="ocean"> Océan</label>
         </div>
       </fieldset>
+      <fieldset>
+        <legend>Le caractère des titres</legend>
+        <div class="lab-options">
+          <label><input type="radio" name="lab-type" value="editorial" checked> Élégant</label>
+          <label><input type="radio" name="lab-type" value="modern"> Épuré</label>
+          <label><input type="radio" name="lab-type" value="handwritten"> Manuscrit</label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>La composition</legend>
+        <div class="lab-options">
+          <label><input type="radio" name="lab-layout" value="portrait" checked> Immersive</label>
+          <label><input type="radio" name="lab-layout" value="compact"> Essentielle</label>
+        </div>
+      </fieldset>
+      <label class="lab-switch"><input type="checkbox" id="lab-catalog"> Ajouter un catalogue à explorer</label>
       <label class="lab-switch"><input type="checkbox" id="lab-booking"> Ajouter la réservation en ligne</label>
+      <button type="button" class="lab-save">Garder ma version sur cet appareil</button>
       <button type="button" class="lab-reset">Recommencer ↺</button>
-      <p class="lab-hint">L’aperçu réagit à vos choix. C’est à vous de jouer.</p>
+      <p class="lab-save-status lab-hint" role="status" aria-live="polite">Votre version peut être conservée dans ce navigateur.</p>
     </div>
-    <div class="lab-preview" data-palette="nature">
+    <div class="lab-preview" data-palette="nature" data-type="editorial" data-layout="portrait">
       <div class="lab-browser"><span aria-hidden="true">● ● ●</span><span>Votre site prend vie</span></div>
       <div class="lab-canvas">
         <div class="lab-brand"><span aria-hidden="true">✳</span> <span data-lab-name>Les petits ateliers</span></div>
         <div class="lab-art" aria-hidden="true"><span></span><span></span><span></span></div>
         <p class="lab-eyebrow">Faire une pause. Créer de ses mains.</p>
-        <h3>Un moment pour<br>laisser fleurir vos idées.</h3>
+        <h3 data-lab-headline>Un moment pour laisser fleurir vos idées.</h3>
         <p>Des ateliers créatifs en petit groupe, pour le plaisir d’essayer.</p>
         <div class="lab-static-note">Un espace pour présenter votre univers et vos activités.</div>
+        <section class="lab-catalog" aria-label="Catalogue des ateliers fictifs" hidden>
+          <h4>À vous de choisir votre pause créative.</h4>
+          <label for="lab-search">Rechercher un atelier</label>
+          <input id="lab-search" type="search" placeholder="Fleurs, dessin, terre…" autocomplete="off">
+          <p class="lab-count" role="status" aria-live="polite">3 ateliers à découvrir</p>
+          <div class="lab-products">
+            <article data-workshop="fleurs bouquet végétal"><span aria-hidden="true">✳</span><h5>Fleurs de saison</h5><p>Composer un bouquet à son image.</p></article>
+            <article data-workshop="dessin illustration botanique"><span aria-hidden="true">❋</span><h5>Carnet botanique</h5><p>Dessiner la nature, trait après trait.</p></article>
+            <article data-workshop="terre poterie céramique"><span aria-hidden="true">◒</span><h5>Les mains dans la terre</h5><p>Façonner un petit objet du quotidien.</p></article>
+          </div>
+        </section>
         <form class="lab-booking" hidden>
           <label for="lab-slot">Choisissez un créneau fictif</label>
           <select id="lab-slot" required>
@@ -71,10 +101,15 @@
     </div>
     <noscript><p class="lab-hint">Voici un exemple de site. Activez JavaScript pour le personnaliser et essayer la réservation fictive.</p></noscript>
   </div>
+  <div class="lab-capabilities" aria-label="Ce que vous pouvez tester">
+    <div><span>01 · Une identité</span><p>Des textes, des couleurs et une mise en page qui changent sous vos yeux.</p></div>
+    <div><span>02 · Des usages</span><p>Une recherche qui filtre les ateliers et un formulaire qui vérifie votre choix.</p></div>
+    <div><span>03 · De la continuité</span><p>Votre composition retrouvée à la prochaine visite, si vous choisissez de la garder.</p></div>
+  </div>
   <details class="lab-underhood">
     <summary>Curieux de voir ce qui se passe en coulisses ?</summary>
     <div>
-      <p>Ce petit exemple réagit à vos choix sans recharger la page : le nom se met à jour, les couleurs changent et le formulaire vérifie qu’un créneau est choisi. Tout reste dans votre navigateur.</p>
+      <p>Ce petit exemple réagit à vos choix sans recharger la page. Il associe une interface personnalisable, une recherche tolérante aux accents et une validation de formulaire. La sauvegarde est locale à votre navigateur ; le bouton « Recommencer » l’efface.</p>
       <p>Pour une vraie réservation, il faudrait aussi enregistrer les demandes, vérifier les places disponibles et envoyer une confirmation. C’est l’autre partie de mon métier : relier l’interface à la logique et aux données.</p>
       <p>Selon le projet, je travaille avec PHP et Symfony, Java, Angular ou React. Je propose aussi la maintenance de sites WordPress existants. Ici, quelques lignes de JavaScript et du CSS suffisent : je choisis les outils en fonction du besoin.</p>
     </div>

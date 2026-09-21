@@ -17,48 +17,49 @@
       <%- include('../partials/leaf') %>
       </div>
       <div class="hero-r">
-        <div class="dash-wrap">
-          <div class="dash-bar">
-            <div class="db" style="background:#ff6057"></div>
-            <div class="db" style="background:#ffc130"></div>
-            <div class="db" style="background:#29c940"></div>
-            <div class="addr-pill">Exemple d’interface · données fictives</div>
+        <div class="site-showcase" data-showcase>
+          <p class="showcase-invitation">Et si votre site prenait cette forme ?</p>
+          <div class="showcase-controls" hidden>
+            <fieldset>
+              <legend>Une ambiance</legend>
+              <div class="showcase-choices">
+                <label><input type="radio" name="showcase-mood" value="botanique" checked><span>Botanique</span></label>
+                <label><input type="radio" name="showcase-mood" value="terracotta"><span>Terracotta</span></label>
+                <label><input type="radio" name="showcase-mood" value="encre"><span>Encre</span></label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Un format</legend>
+              <div class="showcase-choices">
+                <label><input type="radio" name="showcase-format" value="desktop" checked><span>Ordinateur</span></label>
+                <label><input type="radio" name="showcase-format" value="mobile"><span>Mobile</span></label>
+              </div>
+            </fieldset>
           </div>
-          <div class="dash-body">
-            <div class="dash-hd">
-              <span class="dash-ht">Vue d'ensemble</span>
-              <span class="dash-act" aria-hidden="true">+ Nouveau</span>
-            </div>
-            <div class="kpis">
-              <div class="kpi">
-                <div class="kpi-v">€84k</div>
-                <div class="kpi-l">Revenus</div>
-                <div class="kpi-d">↑ 12% ce mois</div>
+          <figure class="showcase-frame" data-mood="botanique" data-format="desktop" aria-label="Exemple de site vitrine pour un atelier floral fictif">
+            <div class="showcase-chrome"><span aria-hidden="true">● ● ●</span><span>Un site imaginé par SunScript</span></div>
+            <div class="floral-site">
+              <div class="floral-brand"><span aria-hidden="true">✳</span> atelier floraison<span class="floral-edition">Fleurs & petits bonheurs</span></div>
+              <div class="floral-composition">
+                <div class="floral-copy">
+                  <p class="floral-label">Artisan fleuriste</p>
+                  <h2>Un peu de nature.<br><em>Beaucoup d’émotion.</em></h2>
+                  <p>Des bouquets libres et délicats, au rythme des saisons.</p>
+                </div>
+                <div class="floral-art" aria-hidden="true">
+                  <div class="floral-sun"></div>
+                  <div class="floral-stem stem-one"><i></i><b></b></div>
+                  <div class="floral-stem stem-two"><i></i><b></b></div>
+                  <div class="floral-stem stem-three"><i></i><b></b></div>
+                  <div class="floral-vase"></div>
+                </div>
               </div>
-              <div class="kpi">
-                <div class="kpi-v">1 248</div>
-                <div class="kpi-l">Utilisateurs</div>
-                <div class="kpi-d">↑ 8%</div>
-              </div>
-              <div class="kpi">
-                <div class="kpi-v">99.9%</div>
-                <div class="kpi-l">Disponibilité</div>
-                <div class="kpi-d">Stable</div>
-              </div>
+              <div class="floral-bottom"><span>Des fleurs, à votre image.</span><span aria-hidden="true">✳</span><span>Compositions de saison</span></div>
             </div>
-            <div class="chart-box">
-              <div class="chart-lbl">Activité · 7 derniers jours</div>
-              <div class="bars" id="bars"></div>
-            </div>
-            <div class="tbl">
-              <div class="tr"><span class="tr-n">Suivi des clients</span><span class="pill pill-g">En ligne</span><span
-                  class="tr-v">€12 400</span></div>
-              <div class="tr"><span class="tr-n">Espace de réservation</span><span class="pill pill-a">En cours</span><span
-                  class="tr-v">€8 200</span></div>
-              <div class="tr"><span class="tr-n">Suivi des commandes</span><span class="pill pill-b">En test</span><span
-                  class="tr-v">€6 800</span></div>
-            </div>
-          </div>
+            <figcaption>Concept de site vitrine · atelier fictif</figcaption>
+          </figure>
+          <p class="showcase-status" role="status" aria-live="polite" aria-atomic="true">Une même idée, une identité qui vous ressemble.</p>
+          <a class="showcase-link" href="#contact">Imaginons le vôtre →</a>
         </div>
       </div>
     </section>
