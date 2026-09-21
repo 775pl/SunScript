@@ -32,7 +32,7 @@ export class PagesController {
 
   private render(key: PageKey, res: Response) {
     const path = key === 'home' ? '/' : '/' + key;
-    const origin = new URL(process.env.SITE_URL ?? 'https://sunscript.studio');
+    const origin = new URL(process.env.SITE_URL ?? 'https://www.sunscript.fr');
     if (!['http:', 'https:'].includes(origin.protocol)) throw new Error('SITE_URL must be an HTTP(S) origin');
     // Template paths come exclusively from this allow-listed route table.
     res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');

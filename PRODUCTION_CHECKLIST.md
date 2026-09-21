@@ -4,7 +4,7 @@
 
 - Vérifier l'orthographe exacte du nom de l'entrepreneure, l'adresse, les numéros SIREN/SIRET et l'hébergeur dans les mentions légales.
 - Ajouter un numéro de téléphone professionnel aux mentions légales si l'activité en dispose et confirmer l'immatriculation applicable (RNE/RCS).
-- Confirmer que le domaine canonique est bien `https://sunscript.studio` ; sinon, définir `SITE_URL` et modifier `public/robots.txt` et `public/sitemap.xml`.
+- Le domaine canonique par défaut est `https://www.sunscript.fr`. Vérifier que la variable `SITE_URL` en production utilise aussi cette adresse, comme `public/robots.txt` et `public/sitemap.xml`.
 - Confirmer le maintien du régime « TVA non applicable, article 293 B du CGI » avant chaque émission de devis ou facture.
 - Faire relire les CGV par un juriste, notamment les modalités de cession de droits propres à chaque devis.
 

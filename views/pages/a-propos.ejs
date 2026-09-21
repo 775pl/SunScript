@@ -1,0 +1,103 @@
+<section class="about-intro about-profile">
+  <div class="about-copy">
+    <div class="srv-tag">La personne derrière SunScript</div>
+    <h1>Bonjour, moi c’est Selma.</h1>
+    <p class="about-lead">Développeuse web et fondatrice de SunScript, je vous aide à donner vie à vos idées.</p>
+    <p>J’accompagne les particuliers, les indépendants et les petites structures dans la création, l’amélioration et la maintenance de leurs sites web. Un premier site, une envie de changement ou un site qui a besoin d’un peu d’attention ? On en parle simplement.</p>
+    <a class="btn-p" href="#atelier">Et si on essayait quelque chose ? ↓</a>
+  </div>
+  <figure class="about-portrait">
+    <img src="/images/selma.jpg" width="6000" height="4000" alt="Selma, développeuse web et fondatrice de SunScript" fetchpriority="high" decoding="async">
+    <figcaption>Selma · Fondatrice de SunScript</figcaption>
+  </figure>
+</section>
+
+<section class="service-details about-details" aria-label="Ma façon de travailler">
+  <div>
+    <span class="srv-tag">Ce qui me plaît dans mon métier</span>
+    <h2>Partir d’une idée, en faire quelque chose d’utile.</h2>
+    <p>Ce que j’aime, c’est partir d’un besoin parfois encore flou et le transformer en quelque chose de concret, simple à utiliser et adapté à la personne qui s’en servira vraiment. Je prends le temps de comprendre ce qui compte pour vous, pour proposer une solution réaliste sans compliquer les choses.</p>
+  </div>
+  <div>
+    <span class="srv-tag">Les idées, et les mains dedans</span>
+    <h2>J’aime comprendre comment ça marche.<br>Et faire en sorte que ce soit simple pour vous.</h2>
+    <p>Depuis quatre ans, je développe des sites et des applications, en entreprise, en alternance et en autonomie. Ce qui me plaît : relier ce que vous voyez à l’écran à tout ce qui le fait fonctionner en coulisses. Une jolie page, oui. Mais aussi un bouton qui fait vraiment ce qu’on attend de lui.</p>
+  </div>
+</section>
+
+<section class="about-lab" id="atelier" aria-labelledby="lab-title">
+  <div class="lab-heading">
+    <span class="srv-tag">Un petit terrain de jeu</span>
+    <h2 id="lab-title">Une idée. Quelques clics.<br>Et ça prend forme.</h2>
+    <p>Imaginez le site d’un atelier créatif. Donnez-lui un nom, choisissez son ambiance et essayez une réservation.</p>
+    <p class="lab-disclaimer">Démonstration interactive : aucune donnée envoyée, aucune vraie réservation.</p>
+  </div>
+  <div class="lab-workspace" data-site-lab>
+    <div class="lab-controls" hidden>
+      <label for="lab-name">Comment s’appelle votre atelier ?</label>
+      <input id="lab-name" type="text" maxlength="40" value="Les petits ateliers" autocomplete="off">
+      <fieldset>
+        <legend>Son ambiance</legend>
+        <div class="lab-options">
+          <label><input type="radio" name="lab-palette" value="nature" checked> Nature</label>
+          <label><input type="radio" name="lab-palette" value="soleil"> Soleil</label>
+          <label><input type="radio" name="lab-palette" value="ocean"> Océan</label>
+        </div>
+      </fieldset>
+      <label class="lab-switch"><input type="checkbox" id="lab-booking"> Ajouter la réservation en ligne</label>
+      <button type="button" class="lab-reset">Recommencer ↺</button>
+      <p class="lab-hint">L’aperçu réagit à vos choix. C’est à vous de jouer.</p>
+    </div>
+    <div class="lab-preview" data-palette="nature">
+      <div class="lab-browser"><span aria-hidden="true">● ● ●</span><span>Votre site prend vie</span></div>
+      <div class="lab-canvas">
+        <div class="lab-brand"><span aria-hidden="true">✳</span> <span data-lab-name>Les petits ateliers</span></div>
+        <div class="lab-art" aria-hidden="true"><span></span><span></span><span></span></div>
+        <p class="lab-eyebrow">Faire une pause. Créer de ses mains.</p>
+        <h3>Un moment pour<br>laisser fleurir vos idées.</h3>
+        <p>Des ateliers créatifs en petit groupe, pour le plaisir d’essayer.</p>
+        <div class="lab-static-note">Un espace pour présenter votre univers et vos activités.</div>
+        <form class="lab-booking" hidden>
+          <label for="lab-slot">Choisissez un créneau fictif</label>
+          <select id="lab-slot" required>
+            <option value="">Un moment pour vous…</option>
+            <option value="samedi à 10 h">Samedi · 10 h</option>
+            <option value="samedi à 14 h">Samedi · 14 h</option>
+          </select>
+          <button type="submit">Essayer la réservation →</button>
+        </form>
+        <p class="lab-result" role="status" aria-live="polite" aria-atomic="true"></p>
+      </div>
+    </div>
+    <noscript><p class="lab-hint">Voici un exemple de site. Activez JavaScript pour le personnaliser et essayer la réservation fictive.</p></noscript>
+  </div>
+  <details class="lab-underhood">
+    <summary>Curieux de voir ce qui se passe en coulisses ?</summary>
+    <div>
+      <p>Ce petit exemple réagit à vos choix sans recharger la page : le nom se met à jour, les couleurs changent et le formulaire vérifie qu’un créneau est choisi. Tout reste dans votre navigateur.</p>
+      <p>Pour une vraie réservation, il faudrait aussi enregistrer les demandes, vérifier les places disponibles et envoyer une confirmation. C’est l’autre partie de mon métier : relier l’interface à la logique et aux données.</p>
+      <p>Selon le projet, je travaille avec PHP et Symfony, Java, Angular ou React. Je propose aussi la maintenance de sites WordPress existants. Ici, quelques lignes de JavaScript et du CSS suffisent : je choisis les outils en fonction du besoin.</p>
+    </div>
+  </details>
+</section>
+
+<section class="service-details about-closing" aria-label="Travailler ensemble">
+  <div>
+    <span class="srv-tag">Un échange direct</span>
+    <h2>Vous pouvez poser toutes vos questions.</h2>
+    <p>Vous n’avez pas besoin de connaître les termes techniques ni d’arriver avec une solution toute prête. Racontez-moi votre besoin avec vos mots. Mon rôle est de vous aider à y voir plus clair et de vous expliquer les choix possibles.</p>
+  </div>
+  <div>
+    <h2>Un projet que l’on construit ensemble.</h2>
+    <p>Je commence par vous écouter, puis je vous propose des pistes concrètes. On définit les priorités, le budget et les étapes avant de se lancer. Pendant la réalisation, vous voyez les avancées et vous pouvez donner votre avis.</p>
+  </div>
+  <div>
+    <h2>Et une fois votre site en ligne ?</h2>
+    <p>Je vous accompagne pour le prendre en main. Je peux aussi vous aider à améliorer un site existant ou à le maintenir au fil du temps. On prévoit ensemble la suite : mises à jour, aide à l’utilisation ou nouvelles fonctions, selon votre besoin et les conditions convenues.</p>
+  </div>
+  <div>
+    <h2>Commençons par une conversation.</h2>
+    <p>Une idée précise ou simplement quelque chose qui vous complique la vie ? Vous pouvez m’écrire dans les deux cas. Le premier échange est gratuit et sans engagement.</p>
+    <a class="btn-p" href="mailto:hello@sunscript.fr">M’écrire à hello@sunscript.fr ↗</a>
+  </div>
+</section>

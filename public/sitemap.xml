@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://sunscript.studio/</loc></url>
-  <url><loc>https://sunscript.studio/service-web</loc></url>
-  <url><loc>https://sunscript.studio/service-systemes</loc></url>
-  <url><loc>https://sunscript.studio/service-apis</loc></url>
-  <url><loc>https://sunscript.studio/mentions-legales</loc></url>
-  <url><loc>https://sunscript.studio/cgv</loc></url>
-  <url><loc>https://sunscript.studio/confidentialite</loc></url>
+  <url><loc>https://www.sunscript.fr/</loc></url>
+  <url><loc>https://www.sunscript.fr/service-web</loc></url>
+  <url><loc>https://www.sunscript.fr/service-systemes</loc></url>
+  <url><loc>https://www.sunscript.fr/service-apis</loc></url>
+  <url><loc>https://www.sunscript.fr/mentions-legales</loc></url>
+  <url><loc>https://www.sunscript.fr/cgv</loc></url>
+  <url><loc>https://www.sunscript.fr/confidentialite</loc></url>
+  <url><loc>https://www.sunscript.fr/a-propos</loc></url>
 </urlset>

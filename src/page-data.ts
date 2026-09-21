@@ -1,4 +1,11 @@
 export const pages = {
+  "a-propos": {
+    "page": "a-propos",
+    "title": "Selma, développeuse web et fondatrice · SunScript",
+    "description": "Faites connaissance avec Selma, fondatrice de SunScript : quatre ans de développement et une approche simple pour créer, améliorer et entretenir votre site.",
+    "style": "service-web",
+    "home": false
+  },
   "cgv": {
     "page": "cgv",
     "title": "Conditions Générales de Vente · SunScript",
@@ -15,8 +22,8 @@ export const pages = {
   },
   "home": {
     "page": "home",
-    "title": "SunScript · Studio de développement",
-    "description": "SunScript conçoit des sites web, applications, systèmes internes et intégrations d'API rapides et sur mesure.",
+    "title": "SunScript · Des sites et des outils pour votre activité",
+    "description": "Selma vous accompagne dans la création, l’amélioration et la maintenance de sites web pour les particuliers, indépendants et petites structures.",
     "style": "home",
     "home": true
   },
@@ -29,22 +36,22 @@ export const pages = {
   },
   "service-apis": {
     "page": "service-apis",
-    "title": "APIs & Intégrations · SunScript",
-    "description": "Intégration d'API et connexion de services métier fiables par SunScript.",
+    "title": "Connecter vos outils et éviter les doubles saisies · SunScript",
+    "description": "Reliez vos logiciels pour éviter les doubles saisies et simplifier vos tâches répétitives. SunScript vous aide à identifier les échanges utiles.",
     "style": "service-apis",
     "home": false
   },
   "service-systemes": {
     "page": "service-systemes",
-    "title": "Systèmes Métier · SunScript",
-    "description": "Systèmes internes, automatisations et outils métier sur mesure par SunScript.",
+    "title": "Des outils pour simplifier votre quotidien · SunScript",
+    "description": "Retrouvez vos clients, devis et tâches au même endroit avec un outil adapté à votre activité et à votre équipe.",
     "style": "service-systemes",
     "home": false
   },
   "service-web": {
     "page": "service-web",
-    "title": "Applications Web · SunScript",
-    "description": "Conception de sites et applications web rapides, accessibles et évolutifs par SunScript.",
+    "title": "Sites et applications pour votre activité · SunScript",
+    "description": "Présentez votre activité, recevez des demandes et simplifiez la vie de vos clients avec un site ou une application conçus avec SunScript.",
     "style": "service-web",
     "home": false
   }

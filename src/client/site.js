@@ -71,6 +71,45 @@
     });
   }
   const bars = document.getElementById('bars');
+  const lab = document.querySelector('[data-site-lab]');
+  if (lab) {
+    const controls = lab.querySelector('.lab-controls');
+    const name = lab.querySelector('#lab-name');
+    const preview = lab.querySelector('.lab-preview');
+    const booking = lab.querySelector('#lab-booking');
+    const form = lab.querySelector('.lab-booking');
+    const slot = lab.querySelector('#lab-slot');
+    const result = lab.querySelector('.lab-result');
+    controls.hidden = false;
+    lab.classList.add('is-interactive');
+    name.addEventListener('input', () => {
+      lab.querySelector('[data-lab-name]').textContent = name.value.trim() || 'Votre atelier';
+    });
+    lab.querySelectorAll('[name="lab-palette"]').forEach(radio => {
+      radio.addEventListener('change', () => { preview.dataset.palette = radio.value; });
+    });
+    function updateBooking() {
+      form.hidden = !booking.checked;
+      lab.querySelector('.lab-static-note').hidden = booking.checked;
+      result.textContent = '';
+      slot.value = '';
+    }
+    booking.addEventListener('change', updateBooking);
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      result.textContent = `Et voilà ! Votre essai pour ${slot.value} est confirmé dans cet aperçu. Aucune réservation réelle n’a été effectuée.`;
+    });
+    slot.addEventListener('change', () => { result.textContent = ''; });
+    lab.querySelector('.lab-reset').addEventListener('click', () => {
+      name.value = 'Les petits ateliers';
+      lab.querySelector('[data-lab-name]').textContent = name.value;
+      lab.querySelector('[value="nature"]').checked = true;
+      preview.dataset.palette = 'nature';
+      booking.checked = false;
+      updateBooking();
+    });
+  }
   if (bars) [42,58,35,70,52,88,65].forEach((height, index) => {
     const bar = document.createElement('div'); bar.className = 'bar';
     bar.style.height = `${height}%`;
