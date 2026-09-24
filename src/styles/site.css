@@ -204,11 +204,11 @@ body.motion-enabled .site-nav::after { animation:nav-progress linear both; anima
   display:inline-block;
   transition:transform .3s cubic-bezier(.175,.885,.32,1.275);
 }
-body.motion-enabled .logo:is(:hover,:focus-visible) .logo-name > span {
+.logo:is(:hover,:focus-visible) .logo-name > span {
   transform:rotate(10deg) scale(1.1);
 }
 @media(prefers-reduced-motion:reduce) {
-  body.motion-enabled .logo:is(:hover,:focus-visible) .logo-name > span { transform:none; }
+  .logo:is(:hover,:focus-visible) .logo-name > span { transform:none; }
 }
 .nav-links { gap:4px; padding:4px; border:1px solid color-mix(in srgb,var(--ink) 8%,transparent); border-radius:12px; }
 .nav-links a {
