@@ -9,7 +9,7 @@ export const pages = {
   "cgv": {
     "page": "cgv",
     "title": "Conditions Générales de Vente · SunScript",
-    "description": "Conditions générales de vente B2B des prestations de développement SunScript.",
+    "description": "Conditions générales des prestations SunScript pour les professionnels et les particuliers.",
     "style": "cgv",
     "home": false
   },
@@ -22,8 +22,8 @@ export const pages = {
   },
   "home": {
     "page": "home",
-    "title": "SunScript · Des sites et des outils pour votre activité",
-    "description": "Selma vous accompagne dans la création, l’amélioration et la maintenance de sites web pour les particuliers, indépendants et petites structures.",
+    "title": "SunScript · Création de sites web à Lormont et Bordeaux",
+    "description": "À Lormont, près de Bordeaux, Selma crée, améliore et entretient les sites web des particuliers, indépendants et petites structures, localement et à distance.",
     "style": "home",
     "home": true
   },

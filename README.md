@@ -27,7 +27,7 @@ npm test
 - `src/create-app.ts` : configuration HTTP, sécurité, ressources publiques, moteur EJS.
 - `src/pages.controller.ts`, `src/page-data.ts` : routes autorisées et métadonnées.
 - `views/layout.ejs` et `views/partials/` : structure commune, navigation, pied de page, préférences et feuille originale.
-- `views/pages/` : contenu des sept pages. Le contenu juridique n'a pas été réécrit pendant cette migration.
+- `views/pages/` : contenu des sept pages. Les CGV incluent un volet particuliers à finaliser avec les coordonnées du médiateur.
 - `src/styles/site.css` : Tailwind, palette accessible, composants communs et feuille.
 - `src/styles/pages/` : styles spécifiques conservant le dessin et les mises en page d'origine, dans la couche `components` sous les utilitaires Tailwind.
 - `src/client/site.js` : petit script de thème et d'animations, compilé et minifié.
@@ -37,7 +37,7 @@ Les routes sont `/`, `/service-web`, `/service-systemes`, `/service-apis`, `/cgv
 
 ## Feuille et accessibilité
 
-La feuille reprend les tracés SVG originaux. Elle possède sa propre zone dans le flux sous les statistiques : elle ne recouvre pas le texte et n'est pas liée au scroll. Son balancement utilise seulement une transformation CSS et respecte le bouton d'animations, `prefers-reduced-motion` et les onglets masqués. Les commandes restent fixées directement sous `body`.
+La feuille reprend les tracés SVG originaux. Elle se superpose au bas du bloc de texte du premier écran, sans prendre de place dans le flux ; sa faible opacité préserve la lisibilité. Son balancement utilise seulement une transformation CSS et respecte le bouton d'animations, `prefers-reduced-motion` et les onglets masqués. Les commandes restent fixées directement sous `body`.
 
 Les réglages système clair/sombre, le clavier, le curseur natif et le contenu sans JavaScript restent pris en charge. Tailwind 4 cible les navigateurs modernes (Safari 16.4+, Chrome 111+, Firefox 128+) : ne pas promettre une compatibilité avec les navigateurs anciens sans recette dédiée.
 
@@ -58,3 +58,11 @@ Variables d'environnement : `PORT` (3000 par défaut), `NODE_ENV=production` en 
 Consulter `PRODUCTION_CHECKLIST.md` pour les validations juridiques et administratives qui restent à la charge de l'éditeur.
 
 Références : [NestJS MVC](https://docs.nestjs.com/techniques/mvc), [Tailwind CLI](https://tailwindcss.com/docs/installation/tailwind-cli), [NestJS sur Vercel](https://vercel.com/docs/frameworks/backend/nestjs).
+
+## Formulaire de contact
+
+Le formulaire POST /contact envoie uniquement vers hello@sunscript.fr via Resend. Configurer RESEND_API_KEY et CONTACT_FROM dans les variables serveur de l’hébergeur, avec un domaine expéditeur vérifié chez Resend. Ne jamais placer la clé dans le JavaScript public. Sans ces variables, le formulaire annonce son indisponibilité et conserve l’adresse de contact visible. Aucune création de compte ni transmission réelle n’a été effectuée pendant les tests.
+
+La validation est effectuée côté serveur ; le formulaire fonctionne aussi sans JavaScript lorsque l’envoi est configuré. Les erreurs avec JavaScript préservent les champs. La protection comprend un champ piège, le contrôle de l’origine et cinq tentatives par adresse IP sur dix minutes par instance. Sur Vercel, compléter cette limite locale par une règle persistante dans le pare-feu de l’hébergeur ; ne pas faire confiance à un en-tête IP arbitraire. Désactiver le suivi d’ouverture et de clic chez le prestataire.
+
+Tests ciblés après compilation : node --test tests/contact.test.cjs et node tests/site-refinements.cjs. Les appels Resend sont simulés dans les tests.

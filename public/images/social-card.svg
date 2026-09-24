@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f8f6f1"/>
+  <rect x="30" y="30" width="1140" height="570" rx="36" fill="none" stroke="#b8ddc2" stroke-width="2"/>
+  <circle cx="1090" cy="150" r="235" fill="#e8f5ec"/>
+  <path d="M940 500 Q780 260 1090 90 Q1120 330 940 500" fill="#28703d" opacity=".25"/>
+  <path d="M940 500 Q1020 295 1090 90" fill="none" stroke="#28703d" stroke-width="3"/>
+  <text x="90" y="130" font-family="Arial,sans-serif" font-size="38" font-weight="700" fill="#1a271e">Sun<tspan fill="#28703d">Script</tspan></text>
+  <text x="90" y="270" font-family="Georgia,serif" font-size="66" fill="#1a271e">Vos idées prennent vie,</text>
+  <text x="90" y="360" font-family="Georgia,serif" font-size="66" font-style="italic" fill="#28703d">votre quotidien s’allège.</text>
+  <text x="90" y="465" font-family="Arial,sans-serif" font-size="27" fill="#4e5f50">Création, amélioration et maintenance de sites web</text>
+  <text x="90" y="535" font-family="Arial,sans-serif" font-size="23" fill="#4e5f50">Lormont · Bordeaux · À distance</text>
+</svg>

@@ -1,6 +1,26 @@
 (() => {
   'use strict';
   const body = document.body;
+  const contactForm = document.querySelector('.contact-form');
+  contactForm?.addEventListener('submit', async event => {
+    event.preventDefault();
+    if (!contactForm.reportValidity()) return;
+    const button = contactForm.querySelector('button[type="submit"]');
+    const status = contactForm.querySelector('.contact-status');
+    button.disabled = true;
+    status.textContent = 'Envoi en cours…';
+    try {
+      const response = await fetch(contactForm.action, {
+        method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(contactForm))), signal: AbortSignal.timeout(15_000),
+      });
+      const result = await response.json();
+      status.textContent = result.message;
+      if (response.ok) contactForm.reset();
+    } catch {
+      status.textContent = 'L’envoi n’a pas pu être confirmé. Votre texte est conservé ; vous pouvez écrire à hello@sunscript.fr.';
+    } finally { button.disabled = false; }
+  });
   document.querySelector('.display-controls')?.removeAttribute('hidden');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const darkScheme = matchMedia('(prefers-color-scheme: dark)');
@@ -10,6 +30,12 @@
   const themeButton = document.querySelector('.theme-toggle');
   const motionButton = document.querySelector('.motion-toggle');
   const motionPreference = readPreference('motion');
+  const navigation = document.querySelector('.site-nav');
+  if (navigation) {
+    const measureNavigation = () => document.documentElement.style.setProperty('--nav-offset', `${Math.ceil(navigation.getBoundingClientRect().height) + 16}px`);
+    measureNavigation();
+    new ResizeObserver(measureNavigation).observe(navigation);
+  }
   let motionRequested = motionPreference === 'on' || (motionPreference !== 'off' && innerWidth > 900 && (navigator.hardwareConcurrency || 8) > 4);
 
   function applyTheme() {

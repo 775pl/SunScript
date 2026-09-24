@@ -10,6 +10,14 @@
   <meta property="og:description" content="<%= description %>">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_FR">
+  <% if (canonical) { %>
+  <meta property="og:url" content="<%= canonical %>">
+  <meta property="og:image" content="<%= new URL('/images/social-card.png', canonical).href %>">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="SunScript — création de sites web à Lormont, Bordeaux et à distance">
+  <meta name="twitter:card" content="summary_large_image">
+  <% } %>
   <% if (canonical) { %><link rel="canonical" href="<%= canonical %>"><% } %>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/assets/<%= style %>.css">

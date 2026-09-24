@@ -4,7 +4,7 @@
 
     /* 1. Effet de texte masqué pour le Hero */
     .hero h1 {
-      overflow: hidden;
+      overflow: visible;
     }
 
     .hero h1 span {

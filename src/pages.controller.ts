@@ -36,6 +36,7 @@ export class PagesController {
     if (!['http:', 'https:'].includes(origin.protocol)) throw new Error('SITE_URL must be an HTTP(S) origin');
     // Template paths come exclusively from this allow-listed route table.
     res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
-    return res.render('layout', { ...pages[key], canonical: new URL(path, origin.origin).href });
+    return res.render('layout', { ...pages[key], canonical: new URL(path, origin.origin).href,
+      contactAvailable: Boolean(process.env.RESEND_API_KEY && process.env.CONTACT_FROM) });
   }
 }
