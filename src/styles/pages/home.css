@@ -164,16 +164,6 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
     }
 
-    /* 3. Animation du titre 'SunScript' au survol */
-    .logo-name span {
-      display: inline-block;
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .logo:hover .logo-name span {
-      transform: rotate(10deg) scale(1.1);
-    }
-
     /* 4. Amélioration des boutons (effet de scale au clic) */
     .btn-p:active,
     .btn-s:active {

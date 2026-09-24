@@ -199,6 +199,17 @@ body.motion-enabled .site-nav::after { animation:nav-progress linear both; anima
 }
 .logo-mark svg { width:25px; height:25px; }
 .logo-name { font-size:18px; letter-spacing:-.025em; }
+/* Shared wordmark interaction on every page using the navigation. */
+.logo-name > span {
+  display:inline-block;
+  transition:transform .3s cubic-bezier(.175,.885,.32,1.275);
+}
+body.motion-enabled .logo:is(:hover,:focus-visible) .logo-name > span {
+  transform:rotate(10deg) scale(1.1);
+}
+@media(prefers-reduced-motion:reduce) {
+  body.motion-enabled .logo:is(:hover,:focus-visible) .logo-name > span { transform:none; }
+}
 .nav-links { gap:4px; padding:4px; border:1px solid color-mix(in srgb,var(--ink) 8%,transparent); border-radius:12px; }
 .nav-links a {
   gap:6px; padding:0 12px; border-radius:9px; color:var(--ink3);
