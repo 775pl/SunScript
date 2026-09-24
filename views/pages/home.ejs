@@ -255,6 +255,7 @@
       <div class="cta-p">Dites-moi ce que vous faites et ce qui vous faciliterait la vie. Le premier échange est gratuit et sans engagement : on fait le point sur votre besoin et les prochaines étapes possibles.</div>
     </div>
     <form class="contact-form" action="/contact" method="post">
+      <div class="contact-fields">
       <label for="contact-name">Votre nom</label>
       <input id="contact-name" name="name" autocomplete="name" required maxlength="100">
       <label for="contact-email">Votre courriel</label>
@@ -264,7 +265,39 @@
       <div hidden><label for="contact-website">Laisser vide</label><input id="contact-website" name="website" tabindex="-1" autocomplete="off"></div>
       <p class="contact-privacy">Ces informations servent à répondre à votre demande. <a href="/confidentialite">Utilisation de vos données</a>.</p>
       <button class="btn-w" type="submit" <%= contactAvailable ? '' : 'disabled' %>>Envoyer mon message →</button>
-      <p class="contact-status" role="status" aria-live="polite"><%= contactAvailable ? '' : 'Le formulaire sera bientôt disponible. Vous pouvez déjà me contacter par courriel.' %></p>
       <p class="contact-direct">Ou écrivez-moi à <a href="mailto:hello@sunscript.fr">hello@sunscript.fr</a></p>
+      </div>
+      <p class="contact-status" role="status" aria-live="polite"><%= contactAvailable ? '' : 'Le formulaire sera bientôt disponible. Vous pouvez déjà me contacter par courriel.' %></p>
+      <div class="contact-success" hidden tabindex="-1" role="region" aria-label="Votre message a été transmis. Selma vous répondra à l’adresse indiquée.">
+        <svg class="sent-art" viewBox="0 0 440 360" aria-hidden="true" focusable="false">
+          <circle class="sent-halo" cx="220" cy="175" r="142" fill="#d9efce" opacity=".08"/>
+          <g class="sent-sparks" fill="none" stroke="#d7e9a9" stroke-width="3" stroke-linecap="round">
+            <path d="M65 145v16m-8-8h16M355 92v16m-8-8h16M349 254v12m-6-6h12"/>
+            <path d="M100 78l5 7m-7 22l-9 2M335 183l9-4"/>
+          </g>
+          <g class="sent-envelope-back">
+            <path d="M112 213l108-80 108 80v102H112z" fill="#86a879" stroke="#d9e8ce" stroke-width="2" stroke-linejoin="round"/>
+          </g>
+          <g class="sent-sun">
+            <g stroke="#ebc779" stroke-width="4" stroke-linecap="round">
+              <path d="M220 42v-15m0 230v-15M120 142h-15m230 0h-15M149 71l-11-11m153 153l11 11M291 71l11-11M149 213l-11 11"/>
+            </g>
+            <circle cx="220" cy="142" r="76" fill="#efd28d"/>
+            <circle cx="191" cy="161" r="11" fill="#d38e68" opacity=".5"/>
+            <circle cx="252" cy="161" r="11" fill="#d38e68" opacity=".5"/>
+            <path d="M194 134v10" stroke="#29452e" stroke-width="6" stroke-linecap="round"/>
+            <g class="sent-eye-open"><path d="M246 134v10" stroke="#29452e" stroke-width="6" stroke-linecap="round"/></g>
+            <path class="sent-eye-wink" d="M238 140q8-9 16 0" fill="none" stroke="#29452e" stroke-width="5" stroke-linecap="round"/>
+            <path d="M205 166q15 17 30 0" fill="none" stroke="#29452e" stroke-width="4" stroke-linecap="round"/>
+          </g>
+          <g class="sent-envelope-front" stroke="#d9e8ce" stroke-width="2" stroke-linejoin="round">
+            <path d="M112 213l108 66 108-66v92q0 10-10 10H122q-10 0-10-10z" fill="#b2c99a"/>
+            <path d="M112 310l78-64m138 64l-78-64" fill="none"/>
+            <path d="M212 282l6 6 12-14" fill="none" stroke="#36553a" stroke-width="3" stroke-linecap="round"/>
+          </g>
+        </svg>
+        <p class="sent-caption">À très vite !</p>
+        <button class="sent-again" type="button">Un autre message ?</button>
+      </div>
     </form>
   </div>

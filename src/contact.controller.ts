@@ -1,8 +1,9 @@
-import { Body, Controller, Post, Req, Res } from '@nestjs/common';
+import { Body, Controller, Logger, Post, Req, Res } from '@nestjs/common';
 import type { Request, Response } from 'express';
 
 @Controller('contact')
 export class ContactController {
+  private readonly logger = new Logger(ContactController.name);
   private attempts = new Map<string, { count: number; expires: number }>();
 
   @Post()
@@ -39,6 +40,8 @@ export class ContactController {
     }
     entry.count++;
     this.attempts.set(key, entry);
+    let providerStatus: number | undefined;
+    let failure = 'network_error';
     try {
       const delivery = await fetch('https://api.resend.com/emails', {
         method: 'POST', signal: AbortSignal.timeout(10_000),
@@ -47,11 +50,30 @@ export class ContactController {
           reply_to: email, subject: 'Nouvelle demande depuis SunScript',
           text: `Nom : ${name.trim()}\nCourriel : ${email}\n\nBesoin :\n${need.trim()}` }),
       });
-      if (!delivery.ok) throw new Error('Delivery rejected');
+      providerStatus = delivery.status;
+      if (!delivery.ok) {
+        failure = 'provider_rejected';
+        const details: unknown = await delivery.json().catch(() => null);
+        // Classify the response without logging its raw text: it can contain
+        // addresses or request values. Never log the API key or form contents.
+        const message = details && typeof details === 'object' && 'message' in details && typeof details.message === 'string'
+          ? details.message.toLowerCase() : '';
+        if (message.includes('only send testing emails')) failure = 'resend_test_sender_restricted';
+        else if (message.includes('domain') && message.includes('not verified')) failure = 'sender_domain_not_verified';
+        else if (delivery.status === 401) failure = 'api_key_rejected';
+        else if (message.includes('api key') || message.includes('permission') || message.includes('scope')) failure = 'api_key_permission_or_status';
+        else if (message.includes('quota')) failure = 'provider_quota_exceeded';
+        else if (delivery.status === 429) failure = 'provider_rate_limit';
+        else if (delivery.status === 422 || delivery.status === 400) failure = 'provider_validation_error';
+        throw new Error('Delivery rejected');
+      }
+      failure = 'invalid_provider_receipt';
       const receipt = await delivery.json() as { id?: string };
       if (!receipt.id) throw new Error('Missing receipt');
       return reply(200, 'Merci, votre message a été transmis. Je vous répondrai à l’adresse indiquée.');
-    } catch {
+    } catch (error) {
+      if (error instanceof Error && ['TimeoutError', 'AbortError'].includes(error.name)) failure = 'provider_timeout';
+      this.logger.error(JSON.stringify({ event: 'contact_delivery_failed', provider: 'resend', status: providerStatus, reason: failure }));
       return reply(502, 'L’envoi n’a pas pu être confirmé. Vous pouvez réessayer ou écrire à hello@sunscript.fr.');
     }
   }

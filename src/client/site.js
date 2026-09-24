@@ -2,6 +2,13 @@
   'use strict';
   const body = document.body;
   const contactForm = document.querySelector('.contact-form');
+  contactForm?.querySelector('.sent-again')?.addEventListener('click', () => {
+    contactForm.classList.remove('is-sent');
+    contactForm.querySelector('.contact-success').hidden = true;
+    contactForm.querySelector('.contact-fields').hidden = false;
+    contactForm.querySelector('.contact-status').textContent = '';
+    contactForm.querySelector('[name="name"]').focus();
+  });
   contactForm?.addEventListener('submit', async event => {
     event.preventDefault();
     if (!contactForm.reportValidity()) return;
@@ -16,7 +23,14 @@
       });
       const result = await response.json();
       status.textContent = result.message;
-      if (response.ok) contactForm.reset();
+      if (response.ok) {
+        contactForm.reset();
+        contactForm.querySelector('.contact-fields').hidden = true;
+        contactForm.classList.add('is-sent');
+        const success = contactForm.querySelector('.contact-success');
+        success.hidden = false;
+        success.focus({ preventScroll: true });
+      }
     } catch {
       status.textContent = 'L’envoi n’a pas pu être confirmé. Votre texte est conservé ; vous pouvez écrire à hello@sunscript.fr.';
     } finally { button.disabled = false; }
