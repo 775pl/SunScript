@@ -18,6 +18,8 @@ L’offre vise professionnels et particuliers. Le volet consommateurs ajouté au
 - Conclure un accord de sous-traitance RGPD lorsque SunScript manipule des données personnelles pour un client.
 - Réévaluer la politique de confidentialité avant d'ajouter un formulaire, un outil de statistiques, un chat, une vidéo externe ou un pixel publicitaire.
 - Ne déposer aucun traceur non essentiel avant le consentement de l'utilisateur.
+- Avant d’activer Umami, préciser dans la politique de confidentialité la durée réelle de conservation des statistiques et l’entité d’hébergement choisie ; vérifier sa localisation, ses conditions de sous-traitance et ses éventuels transferts. Ces éléments dépendent du compte Cloud ou de l’instance retenue et ne sont pas configurés par le code du site.
+- Configurer Umami uniquement en production, puis vérifier la réception dans son tableau de bord après acceptation et l’absence de collecte après refus/retrait. Voir la procédure dans le README.
 
 ## Déploiement et contrôle
 

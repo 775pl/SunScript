@@ -66,3 +66,23 @@ Le formulaire POST /contact envoie uniquement vers hello@sunscript.fr via Resend
 La validation est effectuée côté serveur ; le formulaire fonctionne aussi sans JavaScript lorsque l’envoi est configuré. Les erreurs avec JavaScript préservent les champs. La protection comprend un champ piège, le contrôle de l’origine et cinq tentatives par adresse IP sur dix minutes par instance. Sur Vercel, compléter cette limite locale par une règle persistante dans le pare-feu de l’hébergeur ; ne pas faire confiance à un en-tête IP arbitraire. Désactiver le suivi d’ouverture et de clic chez le prestataire.
 
 Tests ciblés après compilation : node --test tests/contact.test.cjs et node tests/site-refinements.cjs. Les appels Resend sont simulés dans les tests.
+
+## Statistiques Umami
+
+Le site Umami `dc39312c-2441-4c3b-a7db-961e6a605f3f` et le script `https://cloud.umami.is/script.js` sont configurés par défaut uniquement en production (`VERCEL_ENV=production`, ou `NODE_ENV=production` hors Vercel). Un déploiement de ce code suffit si aucune variable Umami n’est déjà définie. En développement et sur les aperçus Vercel, le suivi reste désactivé par défaut. Les variables serveur `UMAMI_WEBSITE_ID` et `UMAMI_SCRIPT_URL` permettent de remplacer cette configuration ; définir explicitement les deux à vide désactive le suivi, même en production. Ne pas mettre de clé API : l’identifiant du site est public. Ne pas activer les statistiques sur les déploiements de prévisualisation.
+
+`UMAMI_HOST_URL` est facultatif : le collecteur Cloud `https://api-gateway.umami.dev` est sélectionné pour `cloud.umami.is`, sinon l’origine du script est utilisée. Pour une instance avec un chemin de base ou un collecteur différent, renseigner son URL HTTPS. Les URL avec identifiants, paramètres ou fragments sont rejetées, de même qu’une configuration incomplète après application des valeurs par défaut. La CSP du serveur autorise uniquement les origines configurées. Vercel ajoute également une CSP dans `vercel.json`, configurée pour Umami Cloud : adapter ses directives `script-src` et `connect-src` en cas de changement de prestataire ou d’instance.
+
+Le visiteur accepte ou refuse la mesure d’audience avec deux boutons de même présentation. Aucun appel à Umami n’est effectué avant acceptation. Le choix dure 180 jours et peut être modifié en pied de page ; le refus dans un autre onglet est appliqué aux onglets ouverts. Le suivi respecte aussi Do Not Track et Global Privacy Control. Sans JavaScript, aucun suivi n’a lieu. La préférence reste valable sur la page courante si le stockage local est indisponible.
+
+Dans le tableau de bord Umami, consulter les visiteurs, visites, pages vues et sites de provenance. Dans les événements :
+
+- `clic_lien` : `cible` (chemin et ancre internes, domaine externe, ou `email`/`telephone`) et `zone` (identifiant de section, `nav`, `footer` ou `contenu`).
+- `clic_bouton` : réglages de thème/animations, sauvegarde/réinitialisation de l’atelier et nouveau message, avec une cible fixe.
+- `contact_envoye` : uniquement après la réponse positive du serveur au formulaire JavaScript, jamais au simple clic ni après une erreur. Les envois sans JavaScript ne sont pas mesurés.
+
+Les pages vues utilisent les chemins canoniques, sans paramètres ni fragments. Les provenances sont limitées aux origines ; les campagnes UTM ne sont donc pas mesurées. Les pages sans URL canonique (404 et résultat de contact sans JavaScript) ne sont pas suivies. Aucun contenu de formulaire, texte de l’atelier, identifiant utilisateur ou enregistrement de session n’est envoyé. Il ne s’agit pas d’une carte de chaleur. Les refus, protections du navigateur et bloqueurs rendent les statistiques nécessairement partielles.
+
+Vérification locale : `npm run test:analytics` (Edge requis). Les tests interceptent le script Umami, contrôlent les données et n’envoient rien au prestataire. Après déploiement, accepter les statistiques, visiter une page et cliquer sur un lien, puis vérifier leur présence dans le temps réel Umami. La réception réelle ne peut être validée qu’avec le compte configuré.
+
+Documentation : [collecte Umami](https://docs.umami.is/docs/collect-data), [fonctions du tracker](https://docs.umami.is/docs/tracker-functions), [choix du consentement CNIL](https://www.cnil.fr/fr/cookies-et-autres-traceurs/regles/cookies/comment-mettre-mon-site-web-en-conformite).

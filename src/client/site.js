@@ -24,6 +24,7 @@
       const result = await response.json();
       status.textContent = result.message;
       if (response.ok) {
+        document.dispatchEvent(new Event('sunscript:contact-sent'));
         contactForm.reset();
         contactForm.querySelector('.contact-fields').hidden = true;
         contactForm.classList.add('is-sent');

@@ -1,5 +1,23 @@
 @import "tailwindcss";
 @source "../../views";
+.analytics-consent {
+  position:fixed; z-index:1001; bottom:1rem; left:1rem;
+  width:min(30rem, calc(100% - 2rem)); max-height:calc(100dvh - 2rem); overflow:auto;
+  padding:1.25rem; border:1px solid var(--border); border-radius:1rem;
+  background:var(--white); color:var(--ink); box-shadow:0 8px 32px #0002;
+  font-size:.9rem; line-height:1.6;
+}
+.analytics-consent[hidden], .analytics-preferences[hidden] { display:none; }
+.analytics-consent h2 { font-size:1.1rem; font-weight:700; margin:0 0 .5rem; }
+.analytics-consent p { margin:0 0 .5rem; }
+.analytics-consent a, .analytics-preferences { text-decoration:underline; }
+.analytics-actions { display:flex; gap:.75rem; margin-top:1rem; }
+.analytics-actions button {
+  flex:1; padding:.6rem 1rem; min-height:44px; border:1px solid var(--sage);
+  border-radius:.5rem; background:var(--white); color:var(--ink); font:inherit;
+}
+.analytics-actions button:hover { background:var(--sage-l); color:#1a1e1a; }
+.analytics-preferences { font:inherit; color:inherit; background:none; border:0; }
 @theme inline {
   --color-background: var(--bg);
   --color-surface: var(--white);

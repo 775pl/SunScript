@@ -1,4 +1,4 @@
-<header class="page-header"><h1>Politique de confidentialité</h1><p>Version du 24 septembre 2026</p></header>
+<header class="page-header"><h1>Politique de confidentialité</h1><p>Version du 5 octobre 2026</p></header>
 <div class="legal-content rounded-2xl border border-line bg-surface p-6 md:p-14">
 <h2>1. Responsable du traitement</h2>
 <p>Selma EL JABRI--CHANTELAUZE, entrepreneur individuel exerçant sous le nom SunScript, SIREN 104 832 050, 7 rue Jean Bonnin, 33310 Lormont, est responsable des traitements décrits ci-dessous. Pour toute question ou demande relative à vos données : <a href="mailto:hello@sunscript.fr">hello@sunscript.fr</a>.</p>
@@ -28,7 +28,11 @@
 <p>Adressez votre demande à <a href="mailto:hello@sunscript.fr">hello@sunscript.fr</a>. Une preuve d'identité ne sera demandée qu'en cas de doute raisonnable. SunScript répond en principe sous un mois. Vous pouvez introduire une réclamation auprès de la <a href="https://www.cnil.fr/fr/plaintes" rel="noopener noreferrer">CNIL</a>.</p>
 
 <h2>6. Cookies et stockage local</h2>
-<p>Le site ne dépose actuellement aucun cookie publicitaire ou de mesure d'audience. Le choix clair/sombre peut être conservé dans le stockage local du navigateur ; il ne permet pas à SunScript de suivre votre navigation. Tout futur traceur non essentiel sera soumis à un choix préalable aussi simple à refuser qu'à accepter.</p>
+<p>Le site ne dépose aucun cookie publicitaire. Le choix clair/sombre peut être conservé dans le stockage local du navigateur ; il ne permet pas à SunScript de suivre votre navigation.</p>
+<% if (analytics) { %>
+<p>Avec votre consentement, SunScript utilise Umami pour mesurer les visites, les pages consultées, les sites de provenance, les caractéristiques techniques générales du navigateur, les clics sur les liens et certains boutons, ainsi que les envois confirmés du formulaire de contact. La connexion au service lui transmet nécessairement votre adresse IP. Aucun nom, courriel, message ou texte saisi dans l’atelier n’est inclus dans les événements de statistiques. Les paramètres des adresses des pages et les fragments ne sont pas envoyés avec les pages vues ; la provenance est limitée au domaine. Aucune capture d’écran ni relecture de session n’est réalisée.</p>
+<p>Le service de collecte configuré est <%= analytics.hostOrigin %>. Le suivi ne démarre qu’après « Accepter ». « Refuser » permet de continuer sans mesure d’audience. Votre choix est conservé localement pendant 180 jours, sauf effacement préalable des données du navigateur. Vous pouvez le modifier ou retirer votre consentement à tout moment avec « Préférences de statistiques » en bas de chaque page. Le retrait arrête les nouveaux événements ; il ne supprime pas les statistiques déjà reçues. Les signaux de navigateur « Do Not Track » et « Global Privacy Control » désactivent également la collecte.</p>
+<% } %>
 
 <p>Lorsque vous choisissez de garder votre composition dans l’atelier de démonstration, son nom, son texte et ses options visuelles sont enregistrés uniquement dans le stockage local de votre navigateur. Ils ne sont pas transmis à SunScript. La composition reste disponible jusqu’à sa suppression avec le bouton de réinitialisation de l’atelier ou l’effacement des données du site dans votre navigateur. Le choix d’activation des animations est également mémorisé localement. Les réservations de démonstration sont fictives et ne sont pas envoyées.</p>
 <h2>7. Mise à jour</h2>

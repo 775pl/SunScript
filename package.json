@@ -16,6 +16,7 @@
     "dev": "npm run build && concurrently -k \"tsc --watch --preserveWatchOutput\" \"node --watch dist/main.js\" \"node scripts/assets.mjs --watch\" \"tailwindcss -i src/styles/site.css -o public/assets/site.css --watch\"",
     "typecheck": "tsc --noEmit",
     "test": "npm run build && node --test tests/server.test.cjs tests/contact.test.cjs",
+    "test:analytics": "npm run build && node --test tests/analytics.test.cjs && node tests/analytics-browser.cjs",
     "test:a11y": "npm run build && node tests/accessibility.cjs"
   },
   "dependencies": {

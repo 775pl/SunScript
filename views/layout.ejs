@@ -23,6 +23,9 @@
   <link rel="stylesheet" href="/assets/<%= style %>.css">
   <link rel="stylesheet" href="/assets/site.css">
   <script src="/assets/site.js" defer></script>
+  <% if (analytics) { %><script src="/assets/analytics.js" defer
+    data-website-id="<%= analytics.websiteId %>" data-script-url="<%= analytics.scriptUrl %>"
+    data-host-url="<%= analytics.hostUrl %>"></script><% } %>
 </head>
 <body class="page-<%= page %> bg-background text-ink antialiased">
   <a class="skip-link" href="#main-content">Aller au contenu</a>
@@ -32,5 +35,6 @@
   </main>
   <%- include('partials/footer') %>
   <%- include('partials/preferences') %>
+  <% if (analytics) { %><%- include('partials/analytics-consent') %><% } %>
 </body>
 </html>

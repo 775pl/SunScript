@@ -5,6 +5,7 @@
     <a href="/mentions-legales">Mentions légales</a>
     <a href="/cgv">CGV</a>
     <a href="/confidentialite">Confidentialité</a>
+    <% if (analytics) { %><button type="button" class="analytics-preferences" hidden>Préférences de statistiques</button><% } %>
   </div>
   <p class="text-xs text-muted">© <%= new Date().getFullYear() %> SunScript · Lormont, FR</p>
 </footer>

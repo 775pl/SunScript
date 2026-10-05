@@ -5,6 +5,7 @@ const pages = (await readdir('src/styles/pages')).filter(name => name.endsWith('
 const options = {
   entryPoints: [
     { in: 'src/client/site.js', out: 'site' },
+    { in: 'src/client/analytics.js', out: 'analytics' },
     ...pages.map(name => ({ in: `src/styles/pages/${name}`, out: name.replace('.css', '') })),
   ],
   outdir: 'public/assets', minify: true, bundle: false, target: 'es2022',

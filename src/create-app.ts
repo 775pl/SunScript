@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import helmet from 'helmet';
 import { renderFile } from 'ejs';
 import { AppModule } from './app.module';
+import { analyticsConfig } from './analytics';
 
 export async function createApp() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, { logger: ['error', 'warn'] });
@@ -13,10 +14,12 @@ export async function createApp() {
 
 export function configureApp(app: NestExpressApplication) {
   const root = join(__dirname, '..');
+  const analytics = analyticsConfig();
   app.disable('x-powered-by');
   app.use(helmet({
     contentSecurityPolicy: { directives: {
-      defaultSrc: ["'self'"], scriptSrc: ["'self'"],
+      defaultSrc: ["'self'"], scriptSrc: ["'self'", ...(analytics ? [analytics.scriptOrigin] : [])],
+      connectSrc: ["'self'", ...(analytics ? [analytics.hostOrigin] : [])],
       styleSrc: ["'self'", "'unsafe-inline'"], imgSrc: ["'self'", 'data:'],
       baseUri: ["'self'"], frameAncestors: ["'none'"], objectSrc: ["'none'"],
       upgradeInsecureRequests: process.env.NODE_ENV === 'production' ? [] : null,
@@ -24,6 +27,7 @@ export function configureApp(app: NestExpressApplication) {
     strictTransportSecurity: process.env.NODE_ENV === 'production' ? { maxAge: 31536000 } : false,
   }));
   app.use((_req: unknown, res: import('express').Response, next: () => void) => {
+    res.locals.analytics = analytics;
     res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=()'); next();
   });
   app.useStaticAssets(join(root, 'public'), { index: false, maxAge: 0, dotfiles: 'deny' });
